@@ -63,7 +63,7 @@ WhiteBoard {
     termop            = ("+" | "-")
     relop               = ">" | ">=" | "<" | "<=" | "==" | "!="
 
-    id                    = "_"(letter)+ WhiteBoard {
+    id                    = "_"(letter)+ WhiteBoard
     Program        = Block
     Block             = Stmt*
     Stmt               = Loop
