@@ -1,7 +1,7 @@
 WhiteBoard {
-    Program        = Block
+    Program           = Block
     Block             = Stmt*
-    Stmt               = Loop
+    Stmt              = Loop
                             | Assign
                             | Typedecl
                             | Fundecl
@@ -10,78 +10,78 @@ WhiteBoard {
                             | Exp0
                             | Return
 
-    Access            = Exp"."id                                            --prop
-                            |  Exp "[" Exp "]"                                    --arr
+    Access            = Exp"."id                                                --prop
+                            |  Exp "[" Exp "]"                                  --arr
 
     Return            = "return" Exp
-    Assign            = Type id "=" Decl                                      --type
-    					   |  id "=" Decl                                               --notype
-    Loop               = "for" id "in" Exp ":" Block "."
-    Typedecl        = "Type" id ":" Block "."                              --plain
-    					   | "Type" id "extends" Type ("," Type)*":"    --inher
-    Dictdecl          = "Dict" "(" ")"                                              --empty
-                           | "Dict" "(" Exp ":" Exp ( "," Exp ":" Exp)* ")"  --args
+    Assign            = Type id "=" Decl                                        --type
+                           |  id "=" Decl                                       --notype
+    Loop              = "for" id "in" Exp ":" Block "."
+    Typedecl          = "Type" id ":" Block "."                                 --plain
+                           | "Type" id "extends" Type ("," Type)*":"            --inher
+    Dictdecl          = "Dict" "(" ")"                                          --empty
+                           | "Dict" "(" Exp ":" Exp ( "," Exp ":" Exp)* ")"     --args
 
     Decl              = Dictdecl
-    					  | Exp0
+                           | Exp0
 
     Exp0              = Access
                            | Exp
-    Exp                =  FunCall
-    					   |  Access
+    Exp               =  FunCall
+                           |  Access
                            |  Exp1
 
 
-    Exp1			  = Exp1 "or" Exp2                              --bin
-    					    | Exp2
-    Exp2			  = Exp2 "and" Exp3                            --bin
-                            | Exp3
-    Exp3              = Exp3 "nand" Exp4                         --bin
-                            | Exp4
-    Exp4              = Rel "xor" Rel                                   --bin
-                            | Rel
-    Rel                 = Exponent relop Exponent               --bin
-    					   | Exponent
+    Exp1              = Exp1 "or" Exp2                                           --bin
+                           | Exp2
+    Exp2              = Exp2 "and" Exp3                                          --bin
+                           | Exp3
+    Exp3              = Exp3 "nand" Exp4                                         --bin
+                           | Exp4
+    Exp4              = Rel "xor" Rel                                            --bin
+                           | Rel
+    Rel               = Exponent relop Exponent                                  --bin
+                           | Exponent
 
 
     Cond              = "if" "(" Exp ")" ":" Block "." ("else" "if" "(" Exp ")" ":" Block ".")* ("else" ":" Block ".")?
 
 
-    Exponent      = Exponent expop Factor                  --bin
+    Exponent          = Exponent expop Factor                                    --bin
                            | Factor
-    Factor           = Factor facop Term                           --bin
+    Factor            = Factor facop Term                                        --bin
                            | Term
-    Term              = Term termop Paren                         --bin
+    Term              = Term termop Paren                                        --bin
                            | Paren
-    Paren             = "(" Exp0 ")"                                       --paren
+    Paren             = "(" Exp0 ")"                                             --paren
                            | Prim
 
-    Fundecl         = "fun" id "=" "(" ")" ":" Block "."                     --empty
-    					   | "fun" id "=" "(" id ("," id)* ")"  ":" Block "."    --params
-                           | "fun" id "=" Exp                                          --exp
+    Fundecl           = "fun" id "=" "(" ")" ":" Block "."                       --empty
+                           | "fun" id "=" "(" id ("," id)* ")"  ":" Block "."    --params
+                           | "fun" id "=" Exp                                    --exp
 
-    FunCall          = id "(" ")"                                                              --empty
-    					   | id "(" Exp ("," Exp)* ")"                                       --params
+    FunCall           = id "(" ")"                                               --empty
+                           | id "(" Exp ("," Exp)* ")"                           --params
 
-    Type               = "Num" | "String" | "Bool" | UserType
-    UserType       = upper(letter)+
+    Type              = "Num" | "String" | "Bool" | UserType
+    UserType          = upper(letter)+
 
-    Prim 				= Access
+    Prim              = Access
                             | id | numlit | boollit | stringlit
     expop             = "**"
-    facop              = ("*" | "/" | "mod")
+    facop             = ("*" | "/" | "mod")
     termop            = ("+" | "-")
-    relop               = ">=" | ">" | "<=" | "<" | "!=" | "=="
+    relop             = ">=" | ">" | "<=" | "<" | "!=" | "=="
 
-    id                    = ~reserved (letter)(alphanum | "_" | "-")* ~reserved
+    id                = ~reserved (letter)(alphanum | "_" | "-")* ~reserved
 
-    numlit             = digit+
-    boollit             = "true" | "false"
-    stringlit			= "'" (~"'" any )* "'"
-	alphanum      = (letter | digit)
-    reserved        = boollit | "if" | "else" | "for" | "in " | "Type" | "fun" | "or" | "and" | "xor" | "nand" | "return"
+    numlit            = digit+
+    boollit           = "true" | "false"
+    stringlit         = "'" (~"'" any )* "'"
+    alphanum          = (letter | digit)
+    reserved          = boollit | "if" | "else" | "for" | "in " | "Type" | "fun" | "or" | "and" | "xor" | "nand" | "return"
 
-    comment       = "#" (~"#" ~"\n" any)+ "\n"                              --sl
-                           |  "##" (~"#" any)+ "##"                         --ml
+    comment           = "#" (~"#" ~"\n" any)+ "\n"                               --sl
+                           |  "##" (~"#" any)+ "##"                              --ml
     space             += comment
 }
