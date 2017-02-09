@@ -246,6 +246,7 @@ function isPrime(n) {
     return true;
 }
 ```
+### Whiteboard
 ```
 Life.wb
 fun die = (String life):
