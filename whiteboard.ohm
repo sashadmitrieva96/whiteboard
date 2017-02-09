@@ -6,18 +6,23 @@ WhiteBoard {
                             | Typedecl
                             | Fundecl
                             | Cond
-                            | Exp-
+                            | Exp0
                             | Return
+
     Access            = Exp"."id                                            --prop
-                            |  Exp"["Exp"]"                                    --arr
+                            |  Exp "[" Exp "]"                                    --arr
 
     Return            = "return" Exp
-    Assign            = Type id "=" Exp
+    Assign            = Type id "=" Exp                                      --type
+    					   |  id "=" Exp                                               --notype
     Loop               = "for" id "in" Exp ":" Block "."
     Typedecl        = "Type" id ":" Block "."                              --plain
     					   | "Type" id "extends" Type ("," Type)*":"    --inher
+
+    Exp0              = Access
+                           | Exp
     Exp                =  FunCall
-                           | Access
+    					   |  Access
                            |  Exp1
 
 
@@ -42,7 +47,7 @@ WhiteBoard {
                            | Term
     Term              = Term termop Paren                         --bin
                            | Paren
-    Paren             = "(" Exp ")"                                       --paren
+    Paren             = "(" Exp0 ")"                                       --paren
                            | Prim
 
     Fundecl         = "fun" id "=" "(" ")" ":" Block "."                     --empty
@@ -54,20 +59,19 @@ WhiteBoard {
     Type               = "Num" | "String" | "Bool" | UserType
     UserType       = upper(letter)+
 
-    Prim 				= Exp"."id                                          --propacc
-    					    |  Exp"["Exp"]"                                   --arracc
+    Prim 				= Access
                             | id | numlit | boollit | stringlit
     expop             = "**"
     facop              = ("*" | "/" | "mod")
     termop            = ("+" | "-")
     relop               = ">" | ">=" | "<" | "<=" | "==" | "!="
 
-    id                    = "_"(letter)+ ~reserved
+    id                    = (letter)(alphanum)* ~reserved
 
     numlit             = digit+
     boollit             = "true" | "false"
-    stringlit			= "'" (letter )* "'"
-
+    stringlit			= "'" (~"'" any )* "'"
+	alphanum      = (letter | digit)
     reserved        = boollit | "if" | "else" | "for" | "in" | "Type" | "fun" | "or" | "and" | "xor" | "nand" | "return"
 
     comment       = "#" (~"#" any)+ "#"
