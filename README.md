@@ -124,6 +124,19 @@ Type Cat:
 
 #### If Statements
 
+```
+bool tragicBackstory = false
+
+if (roll > 19 or (perception == 20 and intellegence >= 18)) :
+  rerollOPCharacter()
+.
+else if (roll < 5 and tragicBackstory):
+  rerollTerribleCharacter()
+.
+else:
+  console.log('Your character is average...')
+.
+```
 
 #### Loops
 In whiteboard, you are able to use for and foreach loops to iterate over any iterable object. This includes the ordered types lists, dictionaries, sets, stacks, and any UserType that is iterable and ordered.  
