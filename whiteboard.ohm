@@ -14,12 +14,16 @@ WhiteBoard {
                             |  Exp "[" Exp "]"                                    --arr
 
     Return            = "return" Exp
-    Assign            = Type id "=" Exp                                      --type
-    					   |  id "=" Exp                                               --notype
+    Assign            = Type id "=" Decl                                      --type
+    					   |  id "=" Decl                                               --notype
     Loop               = "for" id "in" Exp ":" Block "."
     Typedecl        = "Type" id ":" Block "."                              --plain
     					   | "Type" id "extends" Type ("," Type)*":"    --inher
-    Dictdecl          = "Dict" "(" Exp ":" Exp ")"
+    Dictdecl          = "Dict" "(" ")"                                              --empty
+                           | "Dict" "(" Exp ":" Exp ( "," Exp ":" Exp)* ")"  --args
+
+    Decl              = Dictdecl
+    					  | Exp0
 
     Exp0              = Access
                            | Exp
@@ -68,13 +72,13 @@ WhiteBoard {
     termop            = ("+" | "-")
     relop               = ">=" | ">" | "<=" | "<" | "!=" | "=="
 
-    id                    = (letter)(alphanum)* ~reserved
+    id                    = ~reserved (letter)(alphanum)* ~reserved
 
     numlit             = digit+
     boollit             = "true" | "false"
     stringlit			= "'" (~"'" any )* "'"
 	alphanum      = (letter | digit)
-    reserved        = boollit | "if" | "else" | "for" | "in" | "Type" | "fun" | "or" | "and" | "xor" | "nand" | "return"
+    reserved        = boollit | "if" | "else" | "for" | "in " | "Type" | "fun" | "or" | "and" | "xor" | "nand" | "return"
 
     comment       = "#" (~"#" any)+ "#"
     space             += comment
