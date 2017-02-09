@@ -130,6 +130,7 @@ Type Cat:
     fun walk = (steps):
         Num steps = 5
     .
+.
 ```
 
 #### If Statements
@@ -155,7 +156,7 @@ In whiteboard, you are able to use for and foreach loops to iterate over any ite
 List colors = List(red, orange, yellow, green, blue, purple)
     for i in range(colors):
         console.log(i)
-.
+    .
 ```
 
 Users are also able to implement while loops:
@@ -166,6 +167,7 @@ Users are also able to implement while loops:
 fun helloworld = (num):
     for i in range(num):
         console.log(x)
+    .
 .
 ```
 
