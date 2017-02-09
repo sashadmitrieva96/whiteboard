@@ -158,6 +158,8 @@ List colors = List(red, orange, yellow, green, blue, purple)
 .
 ```
 
+Users are also able to implement while loops:
+
 #### Functions
 
 ```
@@ -181,6 +183,7 @@ fun fibonachi_series = (n):
 ```
 
 #### Exceptions
+Exceptions are thrown with a `Error` message, shown below:
 
 ```
 if (num != 42 ):
@@ -189,10 +192,12 @@ if (num != 42 ):
 ```
 
 #### Comments
+Single line comments in whiteboard begin with a single hash `#`...
 
 ```
 # One fish, two fish, red fish, blue fish
 ```
+...while multi-line comments begin and end with a double hash `##`.
 
 ```
 ## If you are reading this: HELP
