@@ -145,7 +145,6 @@ fun helloworld = (num):
 ```
 
 ...
-
 fun fibonachi_series = (n):
     if (n == 1):
         return List(0, 1)
@@ -156,7 +155,6 @@ fun fibonachi_series = (n):
         return s
     .
 .
-
 ...
 
 #### Exceptions
