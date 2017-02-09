@@ -244,3 +244,30 @@ function isPrime(n) {
     return true;
 }
 ```
+```
+Life.wb
+fun die = (String life):
+  return (life +  " is dead").
+
+fun howsLife = (Bool myLife, List shoppingList):
+    for(item in shoppingList):
+        if (item == potatoes and myLife == true):
+            return "Alive"
+            .
+    .
+die("Potato").
+```
+#### Javascript
+
+```
+function die = (var life){
+  return life +  " is dead";
+}
+
+function howsLife(var myLife, var shoppingList) {
+    for(items in shopping):
+        if (items == potatoes && myLife == true):
+            return "Alive";
+die("Potato");
+}
+```
