@@ -1,12 +1,12 @@
 <pre>
 Prime.wb
-fun _primes = (_num):
-   Num _LARGEST = 100000000000000
-    if _num < 2 or _num > _LARGEST:
-        _throw('Out of range')
+fun primes = (num):
+   Num LARGEST = 100000000000000
+    if num < 2 or num > LARGEST:
+        throw('Out of range')
     .
-    for _e in _range(2):
-        if _num mod _d == 0:
+    for d in range(2):
+        if num mod d == 0:
             return false
         .
     .
