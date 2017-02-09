@@ -246,7 +246,7 @@ function isPrime(n) {
     return true;
 }
 ```
-### Whiteboard
+#### Whiteboard
 ```
 life.wb
 fun die = (String life):
@@ -268,9 +268,11 @@ function die = (var life){
 }
 
 function howsLife(var myLife, var shoppingList) {
-    for(items in shopping):
-        if (items == potatoes && myLife == true):
+    for(items in shopping){
+        if (items == potatoes && myLife == true){}
             return "Alive";
+        }
+    }
 die("Potato");
 }
 ```
