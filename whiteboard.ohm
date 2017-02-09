@@ -6,72 +6,7 @@ WhiteBoard {
                             | Typedecl
                             | Fundecl
                             | Cond
-                            | Exp
-                            | Return
-
-    Access            = Exp"."id                                            --prop
-                            |  Exp"["Exp"]"                                    --arr
-
-    Return            = "return" Exp
-    Assign            = Type id "=" Exp
-    Loop               = "for" id "in" Exp ":" Block "."
-    Typedecl        = "Type" id ":" Block "."                              --plain
-    					   | "Type" id "extends" Type ("," Type)*":"    --inher
-    Exp                =  FunCall
-                           | Access
-                           |  Exp1
-
-
-    Exp1			  = Exp1 "or" Exp2                              --bin
-    					    | Exp2
-    Exp2			  = Exp2 "and" Exp3                            --bin
-                            | Exp3
-    Exp3              = Exp3 "nand" Exp4                         --bin
-                            | Exp4
-    Exp4              = Rel "xor" Rel                                   --bin
-                            | Rel
-    Rel                 = Exponent relop Exponent               --bin
-    					   | Exponent
-
-
-    Cond              = "if" "(" Exp ")" ":" Block "." ("else" "if" "(" Exp ")" ":" Block ".")* ("else" ":" Block ".")?
-
-
-    Exponent      = Exponent expop Factor                  --bin
-                           | Factor
-    Factor           = Factor facop Term                           --bin
-                           | Term
-    Term              = Term termop Paren                         --bin
-                           | Paren
-    Paren             = "(" Exp ")"                                       --paren
-                           | Prim
-
-    Fundecl         = "fun" id "=" "(" ")" ":" Block "."                     --empty
-    					   | "fun" id "=" "(" id ("," id)* ")"  ":" Block "."    --params
-
-    FunCall          = id "(" ")"                                                              --empty
-    					   | id "(" Exp ("," Exp)* ")"                                       --params
-
-    Type               = "Num" | "String" | "Bool" | UserType
-    UserType       = upper(letter)+
-
-    Prim 				= Exp"."id                                          --propacc
-    					    |  Exp"["Exp"]"                                   --arracc
-                            | id | numlit | boollit | stringlit
-    expop             = "**"
-    facop              = ("*" | "/" | "mod")
-    termop            = ("+" | "-")
-    relop               = ">" | ">=" | "<" | "<=" | "==" | "!="
-
-    id                    = "_"(letter)+ WhiteBoard
-    Program        = Block
-    Block             = Stmt*
-    Stmt               = Loop
-                            | Assign
-                            | Typedecl
-                            | Fundecl
-                            | Cond
-                            | Exp
+                            | Exp-
                             | Return
     Access            = Exp"."id                                            --prop
                             |  Exp"["Exp"]"                                    --arr
@@ -128,17 +63,6 @@ WhiteBoard {
     relop               = ">" | ">=" | "<" | "<=" | "==" | "!="
 
     id                    = "_"(letter)+ ~reserved
-
-    numlit             = digit+
-    boollit             = "true" | "false"
-    stringlit			= "'" (letter )* "'"
-
-    reserved        = boollit | "if" | "else" | "for" | "in" | "Type" | "fun" | "or" | "and" | "xor" | "nand" | "return"
-
-    comment       = "#" (~"#" any)+ "#"
-    space             += comment
-}
-~reserved
 
     numlit             = digit+
     boollit             = "true" | "false"
