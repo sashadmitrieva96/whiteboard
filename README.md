@@ -269,7 +269,7 @@ function die = (var life){
 
 function howsLife(var myLife, var shoppingList) {
     for(items in shopping){
-        if (items == potatoes && myLife == true){}
+        if (items == potatoes && myLife == true){
             return "Alive";
         }
     }
