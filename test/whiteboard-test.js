@@ -34,5 +34,3 @@ test(grammar.match(funct)); // (success) function works
 test(grammar.match(funct2)); // (error) missing : after ()
 test(grammar.match(adder)); // (success) adding 1 + 2
 test(grammar.match(subtract)); // (success) subtract 2-1
-test(grammar.match(checker)); // (success) adding 1 + 2
-test(grammar.match(checker2)); // (success) subtract 2-1
