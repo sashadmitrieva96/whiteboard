@@ -26,25 +26,25 @@ WhiteBoard {
     Assign         = Type id "=" Exp
     Loop           = "for" id "in" Exp ":" Block "."
     Typedecl       = "Type" id ":" Block "."                          --plain
-    					     | "Type" id "extends" Type ("," Type)*":"          --inher
+                   | "Type" id "extends" Type ("," Type)*":"          --inher
     Exp            =  FunCall
                    | Access
                    |  Exp1
 
 
-    Exp1			     = Exp1 "or" Exp2                                   --bin
-    					     | Exp2
-    Exp2			     = Exp2 "and" Exp3                                  --bin
+    Exp1           = Exp1 "or" Exp2                                   --bin
+                   | Exp2
+    Exp2           = Exp2 "and" Exp3                                  --bin
                    | Exp3
     Exp3           = Exp3 "nand" Exp4                                 --bin
                    | Exp4
     Exp4           = Rel "xor" Rel                                    --bin
                    | Rel
     Rel            = Exponent relop Exponent                          --bin
-    					     | Exponent
+                   | Exponent
 
 
-    Cond           = "if" "(" Exp ")" ":" Block "." ("else" "if" "(" Exp ")" ":" Block ".")* ("else" ":" Block ".")?
+    Cond           = "if" Exp ":" Block "." ("else" "if" Exp ":" Block ".")* ("else" ":" Block ".")?
 
 
     Exponent       = Exponent expop Factor                            --bin
@@ -57,16 +57,16 @@ WhiteBoard {
                    | Prim
 
     Fundecl        = "fun" id "=" "(" ")" ":" Block "."               --empty
-    					     | "fun" id "=" "(" id ("," id)* ")"  ":" Block "." --params
+                   | "fun" id "=" "(" id ("," id)* ")"  ":" Block "." --params
 
     FunCall        = id "(" ")"                                       --empty
-    					     | id "(" Exp ("," Exp)* ")"                        --params
+                   | id "(" Exp ("," Exp)* ")"                        --params
 
     Type           = "Num" | "String" | "Bool" | UserType
     UserType       = upper(letter)+
 
-    Prim 				   = Exp"."id                                         --propacc
-    					     |  Exp"["Exp"]"                                    --arracc
+    Prim           = Exp"."id                                         --propacc
+                   | Exp"["Exp"]"                                    --arracc
                    | id | numlit | boollit | stringlit
     expop          = "**"
     facop          = ("*" | "/" | "mod")
