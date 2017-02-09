@@ -11,73 +11,80 @@ whiteboard is an easy-to-learn scripting language that compiles to Javascript, m
 ```
 WhiteBoard {
     Program        = Block
-    Block             = Stmt*
-    Stmt               = Loop
-                            | Assign
-                            | Typedecl
-                            | Fundecl
-                            | Cond
-                            | Exp
-                            | Return
+    Block          = Stmt*
+    Stmt           = Loop
+                   | Assign
+                   | Typedecl
+                   | Fundecl
+                   | Cond
+                   | Exp-
+                   | Return
+    Access         = Exp"."id                                         --prop
+                   |  Exp"["Exp"]"                                    --arr
 
-    Return            = "return" Exp
-    Assign            = Type id "=" Exp
-    Loop               = "for" id "in" Exp ":" Block "."
-    Typedecl        = "Type" id ":" Block "."                              --plain
-    					   | "Type" id "extends" Type ("," Type)*":"    --inher
-    Exp                =  FunCall
-                           |  Exp1
-
-    Exp1			  = Exp1 "or" Exp2                              --bin
-    					    | Exp2
-    Exp2			  = Exp2 "and" Exp3                            --bin
-                            | Exp3
-    Exp3              = Exp3 "nand" Exp4                         --bin
-                            | Exp4
-    Exp4              = Rel "xor" Rel                                   --bin
-                            | Rel
-    Rel                 = Exponent relop Exponent               --bin
-    					   | Exponent
+    Return         = "return" Exp
+    Assign         = Type id "=" Exp
+    Loop           = "for" id "in" Exp ":" Block "."
+    Typedecl       = "Type" id ":" Block "."                          --plain
+    					     | "Type" id "extends" Type ("," Type)*":"          --inher
+    Exp            =  FunCall
+                   | Access
+                   |  Exp1
 
 
-    Cond              = "if" "(" Exp ")" ":" Block "." ("else" "if" "(" Exp ")" ":" Block ".")* ("else" ":" Block ".")?
+    Exp1			     = Exp1 "or" Exp2                                   --bin
+    					     | Exp2
+    Exp2			     = Exp2 "and" Exp3                                  --bin
+                   | Exp3
+    Exp3           = Exp3 "nand" Exp4                                 --bin
+                   | Exp4
+    Exp4           = Rel "xor" Rel                                    --bin
+                   | Rel
+    Rel            = Exponent relop Exponent                          --bin
+    					     | Exponent
 
 
-    Exponent      = Exponent expop Factor                  --bin
-                           | Factor
-    Factor           = Factor facop Term                           --bin
-                           | Term
-    Term              = Term termop Paren                         --bin
-                           | Paren
-    Paren             = "(" Exp ")"                                       --paren
-                           | prim
+    Cond           = "if" "(" Exp ")" ":" Block "." ("else" "if" "(" Exp ")" ":" Block ".")* ("else" ":" Block ".")?
 
-    Fundecl         = "fun" id "=" "(" ")" ":" Block "."                     --empty
-    					   | "fun" id "=" "(" id ("," id)* ")"  ":" Block "."    --params
 
-    FunCall          = id "(" ")"                                                              --empty
-    					   | id "(" Exp ("," Exp)* ")"                                       --params
+    Exponent       = Exponent expop Factor                            --bin
+                   | Factor
+    Factor         = Factor facop Term                                --bin
+                   | Term
+    Term           = Term termop Paren                                --bin
+                   | Paren
+    Paren          = "(" Exp ")"                                      --paren
+                   | Prim
 
-    Type               = "Num" | "String" | "Bool" | UserType
+    Fundecl        = "fun" id "=" "(" ")" ":" Block "."               --empty
+    					     | "fun" id "=" "(" id ("," id)* ")"  ":" Block "." --params
+
+    FunCall        = id "(" ")"                                       --empty
+    					     | id "(" Exp ("," Exp)* ")"                        --params
+
+    Type           = "Num" | "String" | "Bool" | UserType
     UserType       = upper(letter)+
 
-    prim 				= id | numlit | boollit | stringlit
-    expop             = "**"
-    facop              = ("*" | "/" | "mod")
-    termop            = ("+" | "-")
-    relop               = ">" | ">=" | "<" | "<=" | "==" | "!="
+    Prim 				   = Exp"."id                                         --propacc
+    					     |  Exp"["Exp"]"                                    --arracc
+                   | id | numlit | boollit | stringlit
+    expop          = "**"
+    facop          = ("*" | "/" | "mod")
+    termop         = ("+" | "-")
+    relop          = ">" | ">=" | "<" | "<=" | "==" | "!="
 
-    id                    = "_"(letter)+ ~reserved
+    id             = "_"(letter)+ ~reserved
 
-    numlit             = digit+
-    boollit             = "true" | "false"
-    stringlit			= "'" (letter )* "'"
+    numlit         = digit+
+    boollit        = "true" | "false"
+    stringlit			 = "'" (letter )* "'"
 
-    reserved        = boollit | "if" | "else" | "for" | "in" | "Type" | "fun" | "or" | "and" | "xor" | "nand" | "return"
+    reserved       = boollit | "if" | "else" | "for" | "in" | "Type" | "fun" | "or" | "and" | "xor" | "nand" | "return"
 
-    comment       = "#" (~"#" any)+ "#"
-    space             += comment
+    comment        = "#" (~"#" any)+ "#"
+    space          += comment
 }
+
 
 ```
 
@@ -96,6 +103,9 @@ WhiteBoard {
 
 
 #### Functions
+
+
+#### Exceptions
 
 
 #### Comments
