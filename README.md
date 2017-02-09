@@ -105,7 +105,7 @@ WhiteBoard {
 
 #### Types and Objects
 
-In whiteboard, types are essentially objects. The built-in types are **String**, **Num**, **Bool**, **Dict**, **List**, **Set**, and **Stack**.
+In whiteboard, types are essentially objects. Some built-in types are **String**, **Num**, **Bool**, **Dict**, **List**, **Set**, and **Stack**.
 
 ```
 String x = 'Hello World'
