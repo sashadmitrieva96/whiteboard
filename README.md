@@ -95,17 +95,20 @@ WhiteBoard {
 
 #### Types and Objects
 
-In whiteboard, types are essentially objects. The built-in types are **String**, **Num**, **Bool**, **Dict**, and **List**.
+In whiteboard, types are essentially objects. The built-in types are **String**, **Num**, **Bool**, **Dict**, **List**, **Set**, and **Stack**.
 
 ```
-String x = 'HelloWorld'
+String x = 'Hello World'
 Num n = 5
 Bool cond = true
 Dict websters = Dict(k1: v1, k2: v2)
+
 List shopping = List(milk, oreos, oranges)
+Set tennis = Set(win, tie, loss)
+Stack plates = Stack(small_plate, small_plate, dinner_plate)
 ```
 
-If the user wants to create their own type, they are provided with the custom UserType.
+If the user wants to create their own type, they are provided with the custom **UserType**, which is the same as creating an object of that type.
 
 ```
 Type Cat:
@@ -113,7 +116,7 @@ Type Cat:
         this.legs = 4
         this.paws = "cute"
     .
-    
+
     fun walk = (steps):
         Num steps = 5
     .
@@ -123,14 +126,34 @@ Type Cat:
 
 
 #### Loops
+In whiteboard, you are able to use for and foreach loops to iterate over any iterable object. This includes the ordered types lists, dictionaries, sets, stacks, and any UserType that is iterable and ordered.  
 
+```
+List colors = List(red, orange, yellow, green, blue, purple)
+    for i in range(colors):
+        console.log(i)
+.
+```
 
 #### Functions
 
 ```
 fun helloworld = (num):
     for i in range(num):
-        console.log(x).
+        console.log(x)
+.
+```
+
+```
+fun fibonachi_series = (n):
+    if (n == 1):
+        return List(0, 1)
+    .
+   else:
+        List s = fibonachi_series(n-1)
+        s.push((s[(s.length()) - 1]) + (s[(s.length()) - 2]))
+        return s
+    .
 .
 ```
 
@@ -142,7 +165,7 @@ fun helloworld = (num):
 
 ### Example Programs
 
-A series of programs in whiteboard with the equivalent Javascript to compare.
+A series of programs in whiteboard with the equivalent Javascript underneath for comparison.
 
 #### whiteboard
 ```
