@@ -211,7 +211,7 @@ Single line comments in whiteboard begin with a single hash `#`...
 
 A series of programs in whiteboard with the equivalent Javascript underneath for comparison.
 
-#### whiteboard
+#### Whiteboard
 ```
 prime.wb
 fun primes = (num):
@@ -248,7 +248,7 @@ function isPrime(n) {
 ```
 ### Whiteboard
 ```
-Life.wb
+life.wb
 fun die = (String life):
   return (life +  " is dead").
 
