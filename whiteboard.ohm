@@ -44,7 +44,7 @@ WhiteBoard {
     					   | Exponent
 
 
-    Cond              = "if" "(" Exp ")" ":" Block "." ("else" "if" "(" Exp ")" ":" Block ".")* ("else" ":" Block ".")?
+    Cond              = "if" Exp ":" Block "." ("else" "if" Exp ":" Block ".")* ("else" ":" Block ".")?
 
 
     Exponent      = Exponent expop Factor                  --bin
