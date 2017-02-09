@@ -72,7 +72,7 @@ WhiteBoard {
     termop            = ("+" | "-")
     relop               = ">=" | ">" | "<=" | "<" | "!=" | "=="
 
-    id                    = ~reserved (letter)(alphanum)* ~reserved
+    id                    = ~reserved (letter)(alphanum | "_" | "-")* ~reserved
 
     numlit             = digit+
     boollit             = "true" | "false"
