@@ -6,7 +6,7 @@ WhiteBoard {
                             | Typedecl
                             | Fundecl
                             | Cond
-                            | Exp-
+                            | Exp
                             | Return
     Access            = Exp"."id                                            --prop
                             |  Exp"["Exp"]"                                    --arr
@@ -66,7 +66,7 @@ WhiteBoard {
 
     numlit             = digit+
     boollit             = "true" | "false"
-    stringlit			= "'" (letter )* "'"
+    stringlit			= "'" (~"'" any )* "'"
 
     reserved        = boollit | "if" | "else" | "for" | "in" | "Type" | "fun" | "or" | "and" | "xor" | "nand" | "return"
 
