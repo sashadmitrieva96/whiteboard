@@ -44,7 +44,7 @@ WhiteBoard {
     					   | Exponent
 
 
-    Cond              = "if" Exp ":" Block "." ("else" "if" Exp ":" Block ".")* ("else" ":" Block ".")?
+    Cond              = "if" "(" Exp ")" ":" Block "." ("else" "if" "(" Exp ")" ":" Block ".")* ("else" ":" Block ".")?
 
 
     Exponent      = Exponent expop Factor                  --bin
@@ -58,6 +58,7 @@ WhiteBoard {
 
     Fundecl         = "fun" id "=" "(" ")" ":" Block "."                     --empty
     					   | "fun" id "=" "(" id ("," id)* ")"  ":" Block "."    --params
+                           | "fun" id "=" Exp                                          --exp
 
     FunCall          = id "(" ")"                                                              --empty
     					   | id "(" Exp ("," Exp)* ")"                                       --params
@@ -80,6 +81,7 @@ WhiteBoard {
 	alphanum      = (letter | digit)
     reserved        = boollit | "if" | "else" | "for" | "in " | "Type" | "fun" | "or" | "and" | "xor" | "nand" | "return"
 
-    comment       = "#" (~"#" any)+ "#"
+    comment       = "#" (~"#" ~"\n" any)+ "\n"                              --sl
+                           |  "##" (~"#" any)+ "##"                         --ml
     space             += comment
 }
