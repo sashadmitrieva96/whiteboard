@@ -33,12 +33,12 @@ WhiteBoard  {
   Param       =  "(" (SParam ("," SParam)*)?  ")"
 
   SParam      =  Dict                                       --Dict
-              |  type id                                   --type
-              |  id                                        --notype
+              |  type id                                    --type
+              |  id                                         --notype
 
 
   Args        =  "(" (Exp ("," Exp)*)?  ")"                 --exp
-              |  "(" (Dict ("," Dict)*)?  ")"             --named
+              |  "(" (Dict ("," Dict)*)?  ")"              --named
   Access      =  "." id                                    --lit
               |  "[" Exp "]"                                --exp
 

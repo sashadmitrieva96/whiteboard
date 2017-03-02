@@ -1,0 +1,30 @@
+Program                         (statements)
+Block                           (statements)
+
+
+IfStatement                     (cases)
+ForStatement                    (id, expression, block)
+ReturnStatement                 (expression)
+BreakStatement                  ()
+
+
+VariableDeclaration             (id, type, expression)
+TypeDeclaration                 (id, params, body)
+FunctionDeclaration             (id, type, params, block)
+
+BinaryExpression                (left, op, right)
+
+UnaryExpression                 (op, exp)
+
+MemberExpression                (object, property)
+
+CallExpression                  (callee, args)
+
+
+Params                          (params)
+Args                            (args)
+
+
+numlit                          (value)
+boollit                         (value)
+strlit                          (value)
