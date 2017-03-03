@@ -1,13 +1,14 @@
 class Block {
-  constructor(statement) {
-    this.statement = statement;
+  constructor(statements) {
+    this.statements = statements;
   }
 
   toString() {
-    let s = ``;
-    this.statement.forEach((x) => {
-      s += x + " ";
+    let s = `(Block `;
+    this.statements.forEach((x) => {
+      s += x +  " ";
     });
+    s+= ")";
     return s;
   }
 }

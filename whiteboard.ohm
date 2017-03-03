@@ -55,7 +55,7 @@ WhiteBoard  {
   Fact        =  Fact  mulop Neg                         --bin
               |  Neg
 
-  Neg         = "-" Power                                  --neg
+  Neg         = negop Power                                  --neg
               | Power
 
   Power       =  Power powop Exp2                          --bin
@@ -83,6 +83,7 @@ WhiteBoard  {
 
   boolop      =  "and" | "or"
   relop       =  ">=" | ">" | "<=" | "<" | "!=" | "=="
+  negop       =  "-" | "!" | "not"
 
   powop       =  "**"
   mulop       =  "*" | "/" | "%"

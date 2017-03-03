@@ -9,92 +9,98 @@ whiteboard is an easy-to-learn scripting language that compiles to Javascript, m
 #### Macrosyntax
 
 ```
-WhiteBoard {
-    Program       = Block
-    Block         = Stmt*
-    Stmt          = Loop
-                  | Assign
-                  | Typedecl
-                  | Fundecl
-                  | Dictdecl
-                  | Cond
-                  | Exp0
-                  | Return
+WhiteBoard  {
 
-    Access        = Exp"."id                                                --prop
-                  |  Exp "[" Exp "]"                                        --arr
+  Program     =  Statement*
 
-    Return        = "return" Exp
-    Assign        = Type id "=" Decl                                        --type
-                  |  id "=" Decl                                            --notype
-    Loop          = "for" id "in" Exp ":" Block "."
-    Typedecl      = "Type" id ":" Block "."                                 --plain
-                  | "Type" id "extends" Type ("," Type)*":"                 --inher
-    Dictdecl      = "Dict" "(" ")"                                          --empty
-                  | "Dict" "(" Exp ":" Exp ( "," Exp ":" Exp)* ")"          --args
+  Statement   =  If                                         --if
+              |  For                                        --for
+              |  Return                                     --ret
+              |  Decl                                       --decl
+              |  Break                                      --break
+              |  Exp                                        --exp
 
-    Decl          = Dictdecl
-                  | Exp0
+  Decl        =  FunDecl                                    --fun
+              |  ObjDecl                                    --obj
+              |  type? Exp ("=" Exp)?                       --norm
+  FunDecl     =  type? id "=" Param ":" Block
 
-    Exp0          = Access
-                  | Exp
-    Exp           =  FunCall
-                  |  Access
-                  |  Exp1
+  ObjDecl     =  "Type" id "=" Param ":" Block
+
+  Dict        =  Exp ":" Exp
+
+  Return      =  "return" Exp
+  Break       =  "break"
+  For         =  "for" id "in" Exp ":" Block
+
+  If          =  "if" Exp ":" Block
+                 ("else" "if" Exp ":" Block)*
+                 ("else" ":" Block)?
 
 
-    Exp1          = Exp1 "or" Exp2                                           --bin
-                  | Exp2
-    Exp2          = Exp2 "and" Exp3                                          --bin
-                  | Exp3
-    Exp3          = Exp3 "nand" Exp4                                         --bin
-                  | Exp4
-    Exp4          = Rel "xor" Rel                                            --bin
-                  | Rel
-    Rel           = Exponent relop Exponent                                  --bin
-                  | Exponent
+  Block       =  Statement* "."
+
+  Exp         =  And
+  Param       =  "(" (SParam ("," SParam)*)?  ")"
+
+  SParam      =  Dict                                       --Dict
+              |  type id                                    --type
+              |  id                                         --notype
 
 
-    Cond          = "if" "(" Exp ")" ":" Block "." ("else" "if" "(" Exp ")" ":" Block ".")* ("else" ":" Block ".")?
+  Args        =  "(" (Exp ("," Exp)*)?  ")"                 --exp
+              |  "(" (Dict ("," Dict)*)?  ")"               --named
+  Access      =  "." id                                     --lit
+              |  "[" Exp "]"                                --exp
+
+  And         =  And "and" Or                               --bin
+              |  Or
+  Or          =  Or "or" Rel                                --bin
+              |  Rel
+  Rel         =  Term relop Term                            --bin
+              |  Term
+
+  Term        =  Term addop Fact                            --bin
+              |  Fact
+  Fact        =  Fact  mulop Neg                            --bin
+              |  Neg
+
+  Neg         = "-" Power                                   --neg
+              | Power
+
+  Power       =  Power powop Exp2                           --bin
+              |  Exp2
+
+  Exp2        =  Exp2 Args                                  --call
+              |  Exp2 Access                                --acc
+              |  Primary                                    --prim
+
+  Primary     =  numlit | boolit | strlit | id
+              |  "(" Exp ")"                                --exp
 
 
-    Exponent      = Exponent expop Factor                                    --bin
-                  | Factor
-    Factor        = Factor facop Term                                        --bin
-                  | Term
-    Term          = Term termop Paren                                        --bin
-                  | Paren
-    Paren         = "(" Exp0 ")"                                             --paren
-                  | Prim
+  type        =  upper(idrest)*
 
-    Fundecl       = "fun" id "=" "(" ")" ":" Block "."                       --empty
-                  | "fun" id "=" "(" id ("," id)* ")"  ":" Block "."         --params
-                  | "fun" id "=" Exp                                         --exp
+  numlit      =  digit+ ("." digit+)?                       --whole
+              |  "." digit+                                 --dec
+  boolit      =  "true" | "false"
+  strlit      =  "'" ( ~"'" any )* "'"
 
-    FunCall       = id "(" ")"                                               --empty
-                  | id "(" Exp ("," Exp)* ")"                                --params
 
-    Type          = "Num" | "String" | "Bool" | UserType
-    UserType      = upper(letter)+
 
-    Prim          = Access
-                  | id | numlit | boollit | stringlit
-    expop         = "**"
-    facop         = ("*" | "/" | "mod")
-    termop        = ("+" | "-")
-    relop         = ">=" | ">" | "<=" | "<" | "!=" | "=="
+  boolop      =  "and" | "or"
+  relop       =  ">=" | ">" | "<=" | "<" | "!=" | "=="
 
-    id            = ~reserved (letter)(alphanum | "_" | "-")* ~reserved
+  powop       =  "**"
+  mulop       =  "*" | "/" | "%"
+  addop       =  "+" | "-"
 
-    numlit        = digit+
-    boollit       = "true" | "false"
-    stringlit     = "'" (~"'" any )* "'"
-    alphanum      = (letter | digit)
-    reserved      = boollit | "if" | "else" | "for" | "in " | "Type" | "fun" | "or" | "and" | "xor" | "nand" | "return"
+  keyword     =  ("fun" | "for" | "in" | "return" | "break" | "or" | "and" | "if" | "else" | "mod" | "return") ~idrest
 
-    comment       = "#" (~"#" ~"\n" any)+ "\n"                               --sl
-                  |  "##" (~"#" any)+ "##"                                   --ml
-    space         += comment
+
+  id          =  ~keyword(letter)idrest*
+  idrest      =  letter | digit
+
 }
 ```
 
@@ -121,14 +127,11 @@ Stack plates = Stack(small_plate, small_plate, dinner_plate)
 If the user wants to create their own type, they are provided with the custom **UserType**, which is the same as creating an object of that type.
 
 ```
-Type Cat:
-    fun init = ():
-        this.legs = 4
-        this.paws = "cute"
-    .
-
-    fun walk = (steps):
-        Num steps = 5
+Type Cat = (l, p):
+    legs = l
+    paws = p
+    walk = (steps):
+        return steps / 4
     .
 .
 ```
@@ -138,14 +141,14 @@ Type Cat:
 ```
 bool tragicBackstory = false
 
-if (roll > 19 or (perception == 20 and intellegence >= 18)) :
+if (roll > 19 or (perception == 20 and intellegence >= 18)):
   rerollOPCharacter()
 .
 else if (roll < 5 and tragicBackstory):
   rerollTerribleCharacter()
 .
 else:
-  console.log('Your character is average...')
+  print('Your character is average...')
 .
 ```
 
@@ -176,7 +179,7 @@ fun fibonachi_series = (n):
     if (n == 1):
         return List(0, 1)
     .
-   else:
+    else:
         List s = fibonachi_series(n-1)
         s.push((s[(s.length()) - 1]) + (s[(s.length()) - 2]))
         return s
