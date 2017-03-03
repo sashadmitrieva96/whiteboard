@@ -4,7 +4,7 @@ class CallExpressions{
     this.args = args;
   }
 
-  ToString(){
+  toString(){
     return `(${this.callee} ${this.args})`;
   }
 }

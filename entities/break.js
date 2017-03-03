@@ -2,7 +2,7 @@ class Break{
   constructor() {
   }
 
-  ToString(){
+  toString(){
     return `(break )`;
   }
 }

@@ -5,7 +5,7 @@ class TypeDeclaration{
     this.body = body;
   }
 
-  ToString(){
+  toString(){
     return `(${this.id} ${this.params} = ${this.body})`;
   }
 }

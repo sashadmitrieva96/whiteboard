@@ -5,7 +5,7 @@ class ForStatement{
     this.block = block;
   }
 
-  ToString(){
+  toString(){
     return `(for ${this.id} in ${this.exp} {${this.block}})`;
   }
 }

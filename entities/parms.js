@@ -3,7 +3,7 @@ class Parms{
     this.parameter = parameter;
   }
 let list = "";
-  ToString(){
+  toString(){
   	for (var i = 0; i < parameter.length; i++) {
   		 list += this.parameter[i] + " ";
   	};

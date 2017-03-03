@@ -5,7 +5,7 @@ class VariableDeclaration{
     this.expression = expression;
   }
 
-  ToString(){
+  toString(){
     return `(${this.type} ${this.id} = ${this.expression})`;
   }
 }
