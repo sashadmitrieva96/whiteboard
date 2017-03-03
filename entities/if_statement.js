@@ -6,10 +6,17 @@ class IfStatement {
     this.ifBlock = ifBlock;
     this.eiExps = eiExps;
     this.eiBlocks = eiBlocks;
-    this.eExp = eBlock;
+    this.eBlock = eBlock;
   }
 
   toString() {
-    return str = '( If )';
+    let str = `( If (Case ${this.ifExp} Block ${this.ifBlock})`;
+    for (let i = 0; i < this.eiExps.length;  ) {
+        str = str + `( If (Case ${this.eiExps[i]} Block ${this.eiBlocks[0]})`
+    }
+    str = str + `( If (Case (true = true) Block ${this.eBlock})`
+
+
+    return str;
   }
 }
