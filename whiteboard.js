@@ -5,15 +5,15 @@ const grammar = ohm.grammar(language);
 
 const semantics = grammar.createSemantics().addOperation('ast', {
 
-  Program: (statements, _) => { new Program(statements.ast()); },
+  Program: (statements) => { new Program(statements.ast()); },
   Block: (statement, _) => { new Block(statement.ast()); },
 
-  Statement_if: (ifExp, ifBlock, eiExps, eiBlocks, eExp, eBlock) => {
+  If: (ifExp, ifBlock, eiExps, eiBlocks, eExp, eBlock) => {
     new IfStatement(ifExp.ast(), ifBlock.ast(), eiExps.ast(), eiBlocks.ast(), eExp.ast(), eBlock.ast());
   },
-  Statement_for: (id, exp, block) => { new ForStatement(id.sourceString, exp.ast(), block.ast()); },
-  Statement_ret: (exp) => { new ReturnStatement(exp.ast()); },
-  Statement_break: () => { new BreakStatement(); },
+  For: (id, exp, block) => { new ForStatement(id.sourceString, exp.ast(), block.ast()); },
+  Return: (exp) => { new ReturnStatement(exp.ast()); },
+  Break: () => { new BreakStatement(); },
 
   Access_lit: (p, id) => id.ast(),
   Access_exp: (o, exp, c) => exp.ast(),
