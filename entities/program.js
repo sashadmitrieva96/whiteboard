@@ -1,10 +1,15 @@
 class Program {
-  constructor(block) {
-    this.block = block;
+  constructor(statements) {
+    this.statements = statements;
   }
 
   toString() {
-    return `(Program ${this.block})`;
+    let s = `(Program `;
+    this.statements.forEach((x) => {
+      s += x +  " ";
+    });
+    s+= ")";
+    return s;
   }
 
   // Maybe toString should be a list of Blocks?? or Statements??
