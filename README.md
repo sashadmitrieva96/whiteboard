@@ -127,14 +127,11 @@ Stack plates = Stack(small_plate, small_plate, dinner_plate)
 If the user wants to create their own type, they are provided with the custom **UserType**, which is the same as creating an object of that type.
 
 ```
-Type Cat:
-    fun init = ():
-        this.legs = 4
-        this.paws = "cute"
-    .
-
-    fun walk = (steps):
-        Num steps = 5
+Type Cat = (l, p):
+    legs = l
+    paws = p
+    walk = (steps):
+        return steps / 4
     .
 .
 ```
@@ -144,14 +141,14 @@ Type Cat:
 ```
 bool tragicBackstory = false
 
-if (roll > 19 or (perception == 20 and intellegence >= 18)) :
+if (roll > 19 or (perception == 20 and intellegence >= 18)):
   rerollOPCharacter()
 .
 else if (roll < 5 and tragicBackstory):
   rerollTerribleCharacter()
 .
 else:
-  console.log('Your character is average...')
+  print('Your character is average...')
 .
 ```
 
@@ -182,7 +179,7 @@ fun fibonachi_series = (n):
     if (n == 1):
         return List(0, 1)
     .
-   else:
+    else:
         List s = fibonachi_series(n-1)
         s.push((s[(s.length()) - 1]) + (s[(s.length()) - 2]))
         return s
