@@ -14,7 +14,7 @@ FunctionDeclaration             (id, type, params, block)
 
 BinaryExpression                (left, op, right)
 
-UnaryExpression                 (op, exp)
+UnaryExpression                 (op, expression)
 
 MemberExpression                (object, property)
 
