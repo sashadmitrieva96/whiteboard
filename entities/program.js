@@ -11,9 +11,6 @@ class Program {
     s+= ")";
     return s;
   }
-
-  // Maybe toString should be a list of Blocks?? or Statements??
-
 }
 
 module.exports = Program;

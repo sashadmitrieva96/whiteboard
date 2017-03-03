@@ -28,6 +28,7 @@
     "ohm-js": "^0.12.3"
   },
   "dependencies": {
-    "coffee-script": "^1.12.4"
+    "coffee-script": "^1.12.4",
+    "ohm-js": "^0.12.4"
   }
 }
