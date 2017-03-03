@@ -11,7 +11,7 @@ WhiteBoard  {
 
   Decl        =  FunDecl                                    --fun
               |  ObjDecl                                    --obj
-              |  type? Exp ("=" Exp)?                       --norm
+              |  type? Exp ("=" Exp)?                       --var
   FunDecl     =  type? id "=" Param ":" Block
 
   ObjDecl     =  "Type" id "=" Param ":" Block
@@ -39,6 +39,7 @@ WhiteBoard  {
 
   Args        =  "(" (Exp ("," Exp)*)?  ")"                 --exp
               |  "(" (Dict ("," Dict)*)?  ")"              --named
+
   Access      =  "." id                                    --lit
               |  "[" Exp "]"                                --exp
 
@@ -64,7 +65,10 @@ WhiteBoard  {
               |  Exp2 Access                               --acc
               |  Primary                                   --prim
 
-  Primary     =  numlit | boolit | strlit | id
+  Primary     =  numlit                                    --num
+              |  boolit                                    --bool
+              |  strlit                                    --str
+              |  id                                        --id
               |  "(" Exp ")"                               --exp
 
 
@@ -84,7 +88,7 @@ WhiteBoard  {
   mulop       =  "*" | "/" | "%"
   addop       =  "+" | "-"
 
-  keyword     =  ("fun" | "for" | "in" | "return" | "break" | "or" | "and" | "if" | "else" | "mod" | "return") ~idrest
+  keyword     =  ("Num" | "Bool" | "String" | "Type" | "fun" | "for" | "in" | "return" | "break" | "or" | "and" | "if" | "else" | "mod" | "return") ~idrest
 
 
   id          =  ~keyword(letter)idrest*
