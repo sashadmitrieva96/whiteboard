@@ -92,6 +92,6 @@ WhiteBoard  {
 
 
   id          =  ~keyword(letter)idrest*
-  idrest      =  letter | digit
+  idrest      =  letter | digit | "_"
 
 }

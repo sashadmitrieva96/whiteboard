@@ -59,8 +59,8 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
 const match = grammar.match(process.argv[2]);
 if (match.succeeded()) {
-  console.log('success');
+  semantics(match).ast()
 } else {
-  console.error('error');
+  console.error(match.message);
   process.exitCode = 1;
 }
