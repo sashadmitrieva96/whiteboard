@@ -4,10 +4,12 @@ class Block {
   }
 
   toString() {
-    return `(Block ${this.statement})`;
+    let s = ``;
+    this.statement.forEach((x) => {
+      s += x + " ";
+    });
+    return s;
   }
-
-  // Maybe Block toString should be a list of Statements?
 }
 
 module.exports = Block;
