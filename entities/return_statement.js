@@ -4,7 +4,7 @@ class ReturnStatement {
   }
 
   toString() {
-    return `(Return ${exp})`;
+    return `(Return ${this.exp})`;
   }
 }
 
