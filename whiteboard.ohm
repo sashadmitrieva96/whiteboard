@@ -1,6 +1,6 @@
 WhiteBoard  {
 
-  Program     =  Statement*
+  Program     =  Block*
 
   Statement   =  If
               |  For

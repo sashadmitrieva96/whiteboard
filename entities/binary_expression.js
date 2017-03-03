@@ -1,12 +1,12 @@
 class BinaryExpression{
-  constructor(left, exp, right){
+  constructor(left, op, right){
     this.left = left;
-    this.exp = exp;
+    this.op = op;
     this.right = right;
   }
 
   ToString() {
-    return `(${this.left} ${this.exp} ${this.right})`;
+    return `(${this.left} ${this.op} ${this.right})`;
   }
 }
 
