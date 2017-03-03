@@ -11,3 +11,5 @@ class FunctionDeclaration {
             ${this.block} )`;
   }
 }
+
+module.exports = FunctionDeclaration;

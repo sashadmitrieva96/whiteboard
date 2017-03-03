@@ -9,4 +9,4 @@ class CallExpressions{
   }
 }
 
-module.exports = VariableDeclaration;
+module.exports = CallExpressions;

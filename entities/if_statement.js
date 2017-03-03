@@ -20,3 +20,5 @@ class IfStatement {
     return str;
   }
 }
+
+module.exports = IfStatement;
