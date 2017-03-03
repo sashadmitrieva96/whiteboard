@@ -3,7 +3,7 @@ class StringLiteral{
     this.value = value;
   }
 
-  ToString() {
+  toString() {
     return `(${this.value})`;
   }
 }

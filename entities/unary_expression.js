@@ -4,7 +4,7 @@ class UnaryExpression{
     this.exp = exp;
   }
 
-  ToString(){
+  toString(){
     return `(${this.op} ${this.exp})`;
   }
 }

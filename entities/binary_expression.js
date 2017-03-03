@@ -5,7 +5,7 @@ class BinaryExpression{
     this.right = right;
   }
 
-  ToString() {
+  toString() {
     return `(${this.left} ${this.op} ${this.right})`;
   }
 }
