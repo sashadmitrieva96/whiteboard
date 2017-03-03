@@ -2,12 +2,12 @@ WhiteBoard  {
 
   Program     =  Statement*
 
-  Statement   =  If
-              |  For
-              |  Return
-              |  Decl
-              |  Break
-              |  Exp
+  Statement   =  If                                         --if
+              |  For                                        --for
+              |  Return                                     --ret
+              |  Decl                                       --decl
+              |  Break                                      --break
+              |  Exp                                        --exp
 
   Decl        =  FunDecl                                    --fun
               |  ObjDecl                                    --obj
@@ -51,8 +51,12 @@ WhiteBoard  {
 
   Term        =  Term addop Fact                           --bin
               |  Fact
-  Fact        =  Fact  mulop Power                         --bin
-              |  Power
+  Fact        =  Fact  mulop Neg                         --bin
+              |  Neg
+
+  Neg         = "-" Power                                  --neg
+              | Power
+
   Power       =  Power powop Exp2                          --bin
               |  Exp2
 
