@@ -6,7 +6,16 @@ class VariableDeclaration{
   }
 
   toString(){
-    return `(VariableID = '${this.id.toString()}', Type = '${this.type.toString()}',  Value = ${this.expression.toString()})`;
+    let str = `(VariableID = ${this.id.toString()}`
+
+    if (this.type != undefined) {
+      str = str + `, Type = ${this.type.toString()}`;
+    }
+    if (this.expression != undefined) {
+      str = str + `, Type = ${this.expression.toString()}`;
+    }
+    str = str + ` )`;
+    return str;
   }
 }
 

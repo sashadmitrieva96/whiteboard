@@ -40,8 +40,8 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
   Dict: (key, c, value) => new DictExpression(key.ast(), value.ast()),
 
-  Args_exp: (o, e, cl, el, c) => new Args(el.unshift(e).ast()),
-  Args_named: (o, e, cl, el, c) => new Args(el.unshift(e).ast()),
+  Args_exp: (o, e, cl, el, c) => new Args(el.ast()), // doesnt get first
+  Args_named: (o, e, cl, el, c) => new Args(el.ast()),
 
   FunDecl: (t, id, e, params, c, block) => new FunctionDeclaration(id.sourceString, t.sourceString, params.ast(), block.ast()),                                                        //THIS PROBABLY DOESNT WORK BUT FUCKIT
   ObjDecl: (t, id, e, params, c, block) => new TypeDeclaration(id.sourceString, params.ast(), block.ast()),
@@ -58,9 +58,9 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
   Exp2_call: (obj, args) => new CallExpression(obj.ast(), args.ast()),
 
-  Param: (o, p, cl, pl, c) => new Params(pl.unshift(p)),
+  Param: (o, p, cl, pl, c) => new Params(pl.ast()),
 
-  SParam_id: (t, id) => new VariableDeclaration(id, t),
+  SParam_id: (t, id) => new VariableDeclaration(new VariableExpression(id.sourceString), t.ast()),
 
   Exp2_acc: (obj, prop) => new MemberExpression(obj.ast(), prop.ast()),
 
@@ -68,8 +68,9 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Primary_num: (n) =>  new numlit(n.sourceString),
   Primary_bool: (b) => new boollit(b.sourceString),
   Primary_str: (s) => new strlit(s.sourceString),
+  Primary_exp: (o, exp, c) => exp.ast(),
 
-  type: (f, rest) => new type(`${f.sourceString}${rest.sourceString}`)
+  type: (f, rest) => new type(`${f.sourceString}${rest.sour}`)
 
 
   // Whiteboard doesn't have negative numbers ++ or any unary operators ++ negation
