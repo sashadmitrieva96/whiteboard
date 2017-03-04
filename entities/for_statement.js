@@ -6,7 +6,7 @@ class ForStatement{
   }
 
   toString(){
-    return `(for ${this.id} in ${this.exp} {${this.block}})`;
+    return `(for ${this.id} in ${this.exp.toString()} {${this.block.toString()}})`;
   }
 }
 

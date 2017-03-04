@@ -4,7 +4,7 @@ class VariableExpression {
     }
 
     toString() {
-      return `(${this.id})`;
+      return `(${this.id.toString()})`;
     }
 }
 

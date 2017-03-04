@@ -5,6 +5,6 @@ class DictionaryEntry {
     }
 
     toString(){
-      return `(Entry ${this.key}, ${this.value})`;
+      return `(Entry ${this.key.toString()}, ${this.value.toString()})`;
     }
 }

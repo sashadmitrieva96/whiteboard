@@ -58,7 +58,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
   Exp2_acc: (obj, prop) => new MemberExpression(obj.ast(), prop.ast()),
 
-  Primary_id: (id) => new VariableExpression(id),
+  Primary_id: (id) => new VariableExpression(id.sourceString),
   Primary_num: (n) =>  new numlit(n.sourceString),
   Primary_bool: (b) => new boollit(b.sourceString),
   Primary_str: (s) => new strlit(s.sourceString),
@@ -71,7 +71,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
 const match = grammar.match(process.argv[2]);
 if (match.succeeded()) {
-  console.log(semantics(match).ast());
+  console.log(semantics(match).ast().toString());
 } else {
   console.error(match.message);
   console.log("fail");
