@@ -5,7 +5,7 @@ class CallExpressions{
   }
 
   toString(){
-    return `(${this.callee.toString()} ${this.args.toString()})`;
+    return `CalleeID = ${this.callee.toString()}, Args = ${this.args.toString()}`;
   }
 }
 

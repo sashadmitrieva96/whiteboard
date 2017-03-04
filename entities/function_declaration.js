@@ -7,8 +7,8 @@ class FunctionDeclaration {
   }
 
   toString() {
-    return `(Function ${this.id} ${this.params.toString()}
-            ${this.block.toString()} )`;
+    return `(FunctionID = ${this.id} TypeParams = ${this.params.toString()},
+            Block = ${this.block.toString()} )`;
   }
 }
 

@@ -6,7 +6,7 @@ class BinaryExpression{
   }
 
   toString() {
-    return `(${this.left.toString()} ${this.op.toString()} ${this.right.toString()})`;
+    return `Left = ${this.left.toString()}, Op = ${this.op.toString()}, Right = ${this.right.toString()}`;
   }
 }
 
