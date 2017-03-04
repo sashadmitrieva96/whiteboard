@@ -10,10 +10,10 @@ class IfStatement {
   }
 
   toString() {
-    let str = `(If (Case ${this.ifExp}) \n (IfBlock ${this.ifBlock})) \n`;
+    let str = `(If (Case ${this.ifExp}) (IfBlock ${this.ifBlock}))`;
 
     for (let i = 0; i < this.eiExps.length;  ) {
-        str = str + `(ElseIf (Case ${this.eiExps[i]} \n ElseIfBlock ${this.eiBlocks[0]})`
+        str = str + `(ElseIf (Case ${this.eiExps[i]} ElseIfBlock ${this.eiBlocks[0]})`
     }
     if (this.eBlock.length != 0) {
       str = str + `(ElseBlock ${this.eBlock})`

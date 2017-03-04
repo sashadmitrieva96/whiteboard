@@ -20,7 +20,7 @@ let positiveTests = [
     ` `
 
 
-]
+];
 
 let negativeTests = [
     `sasha.cool = true(`,
@@ -38,7 +38,7 @@ let negativeTests = [
     `(num x = 00.7654)`
 
 
-]
+];
 
 describe('Grammar', () => {
   it('matches with programs it should', () => {
@@ -53,3 +53,27 @@ describe('Grammar', () => {
     }
   });
 });
+
+// AST tests
+
+const AST_TESTS = [
+    [
+      `if true == ryan: return true. else: return false.`,
+      `{Program (If (Case (Left = Bool = true) (Op = ==) (Right = VariableId = ryan)) (IfBlock (Block (Return -> Bool = true))))(ElseBlock (Block (Return -> Bool = false)))}`
+    ],
+
+    [
+    `kevin = 4`,
+    `{Program (VariableID = 'kevin', Type = '',  Value = NumLit = 4)}`
+    ]
+];
+
+
+// describe('AST', () => {
+//   it('generates an ast for input whiteboard code', () => {
+//     AST_TESTS.forEach((x) => {
+//       assert.equal(parse(x[0]),x[1]);
+//     });
+//
+//   });
+// });

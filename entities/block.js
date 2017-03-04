@@ -6,7 +6,7 @@ class Block {
   toString() {
     let s = `(Block `;
     this.statements.forEach((x) => {
-      s += x.toString() +  " ";
+      s += x.toString();
     });
     s+= ")";
     return s;

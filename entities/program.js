@@ -4,9 +4,9 @@ class Program {
   }
 
   toString() {
-    let s = `{Program\n`;
+    let s = `{Program `;
     this.statements.forEach((x) => {
-      s += x.toString() + '\n';
+      s += x.toString();
     });
     s+= "}";
     return s;
