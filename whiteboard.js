@@ -3,6 +3,25 @@ const ohm = require('ohm-js');
 const language = fs.readFileSync('whiteboard.ohm');
 const grammar = ohm.grammar(language);
 
+const Program = require('./entities/program.js');
+const Block = require('./entities/block.js');
+const If = require('./entities/if_statement.js');
+const For = require('./entities/for_statement.js');
+const Return = require('./entities/return_statement.js');
+const Break = require('./entities/break.js');
+const VariableDeclaration = require('./entities/variable_declaration.js');
+const TypeDeclaration = require('./entities/type_declaration.js');
+const FunctionDeclaration = require('./entities/function_declaration.js');
+const BinaryExpression = require('./entities/binary_expression.js');
+const UnaryExpression = require('./entities/unary_expression.js');
+const MemberExpression = require('./entities/member_expression.js');
+const CallExpression = require('./entities/call_expression.js');
+const Params = require('./entities/params.js');
+const Args = require('./entities/args.js');
+const numlit = require('./entities/num_lit.js');
+const boollit = require('./entities/bool_lit.js');
+const strlit = require('./entities/str_lit.js');
+
 const semantics = grammar.createSemantics().addOperation('ast', {
 
   Program: (statements) => { new Program(statements.ast()); },

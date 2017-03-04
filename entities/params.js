@@ -1,4 +1,4 @@
-class Parms{
+class Params{
   constructor(parameter) {
     this.parameter = parameter;
   }
@@ -11,4 +11,4 @@ let list = "";
   }
 }
 
-module.exports = Parms;
+module.exports = Params;
