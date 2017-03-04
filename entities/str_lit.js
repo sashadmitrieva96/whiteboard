@@ -4,7 +4,7 @@ class StringLiteral{
   }
 
   toString() {
-    return `(${this.value})`;
+    return `StringLit = ${this.value}`;
   }
 }
 

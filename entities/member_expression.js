@@ -5,7 +5,7 @@ class MemberExpression{
   }
 
   toString() {
-    return `(${this.object.toString()} . ${this.property.toString()})`;
+    return `(MemberObject = ${this.object.toString()} . MemberProperty = ${this.property.toString()})`;
   }
 }
 
