@@ -2,8 +2,8 @@ class Args{
   constructor(args) {
     this.args = args;
   }
-let list = "";
   toString(){
+    let list = "";
   	for (var i = 0; i < args.length; i++) {
   		 list += this.args[i] + " ";
   	};
