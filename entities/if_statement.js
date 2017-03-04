@@ -12,7 +12,8 @@ class IfStatement {
   toString() {
     let str = `(If (Case ${this.ifExp}) (IfBlock ${this.ifBlock}))`;
 
-    for (let i = 0; i < this.eiExps.length;  i ++) {
+
+    for (let i = 0; i < this.eiExps.length; i++) {
         str = str + `(ElseIf (Case ${this.eiExps[i]} ElseIfBlock ${this.eiBlocks[i]})`
     }
     if (this.eBlock.length != 0) {
