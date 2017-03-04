@@ -22,6 +22,7 @@ const Args = require('./entities/args.js');
 const numlit = require('./entities/num_lit.js');
 const boollit = require('./entities/bool_lit.js');
 const strlit = require('./entities/str_lit.js');
+const type = require('./entities/type.js')
 
 const semantics = grammar.createSemantics().addOperation('ast', {
 
@@ -42,10 +43,10 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Args_exp: (o, e, cl, el, c) => new Args(el.unshift(e).ast()),
   Args_named: (o, e, cl, el, c) => new Args(el.unshift(e).ast()),
 
-  FunDecl: (type, id, e, params, c, block) => new FunctionDeclaration(id.sourceString, type.sourceString, params.ast(), block.ast()),                                                        //THIS PROBABLY DOESNT WORK BUT FUCKIT
+  FunDecl: (t, id, e, params, c, block) => new FunctionDeclaration(id.sourceString, t.sourceString, params.ast(), block.ast()),                                                        //THIS PROBABLY DOESNT WORK BUT FUCKIT
   ObjDecl: (t, id, e, params, c, block) => new TypeDeclaration(id.sourceString, params.ast(), block.ast()),
 
-  Decl_var: (type, id, e, val) => new VariableDeclaration(id.sourceString, type.ast(), val.ast()),
+  Decl_var: (t, id, e, val) => new VariableDeclaration(id.sourceString, t.ast(), val.ast()),
 
   And_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
   Or_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
@@ -59,8 +60,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
   Param: (o, p, cl, pl, c) => new Params(pl.unshift(p)),
 
-  SParam_id: (type, id) => new SParam(id, type),
-
+  SParam_id: (t, id) => new VariableDeclaration(id, t),
 
   Exp2_acc: (obj, prop) => new MemberExpression(obj.ast(), prop.ast()),
 
@@ -68,6 +68,8 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Primary_num: (n) =>  new numlit(n.sourceString),
   Primary_bool: (b) => new boollit(b.sourceString),
   Primary_str: (s) => new strlit(s.sourceString),
+
+  type: (f, rest) => new type(`${f.sourceString}${rest.sourceString}`)
 
 
   // Whiteboard doesn't have negative numbers ++ or any unary operators ++ negation
