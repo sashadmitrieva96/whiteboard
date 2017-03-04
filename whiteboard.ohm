@@ -9,9 +9,10 @@ WhiteBoard  {
               |  Break                                      --break
               |  Exp                                        --exp
 
+
   Decl        =  FunDecl                                    --fun
               |  ObjDecl                                    --obj
-              |  type? Exp ("=" Exp)?                       --var
+              |  type? id ("=" Exp)?                        --var
   FunDecl     =  type? id "=" Param ":" Block
 
   ObjDecl     =  "Type" id "=" Param ":" Block
@@ -33,8 +34,7 @@ WhiteBoard  {
   Param       =  "(" (SParam ("," SParam)*)?  ")"
 
   SParam      =  Dict                                       --Dict
-              |  type id                                    --type
-              |  id                                         --notype
+              |  type? id                                    --id
 
 
   Args        =  "(" (Exp ("," Exp)*)?  ")"                 --exp

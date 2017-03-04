@@ -5,10 +5,10 @@ const grammar = ohm.grammar(language);
 
 const Program = require('./entities/program.js');
 const Block = require('./entities/block.js');
-const If = require('./entities/if_statement.js');
-const For = require('./entities/for_statement.js');
-const Return = require('./entities/return_statement.js');
-const Break = require('./entities/break.js');
+const IfStatement = require('./entities/if_statement.js');
+const ForStatement = require('./entities/for_statement.js');
+const ReturnStatement = require('./entities/return_statement.js');
+const BreakStatement = require('./entities/break.js');
 const VariableDeclaration = require('./entities/variable_declaration.js');
 const TypeDeclaration = require('./entities/type_declaration.js');
 const FunctionDeclaration = require('./entities/function_declaration.js');
@@ -16,6 +16,7 @@ const BinaryExpression = require('./entities/binary_expression.js');
 const UnaryExpression = require('./entities/unary_expression.js');
 const MemberExpression = require('./entities/member_expression.js');
 const CallExpression = require('./entities/call_expression.js');
+const VariableExpression = require('./entities/variable_expression.js')
 const Params = require('./entities/params.js');
 const Args = require('./entities/args.js');
 const numlit = require('./entities/num_lit.js');
@@ -38,11 +39,12 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
   Dict: (key, c, value) => new DictExpression(key.ast(), value.ast()),
 
-  Args_exp: (o, e, cl, el, c) => new Args(el.unshift(e).map((e) => e.ast())),
-  Args_named: (o, e, cl, el, c) => new Args(el.unshift(e).map((e) => e.ast())),
+  Args_exp: (o, e, cl, el, c) => new Args(el.unshift(e).ast()),
+  Args_named: (o, e, cl, el, c) => new Args(el.unshift(e).ast()),
 
   FunDecl: (type, id, e, params, c, block) => new FunctionDeclaration(id.sourceString, type.sourceString, params.ast(), block.ast()),                                                        //THIS PROBABLY DOESNT WORK BUT FUCKIT
   ObjDecl: (t, id, e, params, c, block) => new TypeDeclaration(id.sourceString, params.ast(), block.ast()),
+
   Decl_var: (type, id, e, val) => new VariableDeclaration(id.sourceString, type.ast(), val.ast()),
 
   And_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
@@ -53,7 +55,11 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Neg_neg: (op, exp) => new UnaryExpression(op.sourceString, exp.ast()),
   Power_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
 
-  Exp2_call: (obj, args) => new MemberExpression(obj.ast(), args.map((e) => e.ast())),
+  Exp2_call: (obj, args) => new CallExpression(obj.ast(), args.ast()),
+
+  Param: (o, p, cl, pl, c) => new Params(pl.unshift(p)),
+
+  SParam_id: (type, id) => new SParam(id, type),
 
 
   Exp2_acc: (obj, prop) => new MemberExpression(obj.ast(), prop.ast()),
