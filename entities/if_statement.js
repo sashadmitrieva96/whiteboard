@@ -1,7 +1,7 @@
 // NOT DONE
 
 class IfStatement {
-  constructor(ifExp, ifBlock, eiExps, eiBlocks, eExp, eBlock) {
+  constructor(ifExp, ifBlock, eiExps, eiBlocks, eBlock) {
     this.ifExp = ifExp;
     this.ifBlock = ifBlock;
     this.eiExps = eiExps;

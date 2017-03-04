@@ -8,24 +8,24 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Program: (statements) => { new Program(statements.ast()); },
   Block: (statement, _) => { new Block(statement.ast()); },
 
-  If: (ifExp, ifBlock, eiExps, eiBlocks, eExp, eBlock) => {
-    new IfStatement(ifExp.ast(), ifBlock.ast(), eiExps.ast(), eiBlocks.ast(), eExp.ast(), eBlock.ast());
+  If: (i, ifExp, c, ifBlock, el, il, eiExps, eic, eiBlocks, e, ec, eBlock) => {
+    new IfStatement(ifExp.ast(), ifBlock.ast(), eiExps.ast(), eiBlocks.ast(), eBlock.ast());
   },
-  For: (id, exp, block) => { new ForStatement(id.sourceString, exp.ast(), block.ast()); },
-  Return: (exp) => { new ReturnStatement(exp.ast()); },
-  Break: () => { new BreakStatement(); },
+  For: (f, id, i, exp, c, block) => { new ForStatement(id.sourceString, exp.ast(), block.ast()); },
+  Return: (r, exp) => { new ReturnStatement(exp.ast()); },
+  Break: (b) => { new BreakStatement(); },
 
   Access_lit: (p, id) => id.ast(),
   Access_exp: (o, exp, c) => exp.ast(),
 
-  Dict: (key, value) => new DictExpression(key.ast(), value.ast()),
+  Dict: (key, c, value) => new DictExpression(key.ast(), value.ast()),
 
   Args_exp: (o, e, cl, el, c) => new Args(el.unshift(e).map((e) => e.ast())),
   Args_named: (o, e, cl, el, c) => new Args(el.unshift(e).map((e) => e.ast())),
 
-  Decl_fun: (type, id, e, params, c, block) => { new FunctionDeclaration(id.sourceString, type.sourceString, params.ast(), block.ast()); },                                                        //THIS PROBABLY DOESNT WORK BUT FUCKIT
-  Decl_obj: (t, id, e, params, c, block) => new TypeDeclaration(id.sourceString, params.ast(), block.ast()),
-  Decl_var: (type, target, e, val) => new VariableDeclaration(id.sourceString, type.ast(), e.ast()),
+  FunDecl: (type, id, e, params, c, block) => { new FunctionDeclaration(id.sourceString, type.sourceString, params.ast(), block.ast()); },                                                        //THIS PROBABLY DOESNT WORK BUT FUCKIT
+  ObjDecl: (t, id, e, params, c, block) => new TypeDeclaration(id.sourceString, params.ast(), block.ast()),
+  Decl_var: (type, target, e, val) => new VariableDeclaration(id.sourceString, type.ast(), val.ast()),
 
   And_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
   Or_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
@@ -46,12 +46,6 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Primary_str: (s) => new str_lit(s.sourceString),
 
 
-  Declaration: (id, type, exp) => { new VariableDeclaration(id.sourceString, type.sourceString, exp.ast()); },
-  TypeDeclaration: (id, params, body) => { new TypeDeclaration(id.sourceString, params.ast(), body.ast()); },
-  FunctionDeclaration: (id, type, params, block) => { new FunctionDeclaration(id.sourceString, type.sourceString, params.ast(), block.ast()); },
-
-  BinaryExpression: (left, op, right) => { new BinaryExpression(left.ast(), op.sourceString, right.ast()); },
-  UnaryExpression: (op, exp) => { new UnaryExpression(op.sourceString, exp.ast()); },
   // Whiteboard doesn't have negative numbers ++ or any unary operators ++ negation
   // Binary Exp should be op instead of exp?
 
