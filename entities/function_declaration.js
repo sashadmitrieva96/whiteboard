@@ -1,5 +1,5 @@
 class FunctionDeclaration {
-  constructor(type, id, params, block) {
+  constructor(id, type, params, block) {
     this.type = type;
     this.id = id;
     this.params = params;
@@ -7,8 +7,7 @@ class FunctionDeclaration {
   }
 
   toString() {
-    return `(FunctionID = ${this.id} TypeParams = ${this.params.toString()},
-            Block = ${this.block.toString()} )`;
+    return `(FunctionID = ${this.id.toString()} Params = ${this.params.toString()}, Block = ${this.block.toString()} )`;
   }
 }
 

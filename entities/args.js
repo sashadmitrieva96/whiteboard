@@ -3,11 +3,11 @@ class Args{
     this.args = args;
   }
   toString(){
-    let list = "";
+    let list = "(Args ";
   	for (var i = 0; i < args.length; i++) {
   		 list += this.args[i].toString() + " ";
   	};
-	return list;
+	return list + ")";
   }
 }
 
