@@ -6,7 +6,7 @@ class TypeDeclaration{
   }
 
   toString(){
-    return `(TypeId = ${this.id}, TypeParams = ${this.params.toString()}, TypeBody = ${this.body.toString()})`;
+    return `(TypeId = ${this.id} (TypeParams = ${this.params.toString()}) (TypeBody = ${this.body.toString()}))`;
   }
 }
 

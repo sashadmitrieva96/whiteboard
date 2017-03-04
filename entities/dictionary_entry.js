@@ -1,10 +1,10 @@
 class DictionaryEntry {
-    constructor(key, value) {
-      this.key = key;
-      this.value = value;
-    }
+  constructor(key, value) {
+    this.key = key;
+    this.value = value;
+  }
 
-    toString(){
-      return `(Entry ${this.key.toString()}, ${this.value.toString()})`;
-    }
+  toString() {
+    return `(Entry ${this.key.toString()}, ${this.value.toString()})`;
+  }
 }
