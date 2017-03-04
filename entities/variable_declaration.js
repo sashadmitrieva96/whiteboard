@@ -3,13 +3,10 @@ class VariableDeclaration{
     this.id = id;
     this.type = type;
     this.expression = expression;
-    console.log(id);
-    console.log(type);
-    console.log(expression);
   }
 
   toString(){
-    return `(${this.type.toString()} ${this.id.toString()} = ${this.expression.toString()})`;
+    return `(VariableID = '${this.id.toString()}', Type = '${this.type.toString()}',  Value = ${this.expression.toString()})`;
   }
 }
 
