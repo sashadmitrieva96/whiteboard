@@ -4,7 +4,7 @@ class NumLiteral{
   }
 
   toString() {
-    return `NumLit = ${this.value}`;
+    return `NumLit : ${this.value}`;
   }
 }
 

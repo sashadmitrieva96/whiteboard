@@ -41,17 +41,18 @@ let negativeTests = [
 ];
 
 describe('Grammar', () => {
-  it('matches with programs it should', () => {
-    for (test in positiveTests) {
-        assert.equal(grammar.match(positiveTests[test]).succeeded(), true)
-    }
-  });
+  for (test in positiveTests) {
+    it('matches with programs it should', () => {
+          assert.equal(grammar.match(positiveTests[test]).succeeded(), true)
 
-  it('rejects invalid programs', () => {
-    for (test in negativeTests) {
-        assert.equal(grammar.match(negativeTests[test]).succeeded(), false)
-    }
-  });
+    });
+  }
+  for (test in negativeTests) {
+    it('rejects invalid programs', () => {
+
+          assert.equal(grammar.match(negativeTests[test]).succeeded(), false)
+    });
+  }
 });
 
 // AST tests
@@ -59,7 +60,9 @@ describe('Grammar', () => {
 const AST_TESTS = [
     [
       `if true == ryan: return true. else: return false.`,
-      `{Program (If (Case (Left = Bool = true) (Op = ==) (Right = VariableId = ryan)) (IfBlock (Block (Return -> Bool = true))))(ElseBlock (Block (Return -> Bool = false)))}`
+      `{ Program (If (Case (BinaryExpression Left : Bool : true) (Op : ==) (Right : VariableId : ryan)) (IfBlock (B
+lock (Return -> Bool : true))))(ElseBlock (Block (Return -> Bool : false)))
+ }`
     ],
 
     [
@@ -68,7 +71,7 @@ const AST_TESTS = [
     ]
 ];
 
-
+//
 // describe('AST', () => {
 //   it('generates an ast for input whiteboard code', () => {
 //     AST_TESTS.forEach((x) => {

@@ -4,11 +4,11 @@ class Program {
   }
 
   toString() {
-    let s = `{Program `;
+    let s = `{ Program `;
     this.statements.forEach((x) => {
       s += x.toString();
     });
-    s+= "}";
+    s+= "\n }";
     return s;
   }
 }

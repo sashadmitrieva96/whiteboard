@@ -70,7 +70,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Primary_str: (s) => new strlit(s.sourceString),
   Primary_exp: (o, exp, c) => exp.ast(),
 
-  type: (f, rest) => new type(`${f.sourceString}${rest.sour}`)
+  type: (f, rest) => new type(`${f.sourceString}${rest.sourceString}`)
 
 
   // Whiteboard doesn't have negative numbers ++ or any unary operators ++ negation
