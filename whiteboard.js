@@ -86,3 +86,5 @@ if (match.succeeded()) {
   console.log("fail");
   process.exitCode = 1;
 }
+
+module.exports = semantics;

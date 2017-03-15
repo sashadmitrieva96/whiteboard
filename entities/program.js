@@ -8,7 +8,7 @@ class Program {
     this.statements.forEach((x) => {
       s += x.toString();
     });
-    s+= "\n }";
+    s+= "}";
     return s;
   }
 }
