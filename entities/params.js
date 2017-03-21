@@ -1,6 +1,6 @@
 class Params{
-  constructor(parameter) {
-    this.parameter = parameter;
+  constructor(p1, parameter) {
+    this.parameter = p1.concat(parameter[0]);
   }
 
 
