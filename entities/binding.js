@@ -1,4 +1,4 @@
-class DictionaryEntry {
+class Binding {
   constructor(key, value) {
     this.key = key;
     this.value = value;
@@ -8,3 +8,5 @@ class DictionaryEntry {
     return `(Entry ${this.key.toString()}, ${this.value.toString()})`;
   }
 }
+
+module.exports = Binding;

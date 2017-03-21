@@ -17,7 +17,7 @@ WhiteBoard  {
 
   ObjDecl     =  "Type" id "=" Param ":" Block
 
-  Dict        =  Exp ":" Exp
+  Binding     =  Exp ":" Exp
 
   Return      =  "return" Exp
   Break       =  "break"
@@ -33,12 +33,12 @@ WhiteBoard  {
   Exp         =  And
   Param       =  "(" (SParam ("," SParam)*)?  ")"
 
-  SParam      =  Dict                                       --Dict
+  SParam      =  Binding                                     --Binding
               |  type? id                                    --id
 
 
   Args        =  "(" (Exp ("," Exp)*)?  ")"                 --exp
-              |  "(" (Dict ("," Dict)*)?  ")"              --named
+              |  "(" (Binding ("," Binding)*)?  ")"         --named
 
   Access      =  "." id                                    --lit
               |  "[" Exp "]"                                --exp
@@ -52,7 +52,7 @@ WhiteBoard  {
 
   Term        =  Term addop Fact                           --bin
               |  Fact
-  Fact        =  Fact  mulop Neg                         --bin
+  Fact        =  Fact mulop Neg                            --bin
               |  Neg
 
   Neg         = "-" Power                                  --neg
