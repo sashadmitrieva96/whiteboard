@@ -6,9 +6,9 @@ class Block {
   toString() {
     let s = `(Block `;
     this.statements.forEach((x) => {
-      s += x.toString();
+      s = `${s} ${x.toString()}`;
     });
-    s+= ")";
+    s =  `${s})`;
     return s;
   }
 }

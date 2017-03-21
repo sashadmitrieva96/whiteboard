@@ -5,9 +5,10 @@ class Args {
   toString(){
     let list = "(Args ";
   	for (var i = 0; i < this.args.length; i++) {
-  		 list += this.args[i].toString() + ", ";
+  		 list = `${list}  ${this.args[i].toString()}`;
   	};
-	return list + ")";
+    list =  `${list})`;
+	return list;
   }
 }
 
