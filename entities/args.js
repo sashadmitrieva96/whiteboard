@@ -1,13 +1,14 @@
-class Args{
-  constructor(args) {
-    this.args = args;
+class Args {
+  constructor(a1, args) {
+    this.args = a1.concat(args[0]);
   }
   toString(){
     let list = "(Args ";
-  	for (var i = 0; i < args.length; i++) {
-  		 list += this.args[i].toString() + " ";
+  	for (var i = 0; i < this.args.length; i++) {
+  		 list = `${list}  ${this.args[i].toString()}`;
   	};
-	return list + ")";
+    list =  `${list})`;
+	return list;
   }
 }
 

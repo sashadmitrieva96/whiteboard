@@ -119,13 +119,13 @@ let negativeTests = [
 describe('Grammar', () => {
   for (test in positiveTests) {
     it('matches with programs it should', () => {
-          assert.equal(grammar.match(positiveTests[test]).succeeded(), true)
+          assert.ok(grammar.match(!positiveTests[test]).succeeded());
 
     });
   }
   for (test in negativeTests) {
     it('rejects invalid programs', () => {
-          assert.equal(grammar.match(negativeTests[test]).succeeded(), false)
+          assert.ok(grammar.match(!negativeTests[test]).succeeded());
     });
   }
 });

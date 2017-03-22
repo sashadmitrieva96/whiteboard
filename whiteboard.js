@@ -16,7 +16,8 @@ const BinaryExpression = require('./entities/binary_expression.js');
 const UnaryExpression = require('./entities/unary_expression.js');
 const MemberExpression = require('./entities/member_expression.js');
 const CallExpression = require('./entities/call_expression.js');
-const VariableExpression = require('./entities/variable_expression.js')
+const VariableExpression = require('./entities/variable_expression.js');
+const Binding = require('./entities/binding.js');
 const Params = require('./entities/params.js');
 const Args = require('./entities/args.js');
 const numlit = require('./entities/num_lit.js');
@@ -38,10 +39,10 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Access_lit: (p, id) => id.ast(),
   Access_exp: (o, exp, c) => exp.ast(),
 
-  Dict: (key, c, value) => new DictExpression(key.ast(), value.ast()),
+  Binding: (key, c, value) => new Binding(key.ast(), value.ast()),
 
-  Args_exp: (o, e, cl, el, c) => new Args(el.ast()), // doesnt get first
-  Args_named: (o, e, cl, el, c) => new Args(el.ast()),
+  Args_exp: (o, e, cl, el, c) => new Args(e.ast(), el.ast()), // doesnt get first
+  Args_named: (o, e, cl, el, c) => new Args(e.ast(), el.ast()),
 
   FunDecl: (t, id, e, params, c, block) => new FunctionDeclaration(id.sourceString, t.sourceString, params.ast(), block.ast()),                                                        //THIS PROBABLY DOESNT WORK BUT FUCKIT
   ObjDecl: (t, id, e, params, c, block) => new TypeDeclaration(id.sourceString, params.ast(), block.ast()),
@@ -58,7 +59,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
   Exp2_call: (obj, args) => new CallExpression(obj.ast(), args.ast()),
 
-  Param: (o, p, cl, pl, c) => new Params(pl.ast()),
+  Param: (o, p, cl, pl, c) => new Params(p.ast(), pl.ast()),
 
   SParam_id: (t, id) => new VariableDeclaration(new VariableExpression(id.sourceString), t.ast()),
 
