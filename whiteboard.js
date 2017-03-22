@@ -1,5 +1,6 @@
 const fs = require('fs');
 const ohm = require('ohm-js');
+
 const language = fs.readFileSync('whiteboard.ohm');
 const grammar = ohm.grammar(language);
 
@@ -23,18 +24,19 @@ const Args = require('./entities/args.js');
 const numlit = require('./entities/num_lit.js');
 const boollit = require('./entities/bool_lit.js');
 const strlit = require('./entities/str_lit.js');
-const type = require('./entities/type.js')
+const type = require('./entities/type.js');
 
+/* eslint-disable no-unused-vars */
 const semantics = grammar.createSemantics().addOperation('ast', {
 
-  Program: (statements) => new Program(statements.ast()),
+  Program: statements => new Program(statements.ast()),
   Block: (statement, _) => new Block(statement.ast()),
 
   If: (i, ifExp, c, ifBlock, el, il, eiExps, eic, eiBlocks, e, ec, eBlock) =>
     new IfStatement(ifExp.ast(), ifBlock.ast(), eiExps.ast(), eiBlocks.ast(), eBlock.ast()),
-  For: (f, id, i, exp, c, block) =>  new ForStatement(id.sourceString, exp.ast(), block.ast()),
+  For: (f, id, i, exp, c, block) => new ForStatement(id.sourceString, exp.ast(), block.ast()),
   Return: (r, exp) => new ReturnStatement(exp.ast()),
-  Break: (b) => new BreakStatement(),
+  Break: b => new BreakStatement(),
 
   Access_lit: (p, id) => id.ast(),
   Access_exp: (o, exp, c) => exp.ast(),
@@ -44,8 +46,10 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Args_exp: (o, e, cl, el, c) => new Args(e.ast(), el.ast()), // doesnt get first
   Args_named: (o, e, cl, el, c) => new Args(e.ast(), el.ast()),
 
-  FunDecl: (t, id, e, params, c, block) => new FunctionDeclaration(id.sourceString, t.sourceString, params.ast(), block.ast()),                                                        //THIS PROBABLY DOESNT WORK BUT FUCKIT
-  ObjDecl: (t, id, e, params, c, block) => new TypeDeclaration(id.sourceString, params.ast(), block.ast()),
+  FunDecl: (t, id, e, params, c, block) =>
+    new FunctionDeclaration(id.sourceString, t.sourceString, params.ast(), block.ast()),
+  ObjDecl: (t, id, e, params, c, block) =>
+    new TypeDeclaration(id.sourceString, params.ast(), block.ast()),
 
   Decl_var: (t, id, e, val) => new VariableDeclaration(id.sourceString, t.ast(), val.ast()),
 
@@ -65,10 +69,10 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
   Exp2_acc: (obj, prop) => new MemberExpression(obj.ast(), prop.ast()),
 
-  Primary_id: (id) => new VariableExpression(id.sourceString),
-  Primary_num: (n) =>  new numlit(n.sourceString),
-  Primary_bool: (b) => new boollit(b.sourceString),
-  Primary_str: (s) => new strlit(s.sourceString),
+  Primary_id: id => new VariableExpression(id.sourceString),
+  Primary_num: n =>  new numlit(n.sourceString),
+  Primary_bool: b => new boollit(b.sourceString),
+  Primary_str: s => new strlit(s.sourceString),
   Primary_exp: (o, exp, c) => exp.ast(),
 
   type: (f, rest) => new type(`${f.sourceString}${rest.sourceString}`)
@@ -78,13 +82,14 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   // Binary Exp should be op instead of exp?
 
 });
+/* eslint-enable no-unused-vars */
 
 const match = grammar.match(process.argv[2]);
 if (match.succeeded()) {
   console.log(semantics(match).ast().toString());
 } else {
   console.error(match.message);
-  console.log("fail");
+  console.log('fail');
   process.exitCode = 1;
 }
 
