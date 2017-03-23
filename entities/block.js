@@ -3,6 +3,10 @@ class Block {
     this.statements = statements;
   }
 
+  analyze() {
+    this.statements.forEach(s => s.analyze());
+  }
+
   toString() {
     let s = `(Block `;
     this.statements.forEach((x) => {
