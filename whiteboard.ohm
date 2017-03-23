@@ -55,7 +55,7 @@ WhiteBoard  {
   Fact        =  Fact mulop Neg                            --bin
               |  Neg
 
-  Neg         = "-" Power                                  --neg
+  Neg         = ("-" | "not") Power                        --neg
               | Power
 
   Power       =  Power powop Exp2                          --bin
@@ -88,7 +88,7 @@ WhiteBoard  {
   mulop       =  "*" | "/" | "%"
   addop       =  "+" | "-"
 
-  keyword     =  ("true" | "false" | "Num" | "Bool" | "String" | "Type" | "fun" | "for" | "in" | "return" | "break" | "or" | "and" | "if" | "else" | "mod" | "return") ~idrest
+  keyword     =  ( "not" | "true" | "false" | "Num" | "Bool" | "String" | "Type" | "fun" | "for" | "in" | "return" | "break" | "or" | "and" | "if" | "else" | "mod" | "return") ~idrest
 
 
   id          =  ~keyword(letter)idrest*

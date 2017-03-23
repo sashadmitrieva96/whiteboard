@@ -4,7 +4,7 @@ class BoolLiteral{
   }
 
   toString() {
-    return `Bool : ${this.value.toString()}`;
+    return `(BoolLit : ${this.value.toString()})`;
   }
 }
 
