@@ -4,9 +4,10 @@ class Program {
   }
 
   analyze() {
-    this.statements.forEach(s => s.analyze());
+    this.statements.forEach(s => s.analyze(new Context()));
   }
 
+/* eslint-disable quotes */
   toString() {
     let s = `{ Program `;
     this.statements.forEach((x) => {
@@ -16,5 +17,6 @@ class Program {
     return s;
   }
 }
+/* eslint-disable quotes */
 
 module.exports = Program;
