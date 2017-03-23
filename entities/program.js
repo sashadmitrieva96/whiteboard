@@ -3,12 +3,16 @@ class Program {
     this.statements = statements;
   }
 
+  analyze() {
+    this.statements.forEach(s => s.analyze());
+  }
+
   toString() {
     let s = `{ Program `;
     this.statements.forEach((x) => {
       s += x.toString();
     });
-    s+= "}";
+    s += '}';
     return s;
   }
 }
