@@ -1,9 +1,7 @@
-class Break{
-  constructor() {
-  }
+class Break {
 
-  toString(){
-    return `(break )`;
+  static toString() {
+    return '(break)';
   }
 }
 

@@ -4,8 +4,8 @@ class Type {
   }
 
   toString() {
-    return `(Type ${this.type})`
+    return `(Type ${this.type})`;
   }
 }
 
-module.exports =  Type;
+module.exports = Type;

@@ -129,17 +129,20 @@ const AST_TESTS = [
   ],
 ];
 
-// Testing Grammar
-describe('Grammar', () => {
-  for (test in positiveTests) {
-    it('matches with programs it should', () => {
-          assert.ok(grammar.match(!positiveTests[test]).succeeded());
 
+// Testing Grammar
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+describe('Grammar', () => {
+  for (const test in positiveTests) {
+    it('matches with programs it should', () => {
+      assert.ok(grammar.match(!positiveTests[test]).succeeded());
     });
   }
-  for (test in negativeTests) {
+
+  for (const test in negativeTests) {
     it('rejects invalid programs', () => {
-          assert.ok(grammar.match(!negativeTests[test]).succeeded());
+      assert.ok(grammar.match(!negativeTests[test]).succeeded());
     });
   }
 });
@@ -148,11 +151,10 @@ describe('Grammar', () => {
 // Testing AST
 describe('AST', () => {
   AST_TESTS.forEach((x) => {
-      it('generates an ast for input whiteboard code', () => {
-      let match = grammar.match(x[0]);
+    it('generates an ast for input whiteboard code', () => {
+      const match = grammar.match(x[0]);
       assert.equal(semantics(match).ast().toString(), x[1]);
       assert.equal(true, true);
     });
   });
-
 });

@@ -1,5 +1,5 @@
-class MemberExpression{
-  constructor(object, property){
+class MemberExpression {
+  constructor(object, property) {
     this.object = object;
     this.property = property;
   }

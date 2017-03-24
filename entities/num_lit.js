@@ -1,5 +1,5 @@
-class NumLiteral{
-  constructor(value){
+class NumLiteral {
+  constructor(value) {
     this.value = value;
   }
 

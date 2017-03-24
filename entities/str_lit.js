@@ -1,5 +1,5 @@
-class StringLiteral{
-  constructor(value){
+class StringLiteral {
+  constructor(value) {
     this.value = value;
   }
 

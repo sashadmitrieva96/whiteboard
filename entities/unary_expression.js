@@ -1,10 +1,10 @@
-class UnaryExpression{
+class UnaryExpression {
   constructor(op, exp) {
     this.op = op;
     this.exp = exp;
   }
 
-  toString(){
+  toString() {
     return `(UnaryExpression ${this.op} :  ${this.exp.toString()})`;
   }
 }

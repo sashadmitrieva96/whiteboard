@@ -1,10 +1,10 @@
-class CallExpressions{
+class CallExpressions {
   constructor(callee, args) {
     this.callee = callee;
     this.args = args;
   }
 
-  toString(){
+  toString() {
     return `CalleeID : ${this.callee.toString()}, Args : ${this.args.toString()}`;
   }
 }

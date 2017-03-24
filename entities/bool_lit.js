@@ -1,5 +1,5 @@
-class BoolLiteral{
-  constructor(value){
+class BoolLiteral {
+  constructor(value) {
     this.value = value;
   }
 

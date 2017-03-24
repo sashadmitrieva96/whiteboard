@@ -2,5 +2,14 @@
     "extends": "airbnb-base",
     "plugins": [
         "import"
-    ]
+    ],
+    "env": {
+        "mocha": true
+    },
+    "rules": {
+        "no-plusplus": [
+            "error",
+            {"allowForLoopAfterthoughts": true}
+        ]
+    }
 }
