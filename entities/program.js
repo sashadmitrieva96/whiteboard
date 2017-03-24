@@ -1,3 +1,5 @@
+const Context = require('./context.js');
+
 class Program {
   constructor(statements) {
     this.statements = statements;

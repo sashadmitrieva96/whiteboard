@@ -21,10 +21,10 @@ const VariableExpression = require('./entities/variable_expression.js');
 const Binding = require('./entities/binding.js');
 const Params = require('./entities/params.js');
 const Args = require('./entities/args.js');
-const numlit = require('./entities/num_lit.js');
-const boollit = require('./entities/bool_lit.js');
-const strlit = require('./entities/str_lit.js');
-const type = require('./entities/type.js');
+const NumLiteral = require('./entities/num_lit.js');
+const BoolLiteral = require('./entities/bool_lit.js');
+const StringLiteral = require('./entities/str_lit.js');
+const Type = require('./entities/type.js');
 
 /* eslint-disable no-unused-vars */
 const semantics = grammar.createSemantics().addOperation('ast', {
@@ -70,16 +70,12 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Exp2_acc: (obj, prop) => new MemberExpression(obj.ast(), prop.ast()),
 
   Primary_id: id => new VariableExpression(id.sourceString),
-  Primary_num: n =>  new numlit(n.sourceString),
-  Primary_bool: b => new boollit(b.sourceString),
-  Primary_str: s => new strlit(s.sourceString),
+  Primary_num: n => new NumLiteral(n.sourceString),
+  Primary_bool: b => new BoolLiteral(b.sourceString),
+  Primary_str: s => new StringLiteral(s.sourceString),
   Primary_exp: (o, exp, c) => exp.ast(),
 
-  type: (f, rest) => new type(`${f.sourceString}${rest.sourceString}`)
-
-
-  // Whiteboard doesn't have negative numbers ++ or any unary operators ++ negation
-  // Binary Exp should be op instead of exp?
+  type: (f, rest) => new Type(`${f.sourceString}${rest.sourceString}`),
 
 });
 /* eslint-enable no-unused-vars */
