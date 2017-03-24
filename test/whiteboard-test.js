@@ -120,12 +120,12 @@ const negativeTests = [
 const AST_TESTS = [
   [
     `if true == ryan: return true. else: return false.`,
-    `{ Program (If (Case (BinaryExpression Left : BoolLit : true) (Op : ==) (Right : VariableId : ryan)) (IfBlock (Block (Return -> BoolLit : true))))(ElseBlock (Block (Return -> BoolLit : false)))}`,
+    `{ Program (If (Case (BinaryExpression Left : (BoolLit : true)) (Op : ==) (Right : VariableId : ryan)) (IfBlock (Block (Return -> (BoolLit : true)))))(ElseBlock (Block (Return -> (BoolLit : false))))}`,
   ],
 
   [
     `kevin = 4`,
-    `{ Program (VariableID = kevin, Type : , Type : NumLit : 4 )}`,
+    `{ Program (VariableID = kevin, Type : , Type : (NumLit : 4) )}`,
   ],
 ];
 
