@@ -82,7 +82,6 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 /* eslint-enable no-unused-vars */
 
 /* eslint-disable quotes */
-
 // Grammar Tests
 const positiveTests = [
   `if true == ryan: .`,
@@ -125,10 +124,9 @@ const AST_TESTS = [
 
   [
     `kevin = 4`,
-    `{ Program (VariableID = kevin, Type : , Type : (NumLit : 4) )}`,
+    `{ Program (VariableID = kevin, Type : , Type : (NumLit : 4))}`,
   ],
 ];
-
 
 // Testing Grammar
 /* eslint-disable guard-for-in */
@@ -146,7 +144,6 @@ describe('Grammar', () => {
     });
   }
 });
-
 
 // Testing AST
 describe('AST', () => {

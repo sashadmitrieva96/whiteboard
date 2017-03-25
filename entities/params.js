@@ -6,7 +6,7 @@ class Params {
   toString() {
     let list = '';
     for (let i = 0; i < this.parameter.length; i++) {
-      list = `${list}  ${this.parameter[i].toString()}`;
+      list += `${list}${this.parameter[i].toString()}`;
     }
     return list;
   }

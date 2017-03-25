@@ -15,7 +15,7 @@ class VariableDeclaration {
     if (this.expression !== undefined) {
       str += `, Type : ${this.expression.toString()}`;
     }
-    str += ` )`;
+    str += `)`;
     return str;
   }
 }
