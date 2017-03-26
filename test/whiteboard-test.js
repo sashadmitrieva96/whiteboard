@@ -62,7 +62,7 @@ const AST_TESTS = [
 /* eslint-disable no-restricted-syntax */
 
 /* OKAY, this test harness was passing incorrect grammar tests so I fixed it
-   BUT, because of that there are some grammar I think we might have missed
+   BUT, because of that there are some grammar issues I think we might have missed
    I've made note of the failing test cases above ^^ Cheers */
 
 describe('Grammar', () => {
@@ -83,7 +83,7 @@ describe('Grammar', () => {
 describe('AST', () => {
   AST_TESTS.forEach((x) => {
     it('generates an ast for input whiteboard code', () => {
-      assert.equal(parse(x[0]), x[1]);
+      assert.equal(parse(x[0]).toString(), x[1]);
       assert.equal(true, true);
     });
   });
