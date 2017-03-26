@@ -80,13 +80,22 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 });
 /* eslint-enable no-unused-vars */
 
-const match = grammar.match(process.argv[2]);
-if (match.succeeded()) {
-  console.log(semantics(match).ast().toString());
-} else {
-  console.error(match.message);
-  console.log('fail');
-  process.exitCode = 1;
-}
+/* I put this part in the export so we didn't have to have a giant copy of
+   the parser in the test file, but we'll keep this here just in case. */
 
-module.exports = semantics;
+// let match = grammar.match(process.argv[2]);
+// if (match.succeeded()) {
+//   console.log(semantics(match).ast().toString());
+// } else {
+//   console.error(match.message);
+//   console.log('fail');
+//   process.exitCode = 1;
+// }
+
+module.exports = (program) => {
+  const match = grammar.match(program);
+  if (!match.succeeded()) {
+    throw match.message;
+  }
+  return semantics(match).ast().toString();
+};
