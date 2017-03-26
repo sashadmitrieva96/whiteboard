@@ -10,6 +10,8 @@
         "no-plusplus": [
             "error",
             {"allowForLoopAfterthoughts": true}
-        ]
+        ],
+        "linebreak-style": "off",
+        "no-console": "off"
     }
 }
