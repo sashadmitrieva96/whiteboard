@@ -46,10 +46,10 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Args_exp: (o, e, cl, el, c) => new Args(e.ast(), el.ast()), // doesnt get first
   Args_named: (o, e, cl, el, c) => new Args(e.ast(), el.ast()),
 
-  FunDecl: (t, id, e, params, c, block) =>
-    new FunctionDeclaration(id.sourceString, t.sourceString, params.ast(), block.ast()),
   ObjDecl: (t, id, e, params, c, block) =>
     new TypeDeclaration(id.sourceString, params.ast(), block.ast()),
+  FunDecl: (t, id, e, params, c, block) =>
+    new FunctionDeclaration(id.sourceString, t.sourceString, params.ast(), block.ast()),
 
   Decl_var: (t, id, e, val) => new VariableDeclaration(id.sourceString, t.ast(), val.ast()),
 
