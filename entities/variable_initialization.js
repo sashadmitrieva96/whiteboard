@@ -1,0 +1,20 @@
+class VariableInitialization {
+  constructor(id, type, expression) {
+    this.id = id;
+    this.type = type;
+    this.expression = expression;
+  }
+
+/* eslint-disable quotes */
+  toString() {
+    let str = `(VariableID = ${this.id.toString()} , Type : ${this.type.toString()}`;
+    if (this.expression !== undefined) {
+      str += `, Val : ${this.expression.toString()}`;
+    }
+    str += `)`;
+    return str;
+  }
+}
+/* eslint-enable quotes */
+
+module.exports = VariableInitialization;

@@ -12,7 +12,7 @@ WhiteBoard  {
 
   Decl        =  ObjDecl                                    --obj
               |  FunDecl                                    --fun
-              |  type? id ("=" Exp)                         --var
+              |  id ("=" Exp)                               --var
               |  type id ("=" Exp)?                         --init
 
   ObjDecl     =  "Type" id "=" Param ":" Block

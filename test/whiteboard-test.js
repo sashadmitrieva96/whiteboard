@@ -53,7 +53,12 @@ const AST_TESTS = [
 
   [
     `kevin = 4`,
-    `{ Program (VariableID = kevin, Type : , Type : (NumLit : 4))}`,
+    `{ Program (VariableID = kevin, Val : (NumLit : 4))}`,
+  ],
+
+  [
+    `Dog woomfy`,
+    ``,
   ],
 ];
 

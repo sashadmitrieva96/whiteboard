@@ -11,6 +11,7 @@ const ForStatement = require('./entities/for_statement.js');
 const ReturnStatement = require('./entities/return_statement.js');
 const BreakStatement = require('./entities/break.js');
 const VariableDeclaration = require('./entities/variable_declaration.js');
+const VariableInitialization = require('./entities/variable_initialization.js');
 const TypeDeclaration = require('./entities/type_declaration.js');
 const FunctionDeclaration = require('./entities/function_declaration.js');
 const BinaryExpression = require('./entities/binary_expression.js');
@@ -51,8 +52,8 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   FunDecl: (t, id, e, params, c, block) =>
     new FunctionDeclaration(id.sourceString, t.sourceString, params.ast(), block.ast()),
 
-  Decl_var: (t, id, e, val) => new VariableDeclaration(id.sourceString, t.ast(), val.ast()),
-  Decl_init: (t, id, e, val) => new VariableDeclaration(id.sourcString, t.ast(), val.ast()),
+  Decl_var: (id, e, val) => new VariableDeclaration(id.sourceString, val.ast()),
+  Decl_init: (t, id, e, val) => new VariableInitialization(id.sourcString, t.ast(), val.ast()),
 
   And_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
   Or_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
