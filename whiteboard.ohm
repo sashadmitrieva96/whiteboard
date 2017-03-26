@@ -10,12 +10,12 @@ WhiteBoard  {
               |  Exp                                        --exp
 
 
-  Decl        =  FunDecl                                    --fun
-              |  ObjDecl                                    --obj
+  Decl        =  ObjDecl                                    --obj
+              |  FunDecl                                    --fun
               |  type? id ("=" Exp)?                        --var
-  FunDecl     =  type? id "=" Param ":" Block
 
   ObjDecl     =  "Type" id "=" Param ":" Block
+  FunDecl     =  type? id "=" Param ":" Block
 
   Binding     =  Exp ":" Exp
 
