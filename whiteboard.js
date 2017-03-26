@@ -52,6 +52,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
     new FunctionDeclaration(id.sourceString, t.sourceString, params.ast(), block.ast()),
 
   Decl_var: (t, id, e, val) => new VariableDeclaration(id.sourceString, t.ast(), val.ast()),
+  Decl_init: (t, id, e, val) => new VariableDeclaration(id.sourcString, t.ast(), val.ast()),
 
   And_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
   Or_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
