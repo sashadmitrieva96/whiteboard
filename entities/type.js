@@ -4,7 +4,7 @@ class Type {
   }
 
   toString() {
-    return `(Type ${this.type})`;
+    return `(TypeId : ${this.type})`;
   }
 }
 

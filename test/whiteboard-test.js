@@ -10,8 +10,6 @@ const grammar = ohm.grammar(language);
 // Grammar Tests
 const positiveTests = [
   `if true == ryan: .`,
-
-  // This tries to match as variable declaration we might wanna look into that.
   `array[3].funcall(p1, p2)`,
   `Type Square = (w, h):
         width = w
@@ -20,8 +18,6 @@ const positiveTests = [
             return width * height
             .
     .`,
-
-  // Same thing here. The problem occurs when trying to use an access.
   `a[0] or true and ('baller' >= area[2](a, b, c))`,
   `2534.7654`,
   `Num x = 00.7654`,
@@ -48,7 +44,7 @@ const negativeTests = [
 const AST_TESTS = [
   [
     `if true == ryan: return true. else: return false.`,
-    `{ Program (If (Case (BinaryExpression Left : (BoolLit : true)) (Op : ==) (Right : VariableId : ryan)) (IfBlock (Block (Return -> (BoolLit : true)))))(ElseBlock (Block (Return -> (BoolLit : false))))}`,
+    `{ Program (If (Case (BinaryExpression Left : (BoolLit : true)) (Op : ==) (Right : (VariableId : ryan))) (IfBlock (Block (Return -> (BoolLit : true)))))(ElseBlock (Block (Return -> (BoolLit : false))))}`,
   ],
 
   [
@@ -58,17 +54,13 @@ const AST_TESTS = [
 
   [
     `Dog woomfy`,
-    ``,
+    `{ Program (VariableID = woomfy, Type : (TypeId : Dog))}`,
   ],
 ];
 
 // Testing Grammar
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
-
-/* OKAY, this test harness was passing incorrect grammar tests so I fixed it
-   BUT, because of that there are some grammar issues I think we might have missed
-   I've made note of the failing test cases above ^^ Cheers */
 
 describe('Grammar', () => {
   for (const test in positiveTests) {
