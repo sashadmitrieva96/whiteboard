@@ -5,7 +5,7 @@ class Params {
   }
 
   toString() {
-    return this.parameter ? `(Param ${this.p1} ${this.parameter})` : this.p1;
+    return this.parameter ? `(Param ${this.p1}${this.parameter})` : this.p1;
   }
 }
 

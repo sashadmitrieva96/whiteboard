@@ -72,7 +72,6 @@ const AST_TESTS = [
 // Testing Grammar
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
-
 describe('Grammar', () => {
   for (const test in positiveTests) {
     it('matches with programs it should', () => {
@@ -91,8 +90,6 @@ describe('Grammar', () => {
 describe('AST', () => {
   AST_TESTS.forEach((x) => {
     it('generates an ast for input whiteboard code', () => {
-      // console.log(parse(x[0]));
-      console.log(" ");
       assert.equal(parse(x[0]), x[1]);
       assert.equal(true, true);
     });
