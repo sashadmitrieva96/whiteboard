@@ -7,7 +7,10 @@ class VariableInitialization {
 
 /* eslint-disable quotes */
   toString() {
-    let str = `(VariableID = ${this.id.toString()}, Type : ${this.type.toString()}`;
+    let str = `(VariableID = ${this.id.toString()}`;
+    if (this.type.length !== undefined) {
+      str += `, Type : ${this.type.toString()}`;
+    }
     if (this.expression.length !== 0) {
       str += `, Val : ${this.expression.toString()}`;
     }

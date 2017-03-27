@@ -67,7 +67,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
   Param: (o, p, cl, pl, c) => new Params(p.ast(), pl.ast()),
 
-  SParam_id: (t, id) => new VariableDeclaration(new VariableExpression(id.sourceString), t.ast()),
+  SParam_id: (t, id) => new VariableInitialization(new VariableExpression(id.sourceString), t.ast(), []),
 
   Exp2_acc: (obj, prop) => new MemberExpression(obj.ast(), prop.ast()),
 
