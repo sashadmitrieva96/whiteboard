@@ -11,6 +11,7 @@ const ForStatement = require('./entities/for_statement.js');
 const ReturnStatement = require('./entities/return_statement.js');
 const BreakStatement = require('./entities/break.js');
 const VariableDeclaration = require('./entities/variable_declaration.js');
+const VariableInitialization = require('./entities/variable_initialization.js');
 const TypeDeclaration = require('./entities/type_declaration.js');
 const FunctionDeclaration = require('./entities/function_declaration.js');
 const BinaryExpression = require('./entities/binary_expression.js');
@@ -46,12 +47,13 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Args_exp: (o, e, cl, el, c) => new Args(e.ast(), el.ast()), // doesnt get first
   Args_named: (o, e, cl, el, c) => new Args(e.ast(), el.ast()),
 
-  FunDecl: (t, id, e, params, c, block) =>
-    new FunctionDeclaration(id.sourceString, t.sourceString, params.ast(), block.ast()),
   ObjDecl: (t, id, e, params, c, block) =>
     new TypeDeclaration(id.sourceString, params.ast(), block.ast()),
+  FunDecl: (t, id, e, params, c, block) =>
+    new FunctionDeclaration(id.sourceString, t.sourceString, params.ast(), block.ast()),
 
-  Decl_var: (t, id, e, val) => new VariableDeclaration(id.sourceString, t.ast(), val.ast()),
+  Decl_var: (id, e, val) => new VariableDeclaration(id.sourceString, val.ast()),
+  Decl_init: (t, id, e, val) => new VariableInitialization(id.sourceString, t.ast(), val.ast()),
 
   And_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
   Or_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
@@ -65,7 +67,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
   Param: (o, p, cl, pl, c) => new Params(p.ast(), pl.ast()),
 
-  SParam_id: (t, id) => new VariableDeclaration(new VariableExpression(id.sourceString), t.ast()),
+  SParam_id: (t, id) => new VariableInitialization(new VariableExpression(id.sourceString), t.ast(), []),
 
   Exp2_acc: (obj, prop) => new MemberExpression(obj.ast(), prop.ast()),
 
@@ -97,5 +99,5 @@ module.exports = (program) => {
   if (!match.succeeded()) {
     throw match.message;
   }
-  return semantics(match).ast();
+  return semantics(match).ast().toString();
 };

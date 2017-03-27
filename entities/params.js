@@ -1,14 +1,11 @@
 class Params {
   constructor(p1, parameter) {
-    this.parameter = p1.concat(parameter[0]);
+    this.p1 = p1;
+    this.parameter = parameter;
   }
 
   toString() {
-    let list = '';
-    for (let i = 0; i < this.parameter.length; i++) {
-      list += `${list}${this.parameter[i].toString()}`;
-    }
-    return list;
+    return this.parameter ? `(Param ${this.p1}${this.parameter})` : this.p1;
   }
 }
 
