@@ -56,6 +56,17 @@ const AST_TESTS = [
     `Dog woomfy`,
     `{ Program (VariableID = woomfy, Type : (TypeId : Dog))}`,
   ],
+
+  [
+    `Type Square = (w, h):
+          width = w
+          height = h
+          area = ():
+              return width * height
+              .
+      .`,
+    ``,
+  ],
 ];
 
 // Testing Grammar
@@ -80,7 +91,9 @@ describe('Grammar', () => {
 describe('AST', () => {
   AST_TESTS.forEach((x) => {
     it('generates an ast for input whiteboard code', () => {
-      assert.equal(parse(x[0]).toString(), x[1]);
+      // console.log(parse(x[0]));
+      console.log(" ");
+      assert.equal(parse(x[0]), x[1]);
       assert.equal(true, true);
     });
   });

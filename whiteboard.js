@@ -99,5 +99,5 @@ module.exports = (program) => {
   if (!match.succeeded()) {
     throw match.message;
   }
-  return semantics(match).ast();
+  return semantics(match).ast().toString();
 };

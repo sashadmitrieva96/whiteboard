@@ -16,6 +16,7 @@ class Block {
       s = `${s} ${x.toString()}`;
     });
     s = `${s})`;
+    // console.log(s);
     return s;
   }
 }

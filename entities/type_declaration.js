@@ -1,12 +1,14 @@
 class TypeDeclaration {
-  constructor(id, params, body) {
+  constructor(id, params, block) {
     this.id = id;
     this.params = params;
-    this.body = body;
+    this.block = block;
   }
 
   toString() {
-    return `(TypeId : ${this.id} (TypeParams:= ${this.params.toString()}) (TypeBody : ${this.body.toString()}))`;
+    console.log(this.block);
+    console.log(" ");
+    return `(TypeId : ${this.id} (TypeParams:= ${this.params.toString()}) (TypeBody : ${this.block.toString()}))`;
   }
 }
 
