@@ -65,7 +65,7 @@ const AST_TESTS = [
               return width * height
               .
       .`,
-    `{ Program (TypeId : Square (TypeParams:= (Params   (VariableID = (VariableId : w))  (VariableID = (VariableId : h)))) (TypeBody : (Block (VariableID = width, Val : (VariableId : w)) (VariableID = height, Val : (VariableId : h)) (FunctionID : area, Params : (Params ), Block : (Block (Return -> (BinaryExpression (Left : (VariableId : width)) (Op : *) (Right : (VariableId : height)))))))))}`,
+    `{ Program (TypeId : Square (TypeParams:= (Params (VariableID = (VariableId : w))(VariableID = (VariableId : h)))) (TypeBody : (Block (VariableID = width, Val : (VariableId : w)) (VariableID = height, Val : (VariableId : h)) (FunctionID : area, Params : (Params ), Block : (Block (Return -> (BinaryExpression (Left : (VariableId : width)) (Op : *) (Right : (VariableId : height)))))))))}`,
   ],
 ];
 
