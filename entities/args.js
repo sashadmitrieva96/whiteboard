@@ -1,6 +1,13 @@
 class Args {
   constructor(a1, args) {
-    this.args = a1.concat(args[0]);
+    if (args.length === 0) {
+        this.args = a1;
+    }
+    if (a1.length === 0) {
+        this.args = [];
+    } else {
+        this.args = a1.concat(args[0]);
+    }
   }
   toString() {
     let list = '(Args ';

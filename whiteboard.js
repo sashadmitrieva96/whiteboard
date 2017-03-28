@@ -85,7 +85,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 /* I put this part in the export so we didn't have to have a giant copy of
    the parser in the test file, but we'll keep this here just in case. */
 
-// let match = grammar.match(process.argv[2]);
+// const match = grammar.match(process.argv[2]);
 // if (match.succeeded()) {
 //   console.log(semantics(match).ast().toString());
 // } else {

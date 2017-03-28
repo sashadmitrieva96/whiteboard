@@ -1,12 +1,23 @@
 class Params {
-  constructor(p1, parameter) {
-    this.p1 = p1;
-    this.parameter = parameter;
-  }
+    constructor(p1, params) {
+      if (params.length === 0) {
+          this.params = p1;
+      }
+      if (p1.length === 0) {
+          this.params = [];
+      } else {
+          this.params = p1.concat(params[0]);
+      }
+    }
 
   toString() {
-    return this.parameter ? `(Param ${this.p1}${this.parameter})` : this.p1;
-  }
+      let list = '(Params ';
+      for (let i = 0; i < this.params.length; i++) {
+        list = `${list}  ${this.params[i].toString()}`;
+      }
+      list = `${list})`;
+      return list;
+    }
 }
 
 module.exports = Params;

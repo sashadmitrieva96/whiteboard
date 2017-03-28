@@ -7,7 +7,6 @@ class FunctionDeclaration {
   }
 
   toString() {
-    console.log(`(FunctionID : ${this.id.toString()}, Params : ${this.params.toString()}s`);
     return `(FunctionID : ${this.id.toString()}, Params : ${this.params.toString()}, Block : ${this.block.toString()})`;
   }
 }

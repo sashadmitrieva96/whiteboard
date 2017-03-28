@@ -6,8 +6,6 @@ class TypeDeclaration {
   }
 
   toString() {
-    console.log(this.block);
-    console.log(" ");
     return `(TypeId : ${this.id} (TypeParams:= ${this.params.toString()}) (TypeBody : ${this.block.toString()}))`;
   }
 }
