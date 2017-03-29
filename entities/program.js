@@ -6,7 +6,7 @@ class Program {
   }
 
   analyze() {
-    this.statements.forEach(s => s.analyze(new Context()));
+    this.statements.forEach(s => s.analyze(context.INITIAL));
   }
 
   toString() {

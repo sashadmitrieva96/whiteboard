@@ -7,9 +7,14 @@ class Type {
   toString() {
     return `(TypeId : ${this.type})`;
   }
+
+  analyze(context) {
+    // finish this lol
+  }
 }
 
-Type.bool = new Type('bool');
-Type.number = new Type('number');
+Type.BOOL = new Type('bool');
+Type.NUM = new Type('num');
+Type.STR = new Type('string');
 
 module.exports = Type;

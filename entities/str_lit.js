@@ -6,6 +6,10 @@ class StringLiteral {
   toString() {
     return `StringLit : ${this.value}`;
   }
+
+  analyze(context) {
+    this.type = 'string';
+  }
 }
 
 module.exports = StringLiteral;

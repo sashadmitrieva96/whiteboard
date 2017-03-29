@@ -4,6 +4,7 @@ WhiteBoard  {
 
   Statement   =  If                                         --if
               |  For                                        --for
+              |  While                                      --while
               |  Return                                     --ret
               |  Decl                                       --decl
               |  Break                                      --break
@@ -28,6 +29,7 @@ WhiteBoard  {
                  ("else" "if" Exp ":" Block)*
                  ("else" ":" Block)?
 
+  While       =  "while" Exp ":" Block
 
   Block       =  Statement* "."
 

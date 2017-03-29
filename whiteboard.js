@@ -8,6 +8,7 @@ const Program = require('./entities/program.js');
 const Block = require('./entities/block.js');
 const IfStatement = require('./entities/if_statement.js');
 const ForStatement = require('./entities/for_statement.js');
+const WhileStatement = require('./entities/while_statement.js');
 const ReturnStatement = require('./entities/return_statement.js');
 const BreakStatement = require('./entities/break.js');
 const VariableDeclaration = require('./entities/variable_declaration.js');
@@ -36,6 +37,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   If: (i, ifExp, c, ifBlock, el, il, eiExps, eic, eiBlocks, e, ec, eBlock) =>
     new IfStatement(ifExp.ast(), ifBlock.ast(), eiExps.ast(), eiBlocks.ast(), eBlock.ast()),
   For: (f, id, i, exp, c, block) => new ForStatement(id.sourceString, exp.ast(), block.ast()),
+  While: (w, exp, c, block) => new WhileStatement(exp.ast(), block.ast()),
   Return: (r, exp) => new ReturnStatement(exp.ast()),
   Break: b => new BreakStatement(),
 
