@@ -9,8 +9,8 @@ const grammar = ohm.grammar(language);
 /* eslint-disable quotes */
 // Grammar Tests
 const positiveTests = [
-  `if true == ryan: .`,
-  `array[3].funcall(p1, p2)`,
+  `if not true == ryan: .`,
+  `array[-3].funcall(p1, p2)`,
   `Type Square = (w, h):
         width = w
         height = h
@@ -18,8 +18,9 @@ const positiveTests = [
             return width * height
             .
     .`,
-  `a[0] or true and ('baller' >= area[2](a, b, c))`,
+  `a[0] or !true and ('baller' >= area[2](a, b, c))`,
   `2534.7654`,
+  `3 mod -10`,
   `Num x = 00.7654`,
   ` `,
 ];

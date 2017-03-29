@@ -23,6 +23,7 @@ WhiteBoard  {
 
   Return      =  "return" Exp
   Break       =  "break"
+
   For         =  "for" id "in" Exp ":" Block
 
   If          =  "if" Exp ":" Block
@@ -34,8 +35,8 @@ WhiteBoard  {
   Block       =  Statement* "."
 
   Exp         =  And
-  Param       =  "(" (SParam ("," SParam)*)?  ")"
 
+  Param       =  "(" (SParam ("," SParam)*)?  ")"
   SParam      =  Binding                                     --Binding
               |  type? id                                    --id
 
@@ -58,8 +59,8 @@ WhiteBoard  {
   Fact        =  Fact mulop Neg                            --bin
               |  Neg
 
-  Neg         = ("-" | "not") Power                        --neg
-              | Power
+  Neg         =  negop Power                               --neg
+              |  Power
 
   Power       =  Power powop Exp2                          --bin
               |  Exp2
@@ -83,13 +84,14 @@ WhiteBoard  {
   strlit      =  "'" ( ~"'" any )* "'"
 
 
-
-  boolop      =  "and" | "or"
   relop       =  ">=" | ">" | "<=" | "<" | "!=" | "=="
 
-  powop       =  "**"
-  mulop       =  "*" | "/" | "%"
   addop       =  "+" | "-"
+  mulop       =  "*" | "/" | "%" | "mod"
+
+  negop       =  "-" | "!" | "not"
+  powop       =  "**"
+
 
   keyword     =  ( "not" | "true" | "false" | "Num" | "Bool" | "String" | "Type" | "fun" | "for" | "in" | "return" | "break" | "or" | "and" | "if" | "else" | "mod" | "return") ~idrest
 
