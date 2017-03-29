@@ -90,7 +90,7 @@ describe('Grammar', () => {
 describe('AST', () => {
   AST_TESTS.forEach((x) => {
     it('generates an ast for input whiteboard code', () => {
-      assert.equal(parse(x[0]), x[1]);
+      assert.equal(parse(x[0]).toString(), x[1]);
       assert.equal(true, true);
     });
   });
