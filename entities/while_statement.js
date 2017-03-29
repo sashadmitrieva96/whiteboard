@@ -7,13 +7,6 @@ class WhileStatement {
   toString() {
     return `(while ${this.exp.toString()} {${this.block.toString()}})`;
   }
-
-  analyze() {
-    this.condition.analyze();
-    if (this.condition.type != type.bool) {
-      error();
-    }
-  }
 }
 
 module.exports = WhileStatement;

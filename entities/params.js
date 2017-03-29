@@ -15,6 +15,11 @@ class Params {
     list = `${list})`;
     return list;
   }
+
+  analyze(context) {
+    this.params.forEach(s => s.analyze(context));
+  }
+
 }
 
 module.exports = Params;

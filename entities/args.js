@@ -15,6 +15,10 @@ class Args {
     list = `${list})`;
     return list;
   }
+
+  analyze(context) {
+    this.args.forEach(s => s.analyze(context));
+  }
 }
 
 module.exports = Args;
