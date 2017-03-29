@@ -1,7 +1,12 @@
 class Break {
-
-  static toString() {
+  toString() {
     return '(break)';
+  }
+
+  analyze(context) {
+    if (!context.inLoop) {
+      error();
+    }
   }
 }
 
