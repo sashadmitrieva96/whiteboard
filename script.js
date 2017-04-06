@@ -1,13 +1,10 @@
 $.get('whiteboard.ohm', function(data) {
-    $('#grammer').text(data);
+    $('#grammar-row').append('<pre>' + data + '</pre>');
 });
 
 $('.tab').click(function(tab) {
     let tabClasses = tab.currentTarget.className;
-    let tabClass = (tabClasses).substr("0", tabClasses.indexOf(' '));
-    console.log(tabClass);
-    $('.row').hide();
-    // console.log(this.class);
-    $('.' + tabClass).show();
-    // console.log('Here');
+    let tabClass = (tabClasses).substr('0', tabClasses.indexOf(' '));
+    $('.row').removeClass('active').addClass('inactive');
+    $('#' + tabClass + '-row').removeClass('inactive').addClass('active');
 });

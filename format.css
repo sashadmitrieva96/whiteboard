@@ -1,12 +1,47 @@
 .row {
     position: absolute;
+    width: 50%;
+    margin: 0 auto;
+/*    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;*/
+}
+/*
+pre {
+    white-space: pre-wrap;
+}*/
+
+.inactive {
     visibility: hidden;
 }
 
-a {
-    cursor: default;
+.active {
+    visibility: visible;
 }
 
-#description-row {
-    visibility: visible;
+.navbar {
+    background: black;
+    overflow: hidden;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar a:hover {
+    text-decoration: none;
+    cursor: default;
+    background-color: #A9A9A9;
+    color: white;
+}
+
+#page-content-wrapper {
+
 }
