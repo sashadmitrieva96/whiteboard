@@ -1,3 +1,5 @@
+const Type = require('./type.js');
+
 class CallExpressions {
   constructor(callee, args) {
     this.callee = callee;
@@ -12,12 +14,14 @@ class CallExpressions {
     this.callee.analyze(context);
 
     this.args.analyze(context);
+    this.checkArguments(this.callee);
   }
 
   checkArguments(callee) {
     let hasSeenNamed = false;
     const matchedParamNames = new Set([]);
-    this.args.forEach((arg, index) => {
+    console.log(this.args);
+    this.args.args.forEach((arg, index) => {
       if (arg.id) {
         hasSeenNamed = true;
       } else if (hasSeenNamed) {
@@ -37,7 +41,7 @@ class CallExpressions {
       }
       matchedParamNames.add(name);
     });
-    this.type = callee.type;
+    this.type = Type.UNKNOWN;
   }
 }
 

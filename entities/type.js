@@ -11,7 +11,7 @@ class Type {
 
   equals(other) {
     // console.log(this.type);
-    // console.log(other.type);
+    console.log("*****" + other);
     if (this.type === Type.UNKNOWN.type) {
       this.type = other.type;
     }

@@ -24,12 +24,12 @@ class VariableInitialization {
   analyze(context) {
     // console.log(util.inspect(context, {depth: null}));
     // console.log(Type);
-    console.log("**" + this.type);
     if (!this.type) {
       this.type = Type.UNKNOWN;
     }
     if (this.expression) {
       this.expression.analyze(context);
+      console.log(this.expression);
       this.type.assertTypeCompatability([this.expression.type], `declared Type ${this.type} does not match expression type ${this.expression.type}`);
     }
     // console.log(this.type);
