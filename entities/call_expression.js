@@ -37,6 +37,7 @@ class CallExpressions {
       }
       matchedParamNames.add(name);
     });
+    this.type = callee.type;
   }
 }
 

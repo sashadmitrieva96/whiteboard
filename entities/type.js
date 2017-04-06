@@ -8,6 +8,12 @@ class Type {
   }
 
   equals(other) {
+    if (this.type.equals(Type.UNKNOWN)) {
+      this.type = other.type;
+    }
+    if (other.type.equals(Type.UNKNOWN)) {
+      other.type = this.type;
+    }
     return this.type === other.type || this.equals(Type.UNKNOWN) || other.equals(Type.UNKNOWN);
   }
 

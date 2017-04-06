@@ -5,10 +5,6 @@ class Program {
     this.statements = statements;
   }
 
-  analyze() {
-    this.statements.forEach(s => s.analyze(context.INITIAL));
-  }
-
   toString() {
     let s = '{ Program ';
     this.statements.forEach((x) => {
@@ -16,6 +12,10 @@ class Program {
     });
     s += '}';
     return s;
+  }
+
+  analyze() {
+    this.statements.forEach(s => s.analyze(context.INITIAL));
   }
 }
 

@@ -4,9 +4,7 @@ class Break {
   }
 
   analyze(context) {
-    if (!context.inLoop) {
-      error();
-    }
+    context.assertInLoop('break statement not in loop');
   }
 }
 

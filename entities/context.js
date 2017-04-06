@@ -35,6 +35,18 @@ class Context {
     }
   }
 
+  assertInLoop(message) {
+    if (!this.inLoop) {
+      throw Error(message);
+    }
+  }
+
+  assertInTypeDecl(message) {
+    if (!this.inTypeDecl) {
+      throw Error(message);
+    }
+  }
+
   lookup(id) {
     if (id in this.closure) {
       return this.closure[id];
