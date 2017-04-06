@@ -70,6 +70,14 @@ const AST_TESTS = [
   ],
 ];
 
+const SEMANTICS_TESTS = [
+  [],
+
+  [],
+
+  [],
+];
+
 // Testing Grammar
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
@@ -92,6 +100,20 @@ describe('AST', () => {
   AST_TESTS.forEach((x) => {
     it('generates an ast for input whiteboard code', () => {
       assert.equal(parse(x[0]).toString(), x[1]);
+      assert.equal(true, true);
+    });
+  });
+});
+
+// Testing Semantics
+describe('SEMANTICS', () => {
+  SEMANTICS_TESTS.forEach((x) => {
+    it('accepts legal programs', () => {
+      assert.equal(parse(x[0]).analyze(), x[1]);
+      assert.equal(true, true);
+    });
+    it('throws appropriate errors for illegal programs', () => {
+      assert.equal(parse(x[0]).analyze(), x[1]);
       assert.equal(true, true);
     });
   });
