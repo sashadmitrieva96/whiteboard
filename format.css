@@ -1,0 +1,12 @@
+.row {
+    position: absolute;
+    visibility: hidden;
+}
+
+a {
+    cursor: default;
+}
+
+#description-row {
+    visibility: visible;
+}
