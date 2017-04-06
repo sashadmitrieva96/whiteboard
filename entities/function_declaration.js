@@ -1,3 +1,5 @@
+const Type = require('./type.js');
+
 class FunctionDeclaration {
   constructor(id, type, params, block) {
     this.type = type;
@@ -14,11 +16,20 @@ class FunctionDeclaration {
   analyze(context) {
     const localContext = context.createChildContextForFunction(this);
     this.params.forEach(p => p.analyze(localContext));
-    this.params.forEach(p => p.add(this.id));
+
     if (this.body) {
       this.body.forEach(s => s.analyze(localContext));
     }
+
+    if (this.type) {
+      localContext.type = this.type.analyze(context).type;
+    } else {
+      localContext.type = Type.UNKNOWN;
+    }
+
+    context.addVariable(this.id, this);
   }
+
 }
 
 module.exports = FunctionDeclaration;

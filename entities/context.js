@@ -8,14 +8,14 @@ class Context {
   }
 
   createChildContextForFunction() {
-    return new Context(this, true, false, false);
+    return new Context(this, true, this.inLoop, this.inTypeDecl);
   }
 
   createChildContextForLoop() {
-    return new Context(this, false, true, false);
+    return new Context(this, this.inFunction, true, this.inTypeDecl);
   }
   createChildContextForType() {
-    return new Context(this, false, false, true);
+    return new Context(this, this.inFunction, this.inLoop, true);
   }
 
   addVariable(id, entity) {
@@ -27,6 +27,12 @@ class Context {
 
   inClosure(id) {
     return !(this.closure[id] === undefined);
+  }
+
+  assertInFunction(message) {
+    if (!this.inFunction) {
+      throw Error(message);
+    }
   }
 
   lookup(id) {

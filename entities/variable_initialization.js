@@ -1,3 +1,5 @@
+const Type = require('./type.js');
+
 class VariableInitialization {
   constructor(id, type, expression) {
     this.id = id;
@@ -16,6 +18,17 @@ class VariableInitialization {
     }
     str += `)`;
     return str;
+  }
+
+  analyze(context) {
+    if (this.type) {
+      this.type = this.type.analyze(context).type;
+    } else {
+      this.type = Type.UNKNOWN;
+    }
+
+    this.expression.analyze(context);
+    context.addVariable(this.id, this);
   }
 }
 /* eslint-enable quotes */

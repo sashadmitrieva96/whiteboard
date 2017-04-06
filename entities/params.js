@@ -5,6 +5,7 @@ class Params {
     } else {
       this.params = p1.length === 0 ? [] : p1.concat(params[0]);
     }
+    this.paramNames = [];
   }
 
   toString() {
@@ -17,7 +18,18 @@ class Params {
   }
 
   analyze(context) {
-    this.params.forEach(s => s.analyze(context));
+    this.params.forEach((s) => {
+      s.analyze(context);
+      if (s.id) {
+        this.paramNames.push(s.id);
+      } else if (s.key) {
+        this.paramNames.push(s.id);
+      }
+    });
+  }
+
+  hasName(name) {
+    return this.paramNames.includes(name);
   }
 
 }

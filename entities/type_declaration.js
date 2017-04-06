@@ -12,9 +12,10 @@ class TypeDeclaration {
   }
 
   analyze(context) {
-    this.block.analyze(context.createChildContextForBlock());
-    this.params.analyze(context);
-    this.context.addVariable(this.id, this.params);
+    const blockContext = context.createChildContextForBlock();
+    this.params.analyze(blockContext);
+    this.block.analyze(blockContext);
+    this.context.addVariable(this.id, this);
   }
 }
 
