@@ -2,17 +2,17 @@ WhiteBoard  {
 
   Program     =  Statement*
 
-  Statement   =  If                                         --if
-              |  For                                        --for
-              |  Return                                     --ret
-              |  Decl                                       --decl
-              |  Break                                      --break
-              |  Exp                                        --exp
+  Statement   =  If                                        --if
+              |  For                                       --for
+              |  Return                                    --ret
+              |  Decl                                      --decl
+              |  Break                                     --break
+              |  Exp                                       --exp
 
 
-  Decl        =  FunDecl                                    --fun
-              |  ObjDecl                                    --obj
-              |  type? id ("=" Exp)?                        --var
+  Decl        =  FunDecl                                   --fun
+              |  ObjDecl                                   --obj
+              |  type? id ("=" Exp)?                       --var
   FunDecl     =  type? id "=" Param ":" Block
 
   ObjDecl     =  "Type" id "=" Param ":" Block
@@ -33,15 +33,15 @@ WhiteBoard  {
   Exp         =  And
   Param       =  "(" (SParam ("," SParam)*)?  ")"
 
-  SParam      =  Binding                                     --Binding
-              |  type? id                                    --id
+  SParam      =  Dict                                      --Dict
+              |  type? id                                  --id
 
 
-  Args        =  "(" (Exp ("," Exp)*)?  ")"                 --exp
-              |  "(" (Binding ("," Binding)*)?  ")"         --named
+  Args        =  "(" (Exp ("," Exp)*)?  ")"                --exp
+              |  "(" (Dict ("," Dict)*)?  ")"              --named
 
   Access      =  "." id                                    --lit
-              |  "[" Exp "]"                                --exp
+              |  "[" Exp "]"                               --exp
 
   And         =  And "and" Or                              --bin
               |  Or
@@ -52,6 +52,7 @@ WhiteBoard  {
 
   Term        =  Term addop Fact                           --bin
               |  Fact
+
   Fact        =  Fact mulop Neg                            --bin
               |  Neg
 
