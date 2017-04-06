@@ -1,8 +1,12 @@
 .row {
     position: absolute;
     width: 50%;
-    left: 20%;
+    left: 30%;
     margin-left: -50px;
+}
+
+#info {
+    float: right;
 }
 
 #tab-logo {
