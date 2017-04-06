@@ -25,7 +25,6 @@ class Type {
     });
   }
 
-
   isCompatibleWith(other) {
     return true;
   }
@@ -36,16 +35,16 @@ class Type {
   }
 }
 
-Type.BOOL = new Type('Bool');
-Type.NUM = new Type('Num');
-Type.STR = new Type('String');
+Type.typeList = Object.create(null);
+
 Type.Bool = new Type('Bool');
 Type.Num = new Type('Num');
 Type.Str = new Type('String');
 Type.UNKNOWN = new Type('*Unknown');
 
-Type.addType = (name) => {
-  Type[name] = new Type(name);
-};
+Type.typeList.Bool = Type.Bool;
+Type.typeList.Num = Type.Num;
+Type.typeList.Str = Type.Str;
+
 
 module.exports = Type;

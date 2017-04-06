@@ -15,9 +15,9 @@ class Operand {
     let booleanOps = ['and', 'or', '!=', '==', '!', 'not'];
 
     if (booleanOps.includes(this.op)) {
-      return Type.BOOL;
+      return Type.Bool;
     } else if (numberOps.includes(this.op)) {
-      return Type.NUM;
+      return Type.Num;
     }
     throw Error(`unknown operand ${this.op}`);
 
@@ -29,9 +29,9 @@ class Operand {
     let booleanOps = ['>=', '>', '<=', '<', 'and', 'or', '!=', '==', '!', 'not'];
 
     if (booleanOps.includes(this.op)) {
-      return Type.BOOL;
+      return Type.Bool;
     } else if (numberOps.includes(this.op)) {
-      return Type.NUM;
+      return Type.Num;
     }
     throw Error(`unknown operand ${this.op}`);
   }

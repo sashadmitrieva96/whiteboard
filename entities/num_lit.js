@@ -10,7 +10,7 @@ class NumLiteral {
   }
 
   analyze() {
-    this.type = Type.NUM;
+    this.type = Type.Num;
   }
 }
 

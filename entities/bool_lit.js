@@ -3,7 +3,7 @@ const Type = require('./type.js');
 class BoolLiteral {
   constructor(value) {
     this.value = value;
-    this.type = Type.BOOL;
+    this.type = Type.Bool;
   }
 
   toString() {
@@ -11,7 +11,7 @@ class BoolLiteral {
   }
 
   analyze() {
-    this.type = Type.BOOL;
+    this.type = Type.Bool;
   }
 }
 

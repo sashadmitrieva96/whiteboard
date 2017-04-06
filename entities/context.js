@@ -1,4 +1,5 @@
 const util = require('util');
+const Type = require('./type.js');
 
 class Context {
   constructor({ parent = null, inFunction = false, inLoop = false, inTypeDecl = false }) {
@@ -62,6 +63,13 @@ class Context {
     } else {
       return this.parent.lookup(id);
     }
+  }
+
+  addType(name) {
+    if (Type.typeList[name]) {
+      throw new Error(`Type ${name} has already been defined`);
+    }
+    Type.typeList[name] = new Type(name);
   }
 }
 

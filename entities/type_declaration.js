@@ -1,5 +1,3 @@
-const Type = require('./type.js');
-
 class TypeDeclaration {
   constructor(id, params, block) {
     this.id = id;
@@ -17,7 +15,7 @@ class TypeDeclaration {
     this.params.analyze(blockContext);
     this.block.analyze(blockContext);
     context.addVariable(this.id, this);
-    Type.addType(this.id);
+    context.addType(this.id);
   }
 }
 

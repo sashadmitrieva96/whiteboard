@@ -14,7 +14,7 @@ class Case {
   analyze(context) {
     // console.log(util.inspect(this.block, { depth: null }));
     this.test.analyze(context);
-    Type.BOOL.assertTypeCompatability([this.test.type], `case: ${this.test}`);
+    Type.Bool.assertTypeCompatability([this.test.type], `case: ${this.test}`);
 
     this.block.analyze(context.createChildContextForBlock());
   }
