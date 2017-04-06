@@ -6,13 +6,13 @@
 }
 
 #info {
-    float: right;
+    margin-left: 10%;
 }
 
 #tab-logo {
     width: 150px;
     height: 75px;
-    float: left !important;
+    margin-left: 20px;
 }
 
 .inactive {
@@ -24,7 +24,7 @@
 }
 
 .navbar {
-    background: black;
+    background: #0362D7;
     overflow: hidden;
     display: flex;
     align-items: center;
