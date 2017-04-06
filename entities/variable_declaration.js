@@ -10,10 +10,10 @@ class VariableDeclaration {
   }
 
   analyze(context) {
-    console.log("varDec");
+    // console.log("varDec");
     this.expression.analyze(context);
     this.type = this.expression.type;
-    console.log(this.type);
+    // console.log(this.type);
     context.addVariable(this.id, this);
   }
 }

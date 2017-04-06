@@ -32,13 +32,20 @@ class Type {
 
   analyze(context) {
     // finish this lol -sash
-    Type[this.type] = new Type(this.type);
+    // Type[this.type] = new Type(this.type);
   }
 }
 
 Type.BOOL = new Type('Bool');
 Type.NUM = new Type('Num');
 Type.STR = new Type('String');
+Type.Bool = new Type('Bool');
+Type.Num = new Type('Num');
+Type.Str = new Type('String');
 Type.UNKNOWN = new Type('*Unknown');
+
+Type.addType = (name) => {
+  Type[name] = new Type(name);
+};
 
 module.exports = Type;

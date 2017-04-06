@@ -79,7 +79,6 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Primary_bool: b => new BoolLiteral(b.sourceString),
   Primary_str: s => new StringLiteral(s.sourceString),
   Primary_exp: (o, exp, c) => exp.ast(),
-  // Case: (t, b) => new Case(t.ast(), b.ast()),
 
   type: (f, rest) => new Type(`${f.sourceString}${rest.sourceString}`),
 

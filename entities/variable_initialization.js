@@ -21,15 +21,21 @@ class VariableInitialization {
   }
 
   analyze(context) {
-    console.log("init");
+    // console.log("init");
     if (!this.type) {
       this.type = Type.UNKNOWN;
+    } else {
+      // console.log(Type);
+      // console.log(this.type);
+      this.type = Type[this.type.type];
     }
+    // console.log(this.type);
     // console.log(this.expression);
-
-    this.expression.analyze(context);
-    this.type.assertTypeCompatability([this.expression.type]);
-    console.log(this.type);
+    if (this.expression) {
+      this.expression.analyze(context);
+      this.type.assertTypeCompatability([this.expression.type], `declared Type ${this.type} does not match expression type ${this.expression.type}`);
+    }
+    // console.log(this.type);
     context.addVariable(this.id, this);
   }
 }

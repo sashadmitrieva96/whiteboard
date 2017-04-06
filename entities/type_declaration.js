@@ -12,10 +12,12 @@ class TypeDeclaration {
   }
 
   analyze(context) {
+    // add id to Type
     const blockContext = context.createChildContextForBlock();
     this.params.analyze(blockContext);
     this.block.analyze(blockContext);
-    this.context.addVariable(this.id, this);
+    context.addVariable(this.id, this);
+    Type.addType(this.id);
   }
 }
 
