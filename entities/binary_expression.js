@@ -12,10 +12,11 @@ class BinaryExpression {
   }
 
   analyze(context) {
+    // console.log(this.op.resultType());
     this.left.analyze(context);
     this.right.analyze(context);
     this.type = this.op.resultType();
-    console.log(`l: ${this.left.type}  op:(${this.op}) ${this.type}  r: ${this.right.type}`);
+    // console.log(`l: ${this.left.type}  op:(${this.op}) ${this.type}  r: ${this.right.type}`);
     this.op.argumentType().assertTypeCompatability([this.left.type, this.right.type]);
   }
 }

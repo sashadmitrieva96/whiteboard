@@ -18,6 +18,10 @@ class Context {
     return new Context(this, this.inFunction, this.inLoop, true);
   }
 
+  createChildContextForBlock() {
+    return new Context(this, this.inFunction, this.inLoop, this.inTypeDecl);
+  }
+
   addVariable(id, entity) {
     if (id in this.closure) {
       throw new Error(`The id ${id} is already declared`);

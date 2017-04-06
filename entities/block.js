@@ -5,8 +5,9 @@ class Block {
     this.statements = statements;
   }
 
-  analyze() {
-    this.statements.forEach(s => s.analyze(new Context()));
+  analyze(context) {
+    // console.log("...");
+    this.statements.forEach(s => s.analyze(context));
   }
 
 /* eslint-disable quotes */

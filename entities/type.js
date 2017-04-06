@@ -17,10 +17,10 @@ class Type {
     return this.type === other.type;
   }
 
-  assertTypeCompatability(typeList) {
+  assertTypeCompatability(typeList, message) {
     typeList.forEach((t) => {
       if (!this.equals(t)) {
-        throw new Error('Types do not match')
+        throw new Error(`Type Error: ${message}`);
       }
     });
   }
