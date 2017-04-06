@@ -4,7 +4,7 @@ class VariableInitialization {
   constructor(id, type, expression) {
     this.id = id;
     this.type = type;
-    this.expression = expression;
+    this.expression = expression[0];
   }
 
 /* eslint-disable quotes */
@@ -21,13 +21,15 @@ class VariableInitialization {
   }
 
   analyze(context) {
-    if (this.type) {
-      this.type = this.type.analyze(context).type;
-    } else {
+    console.log("init");
+    if (!this.type) {
       this.type = Type.UNKNOWN;
     }
+    // console.log(this.expression);
 
     this.expression.analyze(context);
+    this.type.assertTypeCompatability([this.expression.type]);
+    console.log(this.type);
     context.addVariable(this.id, this);
   }
 }

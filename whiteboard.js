@@ -28,7 +28,6 @@ const BoolLiteral = require('./entities/bool_lit.js');
 const StringLiteral = require('./entities/str_lit.js');
 const Type = require('./entities/type.js');
 const Operand = require('./entities/operand.js');
-const Case = require('./entities/case.js');
 
 /* eslint-disable no-unused-vars */
 const semantics = grammar.createSemantics().addOperation('ast', {

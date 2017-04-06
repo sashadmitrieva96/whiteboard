@@ -18,17 +18,9 @@ class IfStatement {
     if (eBlock.length !== 0) {
       this.cases.push(new Case(new BoolLiteral('true'), eBlock[0]));
     }
-    // console.log(util.inspect(eBlock, { depth: null }));
-    // console.log(util.inspect(this.cases, { depth: null }));
-
-    // this.ifExp = ifExp;
-    // this.ifBlock = ifBlock;
-    // this.eiExps = eiExps;
-    // this.eiBlocks = eiBlocks;
-    // this.eBlock = eBlock;
   }
 
-  toString() {
+  toString() { // REDO THIS
     let str = `(If (Case ${this.ifExp})(IfBlock ${this.ifBlock}))`;
 
     for (let i = 0; i < this.eiExps.length; i++) {

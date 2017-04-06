@@ -1,3 +1,5 @@
+const util = require('util');
+
 class Context {
   constructor({ parent = null, inFunction = false, inLoop = false, inTypeDecl = false }) {
     this.parent = parent;
@@ -23,10 +25,11 @@ class Context {
   }
 
   addVariable(id, entity) {
+    // console.log(`ADDING VAR ${id} INTO ${util.inspect(this.closure)}`);
     if (id in this.closure) {
-      throw new Error(`The id ${id} is already declared`);
+      entity.type.assertTypeCompatability([this.lookup(id).type], `Attempt to redefine ${id}, to Type ${entity.type} from Type ${this.lookup(id).type}`);
     }
-    this.variables[id] = entity;
+    this.closure[id] = entity;
   }
 
   inClosure(id) {
