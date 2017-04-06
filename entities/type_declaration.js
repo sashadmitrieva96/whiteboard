@@ -1,3 +1,5 @@
+const Type = require('./type.js');
+
 class TypeDeclaration {
   constructor(id, params, block) {
     this.id = id;
@@ -7,6 +9,10 @@ class TypeDeclaration {
 
   toString() {
     return `(TypeId : ${this.id} (TypeParams:= ${this.params.toString()}) (TypeBody : ${this.block.toString()}))`;
+  }
+
+  analyze(context) {
+    this.block.analyze()
   }
 }
 

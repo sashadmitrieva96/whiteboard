@@ -8,7 +8,7 @@ class VariableExpression {
   }
 
   analyze(context) {
-    this.referent = context.lookup(this.id);
+    this.type = context.lookup(this.id).type;
   }
 }
 

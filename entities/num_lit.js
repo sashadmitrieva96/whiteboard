@@ -1,3 +1,5 @@
+const Type = require('./type.js');
+
 class NumLiteral {
   constructor(value) {
     this.value = value;
@@ -8,7 +10,7 @@ class NumLiteral {
   }
 
   analyze(context) {
-    this.type = 'num';
+    this.type = Type.NUM;
   }
 }
 

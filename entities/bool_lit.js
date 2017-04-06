@@ -1,3 +1,5 @@
+const Type = require('./type.js');
+
 class BoolLiteral {
   constructor(value) {
     this.value = value;
@@ -8,7 +10,7 @@ class BoolLiteral {
   }
 
   analyze(context) {
-    this.type = 'bool';
+    this.type = Type.BOOL;
   }
 }
 

@@ -7,13 +7,21 @@ class Type {
     return `(TypeId : ${this.type})`;
   }
 
-  // analyze(context) {
-  //   // finish this lol
-  // }
+  equals(other) {
+    return this.type === other.type;
+  }
+
+  isCompatibleWith(other) {
+    return true;
+  }
+
+  analyze(context) {
+    // finish this lol
+  }
 }
 
-Type.BOOL = new Type('bool');
-Type.NUM = new Type('num');
-Type.STR = new Type('string');
+Type.BOOL = new Type('Bool');
+Type.NUM = new Type('Num');
+Type.STR = new Type('String');
 
 module.exports = Type;
