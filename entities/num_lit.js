@@ -9,7 +9,7 @@ class NumLiteral {
     return `(NumLit : ${this.value})`;
   }
 
-  analyze(context) {
+  analyze() {
     this.type = Type.NUM;
   }
 }

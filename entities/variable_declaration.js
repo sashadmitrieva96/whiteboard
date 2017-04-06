@@ -10,8 +10,12 @@ class VariableDeclaration {
   }
 
   analyze(context) {
-    this.expression.analyze(context);
-    this.context.addVariable(this.id, this.expression);
+    if (this.id.length !== this.expression.length) {
+      throw new Error('Number of variables does not equal number of initializers');
+    }
+    this.expression.forEach(e => e.analyze(context));
+    this.variables = this.id.map(id => new VariableDeclaration(id));
+    this.variables.forEach(variable => context.addVariable(variable));
   }
 }
 /* eslint-enable quotes */

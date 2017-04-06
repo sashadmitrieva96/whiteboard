@@ -1,6 +1,3 @@
-
-// NOT DONE
-
 class IfStatement {
   constructor(ifExp, ifBlock, eiExps, eiBlocks, eBlock) {
     this.ifExp = ifExp;
@@ -20,6 +17,15 @@ class IfStatement {
       str += `(ElseBlock ${this.eBlock})`;
     }
     return str;
+  }
+
+  analyze(context) {
+    this.ifExp.forEach(ifBlock => ifBlock.analyze(context.createChildContextForBlock()));
+    if (this.eiExps) {
+      this.eiExps.forEach(eiBlocks => eiBlocks.analyze(context.createChildContextForBlock()));
+    } if (this.eBlock) {
+      this.eBlock.analyze(context.createChildContextForBlock());
+    }
   }
 }
 

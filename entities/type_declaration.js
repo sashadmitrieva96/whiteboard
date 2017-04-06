@@ -12,7 +12,9 @@ class TypeDeclaration {
   }
 
   analyze(context) {
-    this.block.analyze()
+    this.block.analyze(context.createChildContextForBlock());
+    this.params.analyze(context);
+    this.context.addVariable(this.id, this.params);
   }
 }
 

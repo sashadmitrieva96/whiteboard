@@ -20,7 +20,7 @@ class Context {
 
   addVariable(id, entity) {
     if (id in this.closure) {
-      throw new Tilt(`The id ${id} is already declared`);
+      throw new Error(`The id ${id} is already declared`);
     }
     this.variables[id] = entity;
   }
@@ -33,7 +33,7 @@ class Context {
     if (id in this.closure) {
       return this.closure[id];
     } else if (this.parent === null) {
-      throw new Tilt(`The id ${id} has not been declared`);
+      throw new Error(`The id ${id} has not been declared`);
     } else {
       return this.parent.lookup(id);
     }
