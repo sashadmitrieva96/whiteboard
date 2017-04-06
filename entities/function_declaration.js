@@ -15,7 +15,8 @@ class FunctionDeclaration {
   // FINISH THIS!
   analyze(context) {
     const localContext = context.createChildContextForFunction(this);
-    this.params.forEach(p => p.analyze(localContext));
+    // console.log(this.params);
+    this.params.analyze(localContext);
 
     if (this.body) {
       this.body.forEach(s => s.analyze(localContext));
@@ -28,6 +29,7 @@ class FunctionDeclaration {
     }
 
     context.addVariable(this.id, this);
+    console.log('function declared');
   }
 
 }

@@ -1,5 +1,7 @@
 class Type {
-  constructor(type) {
+  constructor(type, p2) {
+    console.log(p2);
+    console.log("       " + type);
     this.type = type;
   }
 
@@ -8,6 +10,8 @@ class Type {
   }
 
   equals(other) {
+    // console.log(this.type);
+    // console.log(other.type);
     if (this.type === Type.UNKNOWN.type) {
       this.type = other.type;
     }
@@ -36,6 +40,13 @@ class Type {
 }
 
 Type.typeList = Object.create(null);
+
+Type.lookupType = (name) => {
+  if (Type.typeList[name]) {
+    return Type.typeList[name];
+  }
+  throw new Error(`No defined type ${name}`)
+}
 
 Type.Bool = new Type('Bool');
 Type.Num = new Type('Num');

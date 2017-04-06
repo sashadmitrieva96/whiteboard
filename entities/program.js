@@ -19,6 +19,7 @@ class Program {
     const context = new Context({});
     this.statements.forEach(s => s.analyze(context));
     console.log(Type.typeList);
+    console.log(context);
   }
 }
 
