@@ -8,14 +8,23 @@ class Type {
   }
 
   equals(other) {
-    if (this.type.equals(Type.UNKNOWN)) {
+    if (this.type === Type.UNKNOWN.type) {
       this.type = other.type;
     }
-    if (other.type.equals(Type.UNKNOWN)) {
+    if (other.type === Type.UNKNOWN.type) {
       other.type = this.type;
     }
-    return this.type === other.type || this.equals(Type.UNKNOWN) || other.equals(Type.UNKNOWN);
+    return this.type === other.type;
   }
+
+  assertTypeCompatability(typeList) {
+    typeList.forEach((t) => {
+      if (!this.equals(t)) {
+        throw new Error('Types do not match')
+      }
+    });
+  }
+
 
   isCompatibleWith(other) {
     return true;

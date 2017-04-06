@@ -4,30 +4,16 @@ class UnaryExpression {
   constructor(op, exp) {
     this.op = op;
     this.exp = exp;
-
-    this.booleanOps = ['!', 'not'];
-    this.numberOps = ['-'];
   }
 
   toString() {
-    return `(UnaryExpression ${this.op} :  ${this.exp.toString()})`;
-  }
-
-  getExpressionType() {
-    if (this.booleanOps.includes(this.op)) {
-      return Type.BOOL;
-    } else if (this.numberOps.includes(this.op)) {
-      return Type.NUM;
-    }
-    throw Error();
+    return `(UnaryExpression ${this.op.toString()} :  ${this.exp.toString()})`;
   }
 
   analyze(context) {
-    this.type = this.getExpressionType();
+    this.type = this.op.resultType();
     this.exp.analyze(context);
-    if (!this.type.equals(this.exp.type)) {
-      throw Error();
-    }
+    this.op.argumentType().assertTypeCompatability([this.exp.type]);
   }
 }
 

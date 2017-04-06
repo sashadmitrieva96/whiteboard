@@ -27,6 +27,7 @@ const NumLiteral = require('./entities/num_lit.js');
 const BoolLiteral = require('./entities/bool_lit.js');
 const StringLiteral = require('./entities/str_lit.js');
 const Type = require('./entities/type.js');
+const Operand = require('./entities/operand.js');
 
 /* eslint-disable no-unused-vars */
 const semantics = grammar.createSemantics().addOperation('ast', {
@@ -57,13 +58,13 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Decl_var: (id, e, val) => new VariableDeclaration(id.sourceString, val.ast()),
   Decl_init: (t, id, e, val) => new VariableInitialization(id.sourceString, t.ast(), val.ast()),
 
-  And_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
-  Or_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
-  Rel_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
-  Term_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
-  Fact_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
-  Neg_neg: (op, exp) => new UnaryExpression(op.sourceString, exp.ast()),
-  Power_bin: (left, op, right) => new BinaryExpression(left.ast(), op.sourceString, right.ast()),
+  And_bin: (left, op, right) => new BinaryExpression(left.ast(), new Operand(op.sourceString), right.ast()),
+  Or_bin: (left, op, right) => new BinaryExpression(left.ast(), new Operand(op.sourceString), right.ast()),
+  Rel_bin: (left, op, right) => new BinaryExpression(left.ast(), new Operand(op.sourceString), right.ast()),
+  Term_bin: (left, op, right) => new BinaryExpression(left.ast(), new Operand(op.sourceString), right.ast()),
+  Fact_bin: (left, op, right) => new BinaryExpression(left.ast(), new Operand(op.sourceString), right.ast()),
+  Neg_neg: (op, exp) => new UnaryExpression(new Operand(op.sourceString), exp.ast()),
+  Power_bin: (left, op, right) => new BinaryExpression(left.ast(), new Operand(op.sourceString), right.ast()),
 
   Exp2_call: (obj, args) => new CallExpression(obj.ast(), args.ast()),
 
@@ -87,14 +88,14 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 /* I put this part in the export so we didn't have to have a giant copy of
    the parser in the test file, but we'll keep this here just in case. */
 
-// const match = grammar.match(process.argv[2]);
-// if (match.succeeded()) {
-//   console.log(semantics(match).ast().toString());
-// } else {
-//   console.error(match.message);
-//   console.log('fail');
-//   process.exitCode = 1;
-// }
+const match = grammar.match(process.argv[2]);
+if (match.succeeded()) {
+  console.log(semantics(match).ast().analyze());
+} else {
+  console.error(match.message);
+  console.log('fail');
+  process.exitCode = 1;
+}
 
 module.exports = (program) => {
   const match = grammar.match(program);

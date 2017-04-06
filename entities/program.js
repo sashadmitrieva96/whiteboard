@@ -15,7 +15,7 @@ class Program {
   }
 
   analyze() {
-    this.statements.forEach(s => s.analyze(context.INITIAL));
+    this.statements.forEach(s => s.analyze(new Context({})));
   }
 }
 

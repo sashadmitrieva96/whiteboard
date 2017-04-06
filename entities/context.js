@@ -1,5 +1,5 @@
 class Context {
-  contstructor({ parent, inFunction, inLoop, inTypeDecl }) {
+  constructor({ parent = null, inFunction = false, inLoop = false, inTypeDecl = false }) {
     this.parent = parent;
     this.inFunction = inFunction;
     this.inLoop = inLoop;
@@ -31,19 +31,19 @@ class Context {
 
   assertInFunction(message) {
     if (!this.inFunction) {
-      throw Error(message);
+      throw new Error(message);
     }
   }
 
   assertInLoop(message) {
     if (!this.inLoop) {
-      throw Error(message);
+      throw new Error(message);
     }
   }
 
   assertInTypeDecl(message) {
     if (!this.inTypeDecl) {
-      throw Error(message);
+      throw new Error(message);
     }
   }
 
@@ -58,6 +58,6 @@ class Context {
   }
 }
 
-Context.INITIAL = new Context({ parent: null, inFunction: false, inLoop: false, inTypeDecl: false });
+Context.INITIAL = () => new Context({ parent: null, inFunction: false, inLoop: false, inTypeDecl: false });
 
 module.exports = Context;
