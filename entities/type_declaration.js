@@ -19,7 +19,6 @@ class TypeDeclaration {
     context.addVariable(this.id, this);
     context.addType(this.id);
     this.type = Type.lookupType(this.id);
-    // console.log(this.type);
   }
 }
 

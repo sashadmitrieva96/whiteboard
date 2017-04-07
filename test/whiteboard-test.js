@@ -71,29 +71,37 @@ const AST_POS_TESTS = [
 ];
 
 const AST_NEG_TESTS = [
-  [],
-
-  [],
-
-  [],
+  `Type Mum = (ur):
+       lol = ():
+           nope = ():
+               return ur
+               .
+   .`,
+   `Type Daddy = ():
+       return Daddy
+       .
+    .`,
+    `kevin = Type NotTheGodEmporer = ():
+         return true
+         .
+     .`,
+     `Program program = (Program program):
+          return program
+          .
+      .`
 ];
-
 // Semantics Tests
 const SEMANTICS_POS_TESTS = [
-  [],
-
-  [],
-
-  [],
+  []
 ];
 
-const SEMANTICS_NEG_TESTS = [
-  [],
-
-  [],
-
-  [],
-];
+// const SEMANTICS_NEG_TESTS = [
+//   [],
+//
+//   [],
+//
+//   [],
+// ];
 
 // Testing Grammar
 /* eslint-disable guard-for-in */
@@ -116,21 +124,25 @@ describe('Grammar', () => {
 describe('AST', () => {
   AST_POS_TESTS.forEach((x) => {
     it('generates an ast for input whiteboard code', () => {
-      console.log(parse(x[0]).toString());
       assert.equal(parse(x[0]).toString(), x[1]);
       assert.equal(true, true);
     });
   });
-  // AST_NEG_TESTS.forEach((x) => {
-  //   it('throws appropriate errors for illegal programs', () => {
-  //     assert.equal(parse(x[0]).toString(), x[1]);
-  //     assert.equal(true, true);
-  //   });
-  // });
+  AST_NEG_TESTS.forEach((x) => {
+    it('throws appropriate errors for illegal programs', () => {
+      try {
+        parse(x);
+      }
+      catch (error) {
+        assert.equal(true, true);
+      }
+
+    });
+  });
 });
 
 // Testing Semantics
-// describe('SEMANTICS', () => {
+describe('SEMANTICS', () => {
 //   SEMANTICS_POS_TESTS.forEach((x) => {
 //     it('accepts legal programs', () => {
 //       assert.equal(parse(x[0]).analyze(), x[1]);
@@ -143,4 +155,4 @@ describe('AST', () => {
 //       assert.equal(true, true);
 //     });
 //   });
-// });
+});
