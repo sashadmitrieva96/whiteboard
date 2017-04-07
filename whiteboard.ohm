@@ -2,39 +2,45 @@ WhiteBoard  {
 
   Program     =  Statement*
 
-  Statement   =  If                                        --if
-              |  For                                       --for
-              |  Return                                    --ret
-              |  Decl                                      --decl
-              |  Break                                     --break
-              |  Exp                                       --exp
+  Statement   =  If                                         --if
+              |  For                                        --for
+              |  While                                      --while
+              |  Return                                     --ret
+              |  Decl                                       --decl
+              |  Break                                      --break
+              |  Exp                                        --exp
 
 
-  Decl        =  FunDecl                                   --fun
-              |  ObjDecl                                   --obj
-              |  type? id ("=" Exp)?                       --var
+  Decl        =  ObjDecl                                    --obj
+              |  FunDecl                                    --fun
+              |  id ("=" Exp)                               --var
+              |  type id ("=" Exp)?                         --init
+
+
+  ObjDecl     =  "Type" type "=" Param ":" Block
   FunDecl     =  type? id "=" Param ":" Block
-
-  ObjDecl     =  "Type" id "=" Param ":" Block
 
   Binding     =  Exp ":" Exp
 
   Return      =  "return" Exp
   Break       =  "break"
+
   For         =  "for" id "in" Exp ":" Block
 
   If          =  "if" Exp ":" Block
                  ("else" "if" Exp ":" Block)*
                  ("else" ":" Block)?
 
+  While       =  "while" Exp ":" Block
 
   Block       =  Statement* "."
 
   Exp         =  And
-  Param       =  "(" (SParam ("," SParam)*)?  ")"
 
-  SParam      =  Dict                                      --Dict
-              |  type? id                                  --id
+
+  Param       =  "(" (SParam ("," SParam)*)?  ")"
+  SParam      =  Binding                                     --Binding
+              |  type? id                                    --id
 
 
   Args        =  "(" (Exp ("," Exp)*)?  ")"                --exp
@@ -56,8 +62,8 @@ WhiteBoard  {
   Fact        =  Fact mulop Neg                            --bin
               |  Neg
 
-  Neg         = "-" Power                                  --neg
-              | Power
+  Neg         =  negop Power                               --neg
+              |  Power
 
   Power       =  Power powop Exp2                          --bin
               |  Exp2
@@ -73,7 +79,7 @@ WhiteBoard  {
               |  "(" Exp ")"                               --exp
 
 
-  type        =  upper(idrest)*
+  type        =  ~keyword upper(idrest)*
 
   numlit      =  digit+ ("." digit+)?                      --whole
               |  "." digit+                                --dec
@@ -81,16 +87,17 @@ WhiteBoard  {
   strlit      =  "'" ( ~"'" any )* "'"
 
 
-
-  boolop      =  "and" | "or"
   relop       =  ">=" | ">" | "<=" | "<" | "!=" | "=="
 
-  powop       =  "**"
-  mulop       =  "*" | "/" | "%"
   addop       =  "+" | "-"
+  mulop       =  "*" | "/" | "%" | "mod"
+
+  negop       =  "-" | "!" | "not"
+  powop       =  "**"
+
 
   keyword     =  ("true" | "false" | "Num" | "Bool" | "String" | "Type"
-                 | "fun" | "for" | "in" | "return" | "break" | "or" 
+                 | "fun" | "for" | "in" | "return" | "break" | "or"
                  | "and" | "if" | "else" | "mod" | "return") ~idrest
 
 

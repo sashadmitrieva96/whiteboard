@@ -1,12 +1,25 @@
-class TypeDeclaration{
-  constructor(id, params, body) {
+const Type = require('./type.js');
+
+class TypeDeclaration {
+  constructor(id, params, block) {
     this.id = id;
     this.params = params;
-    this.body = body;
+    this.block = block;
   }
 
-  toString(){
-    return `(TypeId : ${this.id} (TypeParams:= ${this.params.toString()}) (TypeBody : ${this.body.toString()}))`;
+  toString() {
+    return `(TypeId : ${this.id} (TypeParams:= ${this.params.toString()}) (TypeBody : ${this.block.toString()}))`;
+  }
+
+  analyze(context) {
+    // add id to Type
+    const blockContext = context.createChildContextForBlock();
+    this.params.analyze(blockContext);
+    this.block.analyze(blockContext);
+    context.addVariable(this.id, this);
+    context.addType(this.id);
+    this.type = Type.lookupType(this.id);
+    // console.log(this.type);
   }
 }
 

@@ -1,10 +1,17 @@
-class BoolLiteral{
-  constructor(value){
+const Type = require('./type.js');
+
+class BoolLiteral {
+  constructor(value) {
     this.value = value;
+    this.type = Type.Bool;
   }
 
   toString() {
-    return `Bool : ${this.value.toString()}`;
+    return `(BoolLit : ${this.value.toString()})`;
+  }
+
+  analyze() {
+    this.type = Type.Bool;
   }
 }
 

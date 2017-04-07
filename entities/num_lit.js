@@ -1,10 +1,16 @@
-class NumLiteral{
-  constructor(value){
+const Type = require('./type.js');
+
+class NumLiteral {
+  constructor(value) {
     this.value = value;
   }
 
   toString() {
-    return `NumLit : ${this.value}`;
+    return `(NumLit : ${this.value})`;
+  }
+
+  analyze() {
+    this.type = Type.Num;
   }
 }
 

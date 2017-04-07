@@ -1,15 +1,25 @@
+const Context = require('./context.js');
+const Type = require('./type.js');
+
 class Program {
   constructor(statements) {
     this.statements = statements;
   }
 
   toString() {
-    let s = `{ Program `;
+    let s = '{ Program ';
     this.statements.forEach((x) => {
       s += x.toString();
     });
-    s+= "}";
+    s += '}';
     return s;
+  }
+
+  analyze() {
+    const context = new Context({});
+    this.statements.forEach(s => s.analyze(context));
+    console.log(Type.typeList);
+    console.log(context);
   }
 }
 
