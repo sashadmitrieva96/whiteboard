@@ -20,6 +20,7 @@ class Program {
     this.statements.forEach(s => s.analyze(context));
     // console.log(Type.typeList);
     // console.log(context);
+    return true;
   }
 }
 

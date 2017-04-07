@@ -18,18 +18,18 @@ const preparse = (source) => {
     } else if (indent > stack[stack.length - 1]) {
       // console.log('increase indent');
       stack.push(indent);
-      result += '->';
+      result += '⇨';
       result += content;
     } else if (indent < stack[stack.length - 1]) {
       let nextIndent = indent;
       while (nextIndent < stack[stack.length - 1]) {
-        result += '<-';
+        result += '⇦';
         nextIndent = stack.pop();
         // console.log(nextIndent, indent);
         if (indent > nextIndent) {
           throw new Error('Indentation Error');
         } else if (nextIndent === indent) {
-          result += '<-';
+          result += '⇦';
         } else {
           break;
         }
@@ -40,26 +40,25 @@ const preparse = (source) => {
 
   while (stack.length > 1) {
     stack.pop();
-    result = `${result}<-`;
+    result = `${result}⇦`;
   }
   result = `${result}\n`;
+  // console.log(result);
   return result;
 };
 
 
 let test =
-`fun fibonachi_series = (n):
-    if (n == 1):
-        return List(0, 1)
 
-    else:
-        List s = fibonachi_series(n-1)
-        s.push((s[(s.length()) - 1]) + (s[(s.length()) - 2]))
-        return s
-    return 5
-    x = 0
+`Type Square = (w, h):
+      width = w
+      height = h
+      area = ():
+          return width * height
 
-`;
+`
+
+;
 
 console.log(preparse(test));
 
