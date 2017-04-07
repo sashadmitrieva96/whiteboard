@@ -4,6 +4,8 @@ const ohm = require('ohm-js');
 const language = fs.readFileSync('whiteboard.ohm');
 const grammar = ohm.grammar(language);
 
+const preparse = require('./preparser.js');
+
 const Program = require('./entities/program.js');
 const Block = require('./entities/block.js');
 const IfStatement = require('./entities/if_statement.js');
@@ -33,7 +35,7 @@ const Operand = require('./entities/operand.js');
 const semantics = grammar.createSemantics().addOperation('ast', {
 
   Program: statements => new Program(statements.ast()),
-  Block: (statement, _) => new Block(statement.ast()),
+  Block: (i, statement, d) => new Block(statement.ast()),
 
   If: (i, ifExp, c, ifBlock, el, il, eiExps, eic, eiBlocks, e, ec, eBlock) =>
     new IfStatement(ifExp.ast(), ifBlock.ast(), eiExps.ast(), eiBlocks.ast(), eBlock.ast()),
@@ -98,7 +100,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 // }
 
 module.exports = (program) => {
-  const match = grammar.match(program);
+  const match = grammar.match(preparse(program));
   if (!match.succeeded()) {
     throw match.message;
   }
