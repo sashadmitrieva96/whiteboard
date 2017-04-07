@@ -1,4 +1,3 @@
-const util = require('util');
 const Type = require('./type.js');
 
 class Context {
@@ -26,7 +25,6 @@ class Context {
   }
 
   addVariable(id, entity) {
-    // console.log(`ADDING VAR ${id} INTO ${util.inspect(this.closure)}`);
     if (id in this.closure) {
       entity.type.assertTypeCompatability([this.lookup(id).type], `Attempt to redefine ${id}, to Type ${entity.type} from Type ${this.lookup(id).type}`);
     }

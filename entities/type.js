@@ -1,7 +1,5 @@
 class Type {
-  constructor(type, p2) {
-    // console.log(p2);
-    // console.log("       " + type);
+  constructor(type) {
     this.type = type;
   }
 
@@ -10,8 +8,6 @@ class Type {
   }
 
   equals(other) {
-    // console.log(this.type);
-    // console.log("*****" + other);
     if (this.type === Type.UNKNOWN.type) {
       return true;
     }
@@ -22,22 +18,11 @@ class Type {
   }
 
   assertTypeCompatability(typeList, message) {
-    console.log("*****" + this);
-    console.log("*****" + typeList);
     typeList.forEach((t) => {
       if (!this.equals(t)) {
         throw new Error(`Type Error: ${message}`);
       }
     });
-  }
-
-  isCompatibleWith(other) {
-    return true;
-  }
-
-  analyze(context) {
-    // finish this lol -sash
-    // Type[this.type] = new Type(this.type);
   }
 }
 
@@ -47,8 +32,8 @@ Type.lookupType = (name) => {
   if (Type.typeList[name]) {
     return Type.typeList[name];
   }
-  throw new Error(`No defined type ${name}`)
-}
+  throw new Error(`No defined type ${name}`);
+};
 
 Type.Bool = new Type('Bool');
 Type.Num = new Type('Num');

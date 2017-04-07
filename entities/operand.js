@@ -6,13 +6,13 @@ class Operand {
   }
 
   toString() {
-    return `${this.op}`
+    return `${this.op}`;
   }
 
   argumentType() {
-    let numberOps = ['>=', '>', '<=', '<', '+', '-', '*', '/', '%', 'mod', '**', '-'];
+    const numberOps = ['>=', '>', '<=', '<', '+', '-', '*', '/', '%', 'mod', '**', '-'];
 
-    let booleanOps = ['and', 'or', '!=', '==', '!', 'not'];
+    const booleanOps = ['and', 'or', '!=', '==', '!', 'not'];
 
     if (booleanOps.includes(this.op)) {
       return Type.Bool;
@@ -20,13 +20,12 @@ class Operand {
       return Type.Num;
     }
     throw Error(`unknown operand ${this.op}`);
-
   }
 
   resultType() {
-    let numberOps = ['+', '-', '*', '/', '%', 'mod', '**', '-'];
+    const numberOps = ['+', '-', '*', '/', '%', 'mod', '**', '-'];
 
-    let booleanOps = ['>=', '>', '<=', '<', 'and', 'or', '!=', '==', '!', 'not'];
+    const booleanOps = ['>=', '>', '<=', '<', 'and', 'or', '!=', '==', '!', 'not'];
 
     if (booleanOps.includes(this.op)) {
       return Type.Bool;

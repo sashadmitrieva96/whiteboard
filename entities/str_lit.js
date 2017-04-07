@@ -9,8 +9,7 @@ class StringLiteral {
     return `StringLit : ${this.value}`;
   }
 
-  analyze(context) {
-    console.log("MAKING STRING");
+  analyze() {
     this.type = Type.STR;
   }
 }

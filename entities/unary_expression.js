@@ -1,5 +1,3 @@
-const Type = require('./type.js');
-
 class UnaryExpression {
   constructor(op, exp) {
     this.op = op;

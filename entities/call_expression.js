@@ -1,5 +1,3 @@
-const Type = require('./type.js');
-
 class CallExpressions {
   constructor(callee, args) {
     this.callee = callee;
@@ -13,8 +11,6 @@ class CallExpressions {
   analyze(context) {
     this.callee.analyze(context);
     this.type = this.callee.type;
-    console.log('call exp type: ' + this.type);
-
     this.args.analyze(context);
     this.checkArguments(this.callee);
   }

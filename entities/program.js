@@ -1,5 +1,4 @@
 const Context = require('./context.js');
-const Type = require('./type.js');
 
 class Program {
   constructor(statements) {

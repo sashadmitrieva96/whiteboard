@@ -1,5 +1,4 @@
 const Type = require('./type.js');
-const util = require('util');
 
 class FunctionDeclaration {
   constructor(id, type, params, block) {

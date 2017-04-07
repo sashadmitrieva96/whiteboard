@@ -1,5 +1,4 @@
 const Type = require('./type.js');
-const util = require('util');
 
 class Case {
   constructor(test, block) {

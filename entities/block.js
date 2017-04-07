@@ -1,12 +1,9 @@
-const Context = require('./context.js');
-
 class Block {
   constructor(statements) {
     this.statements = statements;
   }
 
   analyze(context) {
-    // console.log("...");
     this.statements.forEach(s => s.analyze(context));
   }
 
@@ -17,7 +14,6 @@ class Block {
       s = `${s} ${x.toString()}`;
     });
     s = `${s})`;
-    // console.log(s);
     return s;
   }
 }

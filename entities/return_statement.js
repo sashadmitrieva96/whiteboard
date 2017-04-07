@@ -11,11 +11,10 @@ class ReturnStatement {
     context.assertInFunction('Return statement is not in function');
     this.exp.analyze(context);
     this.type = this.exp.type;
-    // console.log('____----____' + context.type);
-    // console.log('____----____' + this.type);
-    this.type = this.exp.type;
     this.type.assertTypeCompatability([context.type], `return type ${this.type} does not match function type ${context.type}`);
+    /* eslint-disable */
     context.type = this.type;
+    /* eslint-enable */
     this.isReturn = true;
   }
 }
