@@ -89,7 +89,9 @@ WhiteBoard  {
   mulop       =  "*" | "/" | "%"
   addop       =  "+" | "-"
 
-  keyword     =  ("true" | "false" | "Num" | "Bool" | "String" | "Type" | "fun" | "for" | "in" | "return" | "break" | "or" | "and" | "if" | "else" | "mod" | "return") ~idrest
+  keyword     =  ("true" | "false" | "Num" | "Bool" | "String" | "Type"
+                 | "fun" | "for" | "in" | "return" | "break" | "or" 
+                 | "and" | "if" | "else" | "mod" | "return") ~idrest
 
 
   id          =  ~keyword(letter)idrest*
