@@ -11,10 +11,10 @@ class VariableInitialization {
 /* eslint-disable quotes */
   toString() {
     let str = `(VariableID = ${this.id.toString()}`;
-    if (this.type.length !== 0) {
+    if (this.type) {
       str += `, Type : ${this.type.toString()}`;
     }
-    if (this.expression.length !== 0) {
+    if (this.expression) {
       str += `, Val : ${this.expression.toString()}`;
     }
     str += `)`;

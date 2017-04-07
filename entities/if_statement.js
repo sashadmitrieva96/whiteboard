@@ -21,14 +21,23 @@ class IfStatement {
   }
 
   toString() { // REDO THIS
-    let str = `(If (Case ${this.ifExp})(IfBlock ${this.ifBlock}))`;
+    // let str = `(If (Case ${this.ifExp})(IfBlock ${this.ifBlock}))`;
+    // if (!!this.eiExps) {
+    //   for (let i = 0; i < this.eiExps.length; i++) {
+    //     str += `(ElseIf (Case ${this.eiExps[i]})(ElseIfBlock ${this.eiBlocks[i]})`;
+    //   }
+    // }
+    //
+    // if (!!this.eBlock) {
+    //   str += `(ElseBlock ${this.eBlock})`;
+    // }
+    let str = `If (`;
+    this.cases.forEach((x) => {
+        str += x.toString();
+        str += ' ';
+    });
+    str += ')';
 
-    for (let i = 0; i < this.eiExps.length; i++) {
-      str += `(ElseIf (Case ${this.eiExps[i]})(ElseIfBlock ${this.eiBlocks[i]})`;
-    }
-    if (this.eBlock.length !== 0) {
-      str += `(ElseBlock ${this.eBlock})`;
-    }
     return str;
   }
 
