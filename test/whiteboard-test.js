@@ -93,21 +93,36 @@ const AST_NEG_TESTS = [
      `Program program = (Program program):
           return program
           .
-      .`
+      .`,
+      `Type You = 4`
 ];
 // Semantics Tests
-// Error in variable_expression
-// problem with lookup()?
 const SEMANTICS_POS_TESTS = [
     `kevin = 4`,
+
     `Type Square = (w, h):
         width = w
         height = h
         area = ():
-            return width * height
+            return width * height`,
 
-    `
+     `Num varEable = 4
+     if varEable == 4:
+         varEable = 1
+     else:
+         varEable = 0`,
 
+     `side = (guy):
+          if (guy != bad):
+              return 1
+          else if (guy != good):
+              return 2
+          else:
+              return 3`
+
+];
+const SEMANTICS_NEG_TESTS = [
+    `Kevin kevin = kevin()`
 ];
 
 // Testing Grammar
@@ -132,7 +147,6 @@ describe('AST', () => {
   AST_POS_TESTS.forEach((x) => {
     it('generates an ast for input whiteboard code', () => {
       assert.equal(parse(x[0]).toString(), x[1]);
-      assert.equal(true, true);
     });
   });
   AST_NEG_TESTS.forEach((x) => {
@@ -153,13 +167,11 @@ describe('SEMANTICS', () => {
   SEMANTICS_POS_TESTS.forEach((x) => {
     it('accepts legal programs', () => {
       assert.equal(parse(x).analyze(), true);
-//       assert.equal(true, true);
     });
   });
-//   SEMANTICS_NEG_TESTS.forEach((x) => {
-//     it('throws appropriate errors for illegal programs', () => {
-//       assert.equal(parse(x[0]).analyze(), x[1]);
-//       assert.equal(true, true);
-//     });
-//   });
+  SEMANTICS_NEG_TESTS.forEach((x) => {
+    it('throws appropriate errors for illegal programs', () => {
+      assert.equal(parse(x[0]).analyze(), false);
+    });
+  });
 });
