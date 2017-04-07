@@ -91,8 +91,18 @@ const AST_NEG_TESTS = [
       .`
 ];
 // Semantics Tests
+// Error in variable_expression
+// problem with lookup()?
 const SEMANTICS_POS_TESTS = [
-  []
+    `kevin = 4`,
+    `Type Square = (w, h):
+        width = w
+        height = h
+        area = ():
+            return width * height
+            .
+    .`
+
 ];
 
 // const SEMANTICS_NEG_TESTS = [
@@ -143,12 +153,12 @@ describe('AST', () => {
 
 // Testing Semantics
 describe('SEMANTICS', () => {
-//   SEMANTICS_POS_TESTS.forEach((x) => {
-//     it('accepts legal programs', () => {
-//       assert.equal(parse(x[0]).analyze(), x[1]);
+  SEMANTICS_POS_TESTS.forEach((x) => {
+    it('accepts legal programs', () => {
+      assert.equal(parse(x).analyze(), true);
 //       assert.equal(true, true);
-//     });
-//   });
+    });
+  });
 //   SEMANTICS_NEG_TESTS.forEach((x) => {
 //     it('throws appropriate errors for illegal programs', () => {
 //       assert.equal(parse(x[0]).analyze(), x[1]);

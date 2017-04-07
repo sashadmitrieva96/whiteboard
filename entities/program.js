@@ -16,8 +16,9 @@ class Program {
 
   analyze() {
     const context = Context.INITIAL();
-    console.log(context);
+    // console.log(context);
     this.statements.forEach(s => s.analyze(context));
+    return true;
     // console.log(Type.typeList);
     // console.log(context);
   }
