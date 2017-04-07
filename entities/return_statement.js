@@ -10,9 +10,13 @@ class ReturnStatement {
   analyze(context) {
     context.assertInFunction('Return statement is not in function');
     this.exp.analyze(context);
-    if (!context.type.equals(this.exp.type)) {
-      throw Error('return type doesnt match function type');
-    }
+    this.type = this.exp.type;
+    console.log('____----____' + context.type);
+    console.log('____----____' + this.type);
+    this.type = this.exp.type;
+    this.type.assertTypeCompatability([context.type], `return type ${this.type} does not match function type ${context.type}`);
+    context.type = this.type;
+    this.isReturn = true;
   }
 }
 

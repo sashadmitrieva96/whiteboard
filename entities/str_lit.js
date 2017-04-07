@@ -10,6 +10,7 @@ class StringLiteral {
   }
 
   analyze(context) {
+    console.log("MAKING STRING");
     this.type = Type.STR;
   }
 }

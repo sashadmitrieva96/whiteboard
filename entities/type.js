@@ -1,7 +1,7 @@
 class Type {
   constructor(type, p2) {
-    console.log(p2);
-    console.log("       " + type);
+    // console.log(p2);
+    // console.log("       " + type);
     this.type = type;
   }
 
@@ -11,7 +11,7 @@ class Type {
 
   equals(other) {
     // console.log(this.type);
-    console.log("*****" + other);
+    // console.log("*****" + other);
     if (this.type === Type.UNKNOWN.type) {
       this.type = other.type;
     }

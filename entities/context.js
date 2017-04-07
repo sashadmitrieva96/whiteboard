@@ -2,7 +2,7 @@ const util = require('util');
 const Type = require('./type.js');
 
 class Context {
-  constructor({ parent = null, inFunction = false, inLoop = false, inTypeDecl = false }) {
+  constructor(parent = null, inFunction = false, inLoop = false, inTypeDecl = false) {
     this.parent = parent;
     this.inFunction = inFunction;
     this.inLoop = inLoop;
@@ -73,6 +73,6 @@ class Context {
   }
 }
 
-Context.INITIAL = () => new Context({ parent: null, inFunction: false, inLoop: false, inTypeDecl: false });
+Context.INITIAL = () => new Context(null, false, false, false);
 
 module.exports = Context;

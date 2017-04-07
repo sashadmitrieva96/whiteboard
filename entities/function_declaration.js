@@ -1,4 +1,5 @@
 const Type = require('./type.js');
+const util = require('util');
 
 class FunctionDeclaration {
   constructor(id, type, params, block) {
@@ -18,17 +19,20 @@ class FunctionDeclaration {
     // console.log(this.params);
     this.params.analyze(localContext);
 
-    if (this.body) {
-      this.body.forEach(s => s.analyze(localContext));
-    }
-
-    if (this.type) {
-      localContext.type = this.type.analyze(context).type;
+    console.log("MMMMMMMMM   " + this.type.type.length);
+    if (this.type.type.length !== 0) {
+      localContext.type = this.type;
     } else {
       localContext.type = Type.UNKNOWN;
+      console.log("NO DECLARED TYPE FOR FUNCTIOn");
     }
+    console.log('          ' + util.inspect(localContext));
+    this.block.analyze(localContext);
+    this.type = localContext.type;
+
 
     context.addVariable(this.id, this);
+    console.log(this.params.analyze(context));
     console.log('function declared');
   }
 

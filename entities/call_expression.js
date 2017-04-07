@@ -12,6 +12,7 @@ class CallExpressions {
 
   analyze(context) {
     this.callee.analyze(context);
+    this.type = this.callee.type;
 
     this.args.analyze(context);
     this.checkArguments(this.callee);
@@ -41,7 +42,6 @@ class CallExpressions {
       }
       matchedParamNames.add(name);
     });
-    this.type = Type.UNKNOWN;
   }
 }
 

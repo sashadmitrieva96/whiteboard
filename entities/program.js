@@ -16,10 +16,11 @@ class Program {
   }
 
   analyze() {
-    const context = new Context({});
-    this.statements.forEach(s => s.analyze(context));
-    console.log(Type.typeList);
+    const context = Context.INITIAL();
     console.log(context);
+    this.statements.forEach(s => s.analyze(context));
+    // console.log(Type.typeList);
+    // console.log(context);
   }
 }
 
