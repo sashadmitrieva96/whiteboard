@@ -44,12 +44,11 @@ const negativeTests = [
 // AST Tests
 const AST_POS_TESTS = [
   [
-    `
-if true == ryan:
-    return true
-else:
-    return false
-`,
+    `if true == ryan:
+        return true
+    else:
+        return false
+    `,
     `{ Program If (Case: test: (BinaryExpression (Left : (BoolLit : true)) (Op : ==) (Right : (VariableId : ryan))) block: (Block (Return -> (BoolLit : true))) Case: test: (BoolLit : true) block: (Block (Return -> (BoolLit : false))) )}`,
   ],
 
@@ -106,18 +105,10 @@ const SEMANTICS_POS_TESTS = [
         height = h
         area = ():
             return width * height
-            .
-    .`
+
+    `
 
 ];
-
-// const SEMANTICS_NEG_TESTS = [
-//   [],
-//
-//   [],
-//
-//   [],
-// ];
 
 // Testing Grammar
 /* eslint-disable guard-for-in */
