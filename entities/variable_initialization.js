@@ -21,7 +21,8 @@ class VariableInitialization {
   }
 
   analyze(context) {
-    if (!this.type) {
+    console.log('******' + this.type);
+    if (this.type.type === '') {
       this.type = Type.UNKNOWN;
     }
     if (this.expression) {

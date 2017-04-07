@@ -17,6 +17,12 @@ class Type {
     return this.type === other.type;
   }
 
+  analyze() {
+    if (this.type === '') {
+      this.type = Type.UNKNOWN.type;
+    }
+  }
+
   assertTypeCompatability(typeList, message) {
     typeList.forEach((t) => {
       if (!this.equals(t)) {

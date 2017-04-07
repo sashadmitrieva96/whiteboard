@@ -28,15 +28,18 @@ const positiveTests = [
 const negativeTests = [
   `sasha.cool = true(`,
   `if x: return `,
-  `for 5 in iter:  .`,
+  `
+for 5 in iter:
+
+`,
   `Type Square = (w, h):
       width = w
       height = h
 
       area = ()
       width * height
-      .
-  .`,
+
+  `,
   `true == (0are)`,
   `(num x = 00.7654)`,
 ];
@@ -139,11 +142,9 @@ describe('AST', () => {
     it('throws appropriate errors for illegal programs', () => {
       try {
         parse(x);
-      }
-      catch (error) {
+      } catch (error) {
         assert.equal(true, true);
       }
-
     });
   });
 });

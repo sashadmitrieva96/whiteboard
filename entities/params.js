@@ -1,3 +1,5 @@
+const util = require('util');
+
 class Params {
   constructor(p1, params) {
     if (params.length === 0) {
@@ -19,13 +21,15 @@ class Params {
 
   analyze(context) {
     this.params.forEach((s) => {
+      console.log(s);
       s.analyze(context);
       if (s.id) {
-        this.paramNames.push(s.id);
+        context.addVariable(s.id.id, s);
       } else if (s.key) {
-        this.paramNames.push(s.id);
+        this.paramNames.push(s.key.id, s);
       }
     });
+    console.log(util.inspect(context, {depth: null}));
   }
 
   hasName(name) {
