@@ -13,15 +13,17 @@ class Type {
     // console.log(this.type);
     // console.log("*****" + other);
     if (this.type === Type.UNKNOWN.type) {
-      this.type = other.type;
+      return true;
     }
     if (other.type === Type.UNKNOWN.type) {
-      other.type = this.type;
+      return true;
     }
     return this.type === other.type;
   }
 
   assertTypeCompatability(typeList, message) {
+    console.log("*****" + this);
+    console.log("*****" + typeList);
     typeList.forEach((t) => {
       if (!this.equals(t)) {
         throw new Error(`Type Error: ${message}`);

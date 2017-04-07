@@ -19,20 +19,20 @@ class FunctionDeclaration {
     // console.log(this.params);
     this.params.analyze(localContext);
 
-    console.log("MMMMMMMMM   " + this.type.type.length);
+    // console.log("MMMMMMMMM   " + this.type.type.length);
     if (this.type.type.length !== 0) {
       localContext.type = this.type;
     } else {
       localContext.type = Type.UNKNOWN;
-      console.log("NO DECLARED TYPE FOR FUNCTIOn");
+      // console.log("NO DECLARED TYPE FOR FUNCTIOn");
     }
-    console.log('          ' + util.inspect(localContext));
+    // console.log('          ' + util.inspect(localContext));
     this.block.analyze(localContext);
     this.type = localContext.type;
 
 
     context.addVariable(this.id, this);
-    console.log(this.params.analyze(context));
+    // console.log(this.params.analyze(context));
     console.log('function declared');
   }
 
