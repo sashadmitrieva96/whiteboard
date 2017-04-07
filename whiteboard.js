@@ -100,7 +100,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 module.exports = (program) => {
   const match = grammar.match(program);
   if (!match.succeeded()) {
-    throw match.message;
+    throw new Error("lol thats an error bro");
   }
   return semantics(match).ast();
 };
