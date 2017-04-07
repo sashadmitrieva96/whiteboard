@@ -32,7 +32,7 @@ WhiteBoard  {
 
   While       =  "while" Exp ":" Block
 
-  Block       =  Statement* "."
+  Block       =  indent Statement* dedent
 
   Exp         =  And
 
@@ -44,7 +44,7 @@ WhiteBoard  {
   Args        =  "(" (Exp ("," Exp)*)?  ")"                 --exp
               |  "(" (Binding ("," Binding)*)?  ")"         --named
 
-  Access      =  "." id                                    --lit
+  Access      =  "." id                                     --lit
               |  "[" Exp "]"                                --exp
 
   And         =  And "and" Or                              --bin
@@ -91,7 +91,11 @@ WhiteBoard  {
 
   negop       =  "-" | "!" | "not"
   powop       =  "**"
+  indent      =  "⇨"
+  dedent      =  "⇦"
 
+  newline     =  "\n"+
+  space      :=  " " | "\t" | "\n"
 
   keyword     =  ( "not" | "true" | "false" | "Type" | "fun" | "for" | "in" | "return" | "break" | "or" | "and" | "if" | "else" | "mod" | "return") ~idrest
 
