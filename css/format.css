@@ -6,6 +6,10 @@
     margin-left: -50px;
 }
 
+.col-lg-12 {
+    padding-left: none;
+}
+
 #info {
     margin-left: 0%;
 }
