@@ -85,47 +85,47 @@ const AST_NEG_TESTS = [
                return ur
                .
    .`,
-   `Type Daddy = ():
+  `Type Daddy = ():
        return Daddy
        .
     .`,
-    `kevin = Type NotTheGodEmporer = ():
+  `kevin = Type NotTheGodEmporer = ():
          return true
          .
      .`,
-     `Program program = (Program program):
+  `Program program = (Program program):
           return program
           .
       .`,
-      `Type You = 4`
+  `Type You = 4`,
 ];
 // Semantics Tests
 const SEMANTICS_POS_TESTS = [
-    `kevin = 4`,
+  `kevin = 4`,
 
-    `Type Square = (w, h):
+  `Type Square = (w, h):
         width = w
         height = h
         area = ():
             return width * height`,
 
-     `Num varEable = 4
+  `Num varEable = 4
      if varEable == 4:
          varEable = 1
      else:
          varEable = 0`,
 
-     `side = (guy):
+  `side = (guy):
           if (guy != bad):
               return 1
           else if (guy != good):
               return 2
           else:
-              return 3`
+              return 3`,
 
 ];
 const SEMANTICS_NEG_TESTS = [
-    `Kevin kevin = kevin()`
+  `Kevin kevin = kevin()`,
 ];
 
 // Testing Grammar
