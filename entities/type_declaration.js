@@ -1,4 +1,4 @@
-const Type = require('./type.js');
+// const Type = require('./type.js');
 
 class TypeDeclaration {
   constructor(id, params, block) {

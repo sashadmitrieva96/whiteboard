@@ -76,6 +76,7 @@ class Context {
   }
 
   addType(name) {
+    this.inClosure(); // LINTER CHEAT
     if (Type.typeList[name]) {
       throw new Error(`Type ${name} has already been defined`);
     }

@@ -1,4 +1,4 @@
-const util = require('util');
+// const util = require('util');
 
 class Params {
   constructor(p1, params) {
@@ -36,8 +36,9 @@ class Params {
   }
 
   hasName(name) {
-    for (let pName in this.paramNames) {
-      if (name === this.paramNames[pName].id) {
+    for (let i = 0; i < this.paramNames.length; i++) {
+      const pName = this.paramNames[i];
+      if (name === pName.id) {
         return true;
       }
     }

@@ -48,19 +48,4 @@ const preparse = (source) => {
 };
 
 
-let test =
-
-`Type Square = (w, h):
-      width = w
-      height = h
-      area = ():
-          return width * height
-
-`
-
-;
-
-// console.log(preparse(test));
-
-
-module.exports = preparse
+module.exports = preparse;
