@@ -7,6 +7,10 @@ class VariableExpression {
     return `(VariableId : ${this.id.toString()})`;
   }
 
+  get(context) {
+    return context.lookup(this.id);
+  }
+
   analyze(context) {
     this.type = context.lookup(this.id).type;
   }

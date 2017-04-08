@@ -109,43 +109,47 @@ const SEMANTICS_POS_TESTS = [
         area = ():
             return width * height`,
 
-     `Num varEable = 4
-     if varEable == 4:
-         varEable = 1
-     else:
-         varEable = 0`,
+     `
+Num varEable = 4
+if varEable == 4:
+  varEable = 1
+else:
+  varEable = 0
+`,
 
-     `side = (guy):
-          if (guy != bad):
-              return 1
-          else if (guy != good):
-              return 2
-          else:
-              return 3`,
+     `
+bad = true
+good = false
+side = (guy):
+    if (guy != bad):
+        return 1
+    else if (guy != good):
+        return 2
+    else:
+        return 3
+`,
+    `
+Type Test = ():
+    x = 9
 
-     `Type kewl = (x):
-         k = 68
-         if 0 != 1:
-             k = k mod x
-         return k`,
+Test should = (pass):
+    but = (it):
+        return it
+    x = but(true)
+    return (x != false)`,
 
-    `Test should = (pass):
-        but = (it):
-            return it
-        x = but(true)
-        return (x != false)`,
-
-    `x = 4
-    if x < 5:
-        x = 5
-    y = x`
+    `
+x = 4
+if x < 5:
+    x = 5
+y = x`
 
 ];
 const SEMANTICS_NEG_TESTS = [
-    `Kevin kevin = kevin()`,
-    `if true:
-        return true`,
-    `Num let = (o)`
+    // `Kevin kevin = kevin()`,
+    // `if true:
+    //     return true`,
+    // `Num let = (o)`
 ];
 
 // Testing Grammar

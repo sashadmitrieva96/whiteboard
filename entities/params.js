@@ -21,19 +21,26 @@ class Params {
 
   analyze(context) {
     this.params.forEach((s) => {
-      // console.log(s);
+      console.log(s);
       s.analyze(context);
       if (s.id) {
+        this.paramNames.push(s.id);
         context.addVariable(s.id.id, s);
       } else if (s.key) {
-        this.paramNames.push(s.key.id, s);
+        this.paramNames.push(s.key.id);
+        context.addVariable(s.key.id, s);
       }
     });
-    // console.log(util.inspect(context, {depth: null}));
+    console.log('pNames:', util.inspect(this.paramNames, {depth: null}));
   }
 
   hasName(name) {
-    return this.paramNames.includes(name);
+    for (let pName in this.paramNames) {
+      if (name === this.paramNames[pName].id) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

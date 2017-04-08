@@ -22,14 +22,14 @@ class VariableInitialization {
   }
 
   analyze(context) {
-    console.log('******' + util.inspect(this.type, { depth: null }));
+    // console.log('******' + util.inspect(this.type, { depth: null }));
 
     if (this.expression) {
       this.expression.analyze(context);
       this.type.assertTypeCompatability([this.expression.type], `declared Type ${this.type} does not match expression type ${this.expression.type}`);
     }
     context.addVariable(this.id, this);
-    console.log(util.inspect(context, { depth: null }));
+    // console.log(util.inspect(context, { depth: null }));
   }
 }
 /* eslint-enable quotes */

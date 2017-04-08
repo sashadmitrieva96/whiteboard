@@ -43,7 +43,7 @@ const preparse = (source) => {
     result = `${result}⇦`;
   }
   result = `${result}\n`;
-  console.log(result);
+  // console.log(result);
   return result;
 };
 
@@ -60,7 +60,7 @@ let test =
 
 ;
 
-console.log(preparse(test));
+// console.log(preparse(test));
 
 
 module.exports = preparse
