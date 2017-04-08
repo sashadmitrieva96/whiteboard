@@ -24,6 +24,7 @@ class Params {
       // console.log(s);
       s.analyze(context);
       if (s.id) {
+        // console.log('PARAM ID:  ', s);
         this.paramNames.push(s.id);
         context.addVariable(s.id.id, s);
       } else if (s.key) {

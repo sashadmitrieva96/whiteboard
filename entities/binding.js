@@ -9,8 +9,12 @@ class Binding {
   }
 
   analyze(context) {
-    this.type = this.value.analyze(context).type;
-    this.expression.analyze(context);
+    // console.log('1.) ', this);
+    this.value.analyze(context);
+    this.key.analyze(context);
+    // console.log('2.) ', this);
+    this.type = this.value.type;
+    // this.expression.analyze(context);
     context.addVariable(this.id, this);
   }
 }

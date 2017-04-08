@@ -47,7 +47,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Access_lit: (p, id) => id.ast(),
   Access_exp: (o, exp, c) => exp.ast(),
 
-  Binding: (key, c, value) => new Binding(key.ast(), value.ast()),
+  Binding: (key, c, value) => new Binding(new VariableInitialization(key.sourceString, Type.UNKNOWN, []), value.ast()),
 
   Args_exp: (o, e, cl, el, c) => new Args(e.ast(), el.ast()), // doesnt get first
   Args_named: (o, e, cl, el, c) => new Args(e.ast(), el.ast()),

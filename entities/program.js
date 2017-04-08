@@ -1,4 +1,5 @@
 const Context = require('./context.js');
+const util = require('util');
 
 class Program {
   constructor(statements) {
@@ -17,7 +18,11 @@ class Program {
   analyze() {
     const context = Context.INITIAL();
     // console.log(context);
-    this.statements.forEach(s => s.analyze(context));
+    this.statements.forEach((s) => {
+      // console.log(util.inspect(context, { depth: null }));
+      s.analyze(context);
+    });
+    // console.log(util.inspect(context, { depth: null }));
     return true;
     // console.log(Type.typeList);
     // console.log(context);

@@ -155,6 +155,11 @@ Type Person = (Str n):
   Str getName = ():
     return name
 
+Person m
+`, `
+fun = (x, y, z):
+  return x
+x = fun(w: 88)
 `,
 
 
@@ -172,6 +177,11 @@ if 6:
   [`if true:
       return true`, 'Error: Return statement is not in function'],
   [`Num let = (o)`, 'Error: The id o has not been declared'],
+  [`
+fun = (x, y, z):
+  return x
+x = fun(w: 88, 9)
+`, ''],
 ];
 
 // Testing Grammar

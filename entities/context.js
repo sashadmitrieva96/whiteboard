@@ -28,7 +28,7 @@ class Context {
     if (this.type) {
       return this.type;
     } else if (this.parent === null) {
-      throw new Error(`no type found`);
+      throw new Error('no type found');
     } else {
       return this.parent.getType();
     }
