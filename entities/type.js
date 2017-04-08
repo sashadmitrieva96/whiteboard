@@ -1,6 +1,9 @@
 class Type {
   constructor(type) {
     this.type = type;
+    if (type === '') {
+      this.type = Type.UNKNOWN.type;
+    }
   }
 
   toString() {

@@ -24,6 +24,16 @@ class Context {
     return new Context(this, this.inFunction, this.inLoop, this.inTypeDecl);
   }
 
+  getType() {
+    if (this.type) {
+      return this.type;
+    } else if (this.parent === null) {
+      throw new Error(`no type found`);
+    } else {
+      return this.parent.getType();
+    }
+  }
+
   addVariable(id, entity) {
     if (id in this.closure) {
       entity.type.assertTypeCompatability([this.lookup(id).type], `Attempt to redefine ${id}, to Type ${entity.type} from Type ${this.lookup(id).type}`);

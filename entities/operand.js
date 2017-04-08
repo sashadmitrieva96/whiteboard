@@ -12,12 +12,16 @@ class Operand {
   argumentType() {
     const numberOps = ['>=', '>', '<=', '<', '+', '-', '*', '/', '%', 'mod', '**', '-'];
 
-    const booleanOps = ['and', 'or', '!=', '==', '!', 'not'];
+    const booleanOps = ['and', 'or', '!', 'not'];
+
+    const anyOps = ['==', '!='];
 
     if (booleanOps.includes(this.op)) {
       return Type.Bool;
     } else if (numberOps.includes(this.op)) {
       return Type.Num;
+    } else if (anyOps.includes(this.op)) {
+      return Type.UNKNOWN;
     }
     throw Error(`unknown operand ${this.op}`);
   }
@@ -25,12 +29,16 @@ class Operand {
   resultType() {
     const numberOps = ['+', '-', '*', '/', '%', 'mod', '**', '-'];
 
-    const booleanOps = ['>=', '>', '<=', '<', 'and', 'or', '!=', '==', '!', 'not'];
+    const booleanOps = ['>=', '>', '<=', '<', 'and', 'or', '!', 'not'];
+
+    const anyOps = ['==', '!='];
 
     if (booleanOps.includes(this.op)) {
       return Type.Bool;
     } else if (numberOps.includes(this.op)) {
       return Type.Num;
+    } else if (anyOps.includes(this.op)) {
+      return Type.UNKNOWN;
     }
     throw Error(`unknown operand ${this.op}`);
   }

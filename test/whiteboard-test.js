@@ -74,7 +74,7 @@ Type Square = (w, h):
 
 
 `,
-    `{ Program (TypeId : Square (TypeParams:= (Params (VariableID = (VariableId : w), Type : (TypeId : ))(VariableID = (VariableId : h), Type : (TypeId : )))) (TypeBody : (Block (VariableID = width, Val : (VariableId : w)) (VariableID = height, Val : (VariableId : h)) (FunctionID : area, Params : (Params ), Block : (Block (Return -> (BinaryExpression (Left : (VariableId : width)) (Op : *) (Right : (VariableId : height)))))))))}`,
+    `{ Program (TypeId : Square (TypeParams:= (Params (VariableID = (VariableId : w), Type : (TypeId : *Unknown))(VariableID = (VariableId : h), Type : (TypeId : *Unknown)))) (TypeBody : (Block (VariableID = width, Val : (VariableId : w)) (VariableID = height, Val : (VariableId : h)) (FunctionID : area, Params : (Params ), Block : (Block (Return -> (BinaryExpression (Left : (VariableId : width)) (Op : *) (Right : (VariableId : height)))))))))}`,
   ],
 ];
 
@@ -101,31 +101,37 @@ const AST_NEG_TESTS = [
 ];
 // Semantics Tests
 const SEMANTICS_POS_TESTS = [
-  `kevin = 4`,
+  // `kevin = 4`,
+  //
+  // `Type Square = (w, h):
+  //       width = w
+  //       height = h
+  //       area = ():
+  //           return width * height`,
 
-  `Type Square = (w, h):
-        width = w
-        height = h
-        area = ():
-            return width * height`,
-
-  `Num varEable = 4
-     if varEable == 4:
-         varEable = 1
-     else:
-         varEable = 0`,
-
-  `side = (guy):
-          if (guy != bad):
-              return 1
-          else if (guy != good):
-              return 2
-          else:
-              return 3`,
+//   `
+// Num varEable = 4
+// if varEable == 4:
+//   varEable = 1
+// else:
+//   varEable = 0
+//
+//   `,
+  //
+  `
+bad = 4
+good = 5
+side = (guy):
+  if (guy != bad):
+    return 1
+  else if (guy != good):
+    return 2
+  else:
+    return 3`,
 
 ];
 const SEMANTICS_NEG_TESTS = [
-  `Kevin kevin = kevin()`,
+  // `Kevin kevin = kevin()`,
 ];
 
 // Testing Grammar

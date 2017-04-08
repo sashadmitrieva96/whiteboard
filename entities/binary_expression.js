@@ -13,7 +13,7 @@ class BinaryExpression {
     this.left.analyze(context);
     this.right.analyze(context);
     this.type = this.op.resultType();
-    this.op.argumentType().assertTypeCompatability([this.left.type, this.right.type]);
+    this.op.argumentType().assertTypeCompatability([this.left.type, this.right.type], [this.op, this.left.type, this.right.type]);
   }
 }
 

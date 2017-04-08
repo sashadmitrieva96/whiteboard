@@ -1,4 +1,5 @@
 const Type = require('./type.js');
+const util = require('util');
 
 class VariableInitialization {
   constructor(id, type, expression) {
@@ -21,15 +22,14 @@ class VariableInitialization {
   }
 
   analyze(context) {
-    console.log('******' + this.type);
-    if (this.type.type === '') {
-      this.type = Type.UNKNOWN;
-    }
+    console.log('******' + util.inspect(this.type, { depth: null }));
+
     if (this.expression) {
       this.expression.analyze(context);
       this.type.assertTypeCompatability([this.expression.type], `declared Type ${this.type} does not match expression type ${this.expression.type}`);
     }
     context.addVariable(this.id, this);
+    console.log(util.inspect(context, { depth: null }));
   }
 }
 /* eslint-enable quotes */
