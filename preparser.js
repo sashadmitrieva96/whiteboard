@@ -43,7 +43,7 @@ const preparse = (source) => {
     result = `${result}⇦`;
   }
   result = `${result}\n`;
-  // console.log(result);
+  console.log(result);
   return result;
 };
 
