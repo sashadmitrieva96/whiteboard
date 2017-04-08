@@ -52,8 +52,9 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Args_exp: (o, e, cl, el, c) => new Args(e.ast(), el.ast()), // doesnt get first
   Args_named: (o, e, cl, el, c) => new Args(e.ast(), el.ast()),
 
-  ObjDecl: (t, id, e, params, c, block) =>
-    new TypeDeclaration(id.sourceString, params.ast(), block.ast()),
+  ObjDecl: (t, id, e, params, c, block) => {
+    return new TypeDeclaration(id.sourceString, params.ast(), block.ast())
+  },
   FunDecl: (t, id, e, params, c, block) =>
     new FunctionDeclaration(id.sourceString, new Type(t.sourceString), params.ast(), block.ast()),
 
@@ -70,7 +71,10 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
   Exp2_call: (obj, args) => new CallExpression(obj.ast(), args.ast()),
 
-  Param: (o, p, cl, pl, c) => new Params(p.ast(), pl.ast()),
+  Param: (o, p, cl, pl, c) => {
+    // console.log('********************  ' + p.sourceString);
+    return new Params(p.ast(), pl.ast())
+  },
 
   SParam_id: (t, id) => new VariableInitialization(new VariableExpression(id.sourceString), new Type(t.sourceString), []),
 
@@ -82,7 +86,10 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Primary_str: s => new StringLiteral(s.sourceString),
   Primary_exp: (o, exp, c) => exp.ast(),
 
-  type: (name, p2) => new Type(name.sourceString, p2.sourceString),
+  type: (name, p2) => {
+    console.log('IF type is CALLED::: ', name, p2);
+    return new Type(name.sourceString, p2.sourceString)
+  },
 
 });
 /* eslint-enable no-unused-vars */

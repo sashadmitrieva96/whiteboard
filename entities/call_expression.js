@@ -23,10 +23,10 @@ class CallExpressions {
   checkArguments(callee) {
     let hasSeenNamed = false;
     const matchedParamNames = new Set([]);
-    console.log("*****#***" + util.inspect(this.callee, { depth: null}));
+    // console.log("*****#***" + util.inspect(this.callee, { depth: null}));
     this.args.args.forEach((arg, index) => {
-      console.log(arg);
-      console.log(index);
+      // console.log(arg);
+      // console.log(index);
       if (arg.id) {
         hasSeenNamed = true;
       } else if (hasSeenNamed) {
@@ -36,9 +36,9 @@ class CallExpressions {
       if (index >= callee.params.length) {
         throw Error('too many arguments');
       }
-      console.log('callee params: ', callee.params.params);
+      // console.log('callee params: ', callee.params.params);
       const name = arg.id ? arg.id.id : callee.params.params[index].id.id;
-      console.log('name  ', name);
+      // console.log('name  ', name);
       if (matchedParamNames.has(name)) {
         throw Error(`matched parameter ${name} multiple times.`);
       }

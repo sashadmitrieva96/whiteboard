@@ -8,6 +8,7 @@ class VariableExpression {
   }
 
   get(context) {
+    console.log(context);
     return context.lookup(this.id);
   }
 

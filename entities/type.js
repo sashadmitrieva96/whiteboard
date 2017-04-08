@@ -1,6 +1,8 @@
 class Type {
   constructor(type) {
+    console.log(type);
     this.type = type;
+    // console.log(type);
     if (type === '') {
       this.type = Type.UNKNOWN.type;
     }

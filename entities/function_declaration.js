@@ -15,10 +15,7 @@ class FunctionDeclaration {
   // FINISH THIS!
   analyze(context) {
     const localContext = context.createChildContextForFunction(this);
-    // console.log(this.params);
     this.params.analyze(localContext);
-
-    // console.log("MMMMMMMMM   " + this.type.type.length);
     if (this.type.type.length !== 0) {
       localContext.type = this.type;
     } else {
@@ -32,7 +29,7 @@ class FunctionDeclaration {
 
     context.addVariable(this.id, this);
     // console.log(this.params.analyze(context));
-    console.log('function declared');
+    // console.log('function declared');
   }
 
 }

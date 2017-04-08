@@ -21,7 +21,7 @@ class Params {
 
   analyze(context) {
     this.params.forEach((s) => {
-      console.log(s);
+      // console.log(s);
       s.analyze(context);
       if (s.id) {
         this.paramNames.push(s.id);
@@ -31,7 +31,7 @@ class Params {
         context.addVariable(s.key.id, s);
       }
     });
-    console.log('pNames:', util.inspect(this.paramNames, {depth: null}));
+    // console.log('pNames:', util.inspect(this.paramNames, {depth: null}));
   }
 
   hasName(name) {

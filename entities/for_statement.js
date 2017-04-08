@@ -11,9 +11,11 @@ class ForStatement {
 
   analyze(context) {
     const localContext = context.createChildContextForLoop(this);
-    localContext.addVariable(this.id);
-    this.exp.forEach(p => p.analyze(localContext));
-    this.block.forEach(s => s.analyze(localContext));
+    // console.log(this.id);
+    localContext.addVariable(this.id, this);
+    // console.log(this.exp);
+    this.exp.analyze(localContext);
+    this.block.analyze(localContext);
   }
 }
 

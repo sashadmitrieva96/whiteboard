@@ -142,11 +142,31 @@ Test should = (pass):
 x = 4
 if x < 5:
     x = 5
-y = x`
+y = x
+`,
+    `
+y = 5
+for x in y:
+  break
+`,
+    `
+Type Person = (Str n):
+  name = n
+  Str getName = ():
+    return name
+
+`
+
 
 ];
 const SEMANTICS_NEG_TESTS = [
-    // `Kevin kevin = kevin()`,
+//     [`Num kevin = 'man'`,
+//     'Error: Type Error: declared Type (TypeId : Num) does not match expression type (TypeId : String)'],
+//     [`
+// if 6:
+//   x = 12
+//   `, 'Error: Type Error: case: (NumLit : 6)'],
+//   ['return 4', 'Error: Return statement is not in function']
     // `if true:
     //     return true`,
     // `Num let = (o)`
@@ -196,7 +216,8 @@ describe('SEMANTICS', () => {
   });
   SEMANTICS_NEG_TESTS.forEach((x) => {
     it('throws appropriate errors for illegal programs', () => {
-      assert.equal(parse(x[0]).analyze(), false);
+      // parse(x[0]).analyze();
+      assert.throws(() => parse(x[0]).analyze(), x[1]);
     });
   });
 });

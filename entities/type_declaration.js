@@ -16,9 +16,13 @@ class TypeDeclaration {
     const blockContext = context.createChildContextForBlock();
     this.params.analyze(blockContext);
     this.block.analyze(blockContext);
+    // console.log(this);
     context.addVariable(this.id, this);
+    // console.log("------" + context);
     context.addType(this.id);
-    this.type = Type.lookupType(this.id);
+    this.closure = blockContext;
+    // this.type = Type.lookupType(this.id);
+    // console.log(context);
   }
 }
 

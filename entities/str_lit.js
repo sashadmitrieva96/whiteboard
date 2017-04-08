@@ -10,7 +10,7 @@ class StringLiteral {
   }
 
   analyze() {
-    this.type = Type.STR;
+    this.type = Type.Str;
   }
 }
 

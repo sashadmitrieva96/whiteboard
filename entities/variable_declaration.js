@@ -1,3 +1,5 @@
+const util = require('util');
+
 class VariableDeclaration {
   constructor(id, expression) {
     this.id = id;
@@ -11,6 +13,7 @@ class VariableDeclaration {
 
   analyze(context) {
     // console.log("varDec");
+    // console.log(util.inspect(context, {depth: null}));
     this.expression.analyze(context);
     this.type = this.expression.type;
     // console.log(this.type);
