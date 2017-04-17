@@ -1,6 +1,4 @@
-const Type = require('./type.js');
 const TypeObject = require('./helpers/type_object.js');
-const util = require('util');
 
 class FunctionDeclaration {
   constructor(id, type, params, block) {
@@ -15,9 +13,6 @@ class FunctionDeclaration {
   }
 
   analyze(context) {
-
-    // make sure the type exists
-
     this.closure = context.createChildContextForFunction();
     this.params.analyze(this.closure);
     this.block.analyze(this.closure);
@@ -34,7 +29,7 @@ class FunctionDeclaration {
     this.isFunction = true;
   }
 
-  get(context) {
+  get() {
     return this;
   }
 

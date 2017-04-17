@@ -21,7 +21,7 @@ class BinaryExpression {
     this.type = this.op.getBinaryType(this.left.type, this.right.type);
   }
 
-  get(context) {
+  get() {
     return this;
   }
 

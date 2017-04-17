@@ -1,13 +1,14 @@
 class Break {
+  /* eslint class-methods-use-this: 0*/
   toString() {
     return '(break)';
   }
 
-  analyze(context) {
+  analyze() {
     context.assertInLoop();
   }
 
-  get(context) {
+  get() {
     return this;
   }
 

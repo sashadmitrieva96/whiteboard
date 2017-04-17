@@ -1,5 +1,3 @@
-const util = require('util');
-
 class Params {
   constructor(p1, params) {
     if (!params) {
@@ -33,7 +31,7 @@ class Params {
     return this.paramNames.includes(name);
   }
 
-  get(context) {
+  get() {
     return this;
   }
 

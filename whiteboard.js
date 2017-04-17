@@ -91,11 +91,11 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 /* I put this part in the export so we didn't have to have a giant copy of
    the parser in the test file, but we'll keep this here just in case. */
 
-const match = grammar.match(process.argv[2]);
-if (match.succeeded()) {
-  console.log(semantics(match).ast().analyze());
+const m = grammar.match(process.argv[2]);
+if (m.succeeded()) {
+  console.log(semantics(m).ast().analyze());
 } else {
-  console.error(match.message);
+  console.error(m.message);
   console.log('fail');
   process.exitCode = 1;
 }

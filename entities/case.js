@@ -1,5 +1,4 @@
-const Type = require('./type.js');
-const TypeObject = require('./helpers/type_object.js')
+const TypeObject = require('./helpers/type_object.js');
 
 class Case {
   constructor(test, block) {
@@ -18,7 +17,7 @@ class Case {
     this.block.analyze(context);
   }
 
-  get(context) {
+  get() {
     return this;
   }
 }

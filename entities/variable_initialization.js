@@ -1,6 +1,4 @@
-const Type = require('./type.js');
 const TypeObject = require('./helpers/type_object.js');
-const util = require('util');
 
 class VariableInitialization {
   constructor(id, type, expression) {

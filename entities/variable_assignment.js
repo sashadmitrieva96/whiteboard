@@ -1,6 +1,3 @@
-const Type = require('./type.js');
-const TypeObject = require('./helpers/type_object.js');
-
 class VariableAssignment {
   constructor(id, expression) {
     this.key = id;

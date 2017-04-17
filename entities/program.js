@@ -1,5 +1,4 @@
 const Context = require('./context.js');
-const util = require('util');
 
 class Program {
   constructor(statements) {
@@ -21,7 +20,7 @@ class Program {
     return true;
   }
 
-  get(context) {
+  get() {
     return this;
   }
 }

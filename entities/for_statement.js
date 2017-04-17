@@ -10,13 +10,13 @@ class ForStatement {
   }
 
   analyze(context) {
-    let blockContext = context.createChildContextForLoop();
-    this.expression.analyze(blockContext);
-    blockContext.addVariable(this.id, this.expression);
-    this.block.analyze(blockContext);
+    this.closure = context.createChildContextForLoop();
+    this.expression.analyze(this.closure);
+    this.closure.addVariable(this.id, this.expression);
+    this.block.analyze(this.closure);
   }
 
-  get(context) {
+  get() {
     return this;
   }
 

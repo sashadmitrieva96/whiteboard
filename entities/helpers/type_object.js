@@ -7,11 +7,9 @@ class TypeObject {
     if (!other) {
       throw new Error('other has no type');
     }
-    const shared = (a1, a2) => {
-      return a1.filter((n) => {
-        return a2.includes(n);
-      });
-    };
+    const shared = (a1, a2) =>
+      a1.filter(n => a2.includes(n));
+
 
     const alikeTypes = shared(this.type, other.type);
 

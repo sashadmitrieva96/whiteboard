@@ -1,5 +1,3 @@
-const util = require('util');
-
 class CallExpressions {
   constructor(callee, args) {
     this.callee = callee;
@@ -42,7 +40,7 @@ class CallExpressions {
     });
   }
 
-  get(context) {
+  get() {
     return this;
   }
 }

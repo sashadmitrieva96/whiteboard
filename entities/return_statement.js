@@ -6,7 +6,7 @@ class ReturnStatement {
   toString() {
     return `(Return -> ${this.exp.toString()})`;
   }
-
+/* eslint no-param-reassign: 0*/
   analyze(context) {
     context.assertInFunction();
     if (this.expression) {
@@ -16,7 +16,7 @@ class ReturnStatement {
     }
   }
 
-  get(context) {
+  get() {
     return this;
   }
 

@@ -34,7 +34,7 @@ class MemberExpression {
     }
   }
 
-  get(context) {
+  get() {
     return this;
   }
 

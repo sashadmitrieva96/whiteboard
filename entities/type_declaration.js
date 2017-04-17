@@ -1,6 +1,4 @@
-// const Type = require('./type.js');
 const TypeObject = require('./helpers/type_object');
-const util = require('util');
 
 class TypeDeclaration {
   constructor(id, params, block) {
@@ -21,7 +19,7 @@ class TypeDeclaration {
     this.type = new TypeObject([this.id]);
   }
 
-  get(context) {
+  get() {
     return this;
   }
 

@@ -1,4 +1,3 @@
-const Type = require('./type.js');
 const TypeObject = require('./helpers/type_object.js');
 
 class BoolLiteral {
@@ -14,7 +13,7 @@ class BoolLiteral {
     this.type = new TypeObject(['Bool']);
   }
 
-  get(context) {
+  get() {
     return this;
   }
 

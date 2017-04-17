@@ -25,7 +25,7 @@ class Args {
     });
   }
 
-  get(context) {
+  get() {
     return this;
   }
 

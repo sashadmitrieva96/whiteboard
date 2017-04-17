@@ -231,10 +231,10 @@ describe('SEMANTICS', () => {
       assert.equal(parse(x).analyze(), true);
     });
   });
-  // SEMANTICS_NEG_TESTS.forEach((x) => {
-  //   it('throws appropriate errors for illegal programs', () => {
-  //     // parse(x[0]).analyze();
-  //     assert.throws(() => parse(x[0]).analyze(), x[1]);
-  //   });
-  // });
+  SEMANTICS_NEG_TESTS.forEach((x) => {
+    it('throws appropriate errors for illegal programs', () => {
+      // parse(x[0]).analyze();
+      assert.throws(() => parse(x[0]).analyze(), x[1]);
+    });
+  });
 });

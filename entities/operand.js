@@ -1,4 +1,3 @@
-const Type = require('./type.js');
 const TypeObject = require('./helpers/type_object.js');
 
 class Operand {
@@ -52,14 +51,14 @@ class Operand {
     return result;
   }
 
-  getBinaryType(l, r) {
+  getBinaryType(l) {
     if (this.op !== '+') {
       return this.type;
     }
     return l;
   }
 
-  get(context) {
+  get() {
     return this;
   }
 }

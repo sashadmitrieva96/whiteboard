@@ -1,7 +1,4 @@
-const Type = require('./type.js');
 const TypeObject = require('./helpers/type_object.js');
-
-const util = require('util');
 
 class StringLiteral {
   constructor(value) {
@@ -16,7 +13,7 @@ class StringLiteral {
     this.type = new TypeObject(['Str']);
   }
 
-  get(context) {
+  get() {
     return this;
   }
 

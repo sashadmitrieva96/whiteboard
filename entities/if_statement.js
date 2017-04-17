@@ -1,6 +1,5 @@
 const Case = require('./case.js');
 const BoolLiteral = require('./bool_lit.js');
-const util = require('util');
 
 class IfStatement {
   constructor(ifExp, ifBlock, eiExps, eiBlocks, eBlock) {
@@ -35,7 +34,7 @@ class IfStatement {
     });
   }
 
-  get(context) {
+  get() {
     return this;
   }
 

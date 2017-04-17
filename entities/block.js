@@ -18,7 +18,7 @@ class Block {
     this.statements.forEach(s => s.analyze(context));
   }
 
-  get(context) {
+  get() {
     return this;
   }
 }

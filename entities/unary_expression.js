@@ -15,7 +15,7 @@ class UnaryExpression {
     this.type = this.op.type;
   }
 
-  get(context) {
+  get() {
     return this;
   }
 
