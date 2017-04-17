@@ -1,5 +1,6 @@
 const Case = require('./case.js');
 const BoolLiteral = require('./bool_lit.js');
+const util = require('util');
 
 class IfStatement {
   constructor(ifExp, ifBlock, eiExps, eiBlocks, eBlock) {
@@ -11,8 +12,8 @@ class IfStatement {
       this.cases.push(new Case(eiExps[i], eiBlocks[i]));
     }
 
-    if (eBlock.length !== 0) {
-      this.cases.push(new Case(new BoolLiteral('true'), eBlock[0]));
+    if (eBlock) {
+      this.cases.push(new Case(new BoolLiteral('true'), eBlock));
     }
   }
 
@@ -28,10 +29,18 @@ class IfStatement {
   }
 
   analyze(context) {
+    const blockContext = context.createChildContextForBlock();
+    console.log('block context:', util.inspect(blockContext, { depth: null }));
     this.cases.forEach((c) => {
-      c.analyze(context);
+      console.log(c);
+      c.analyze(blockContext);
     });
   }
+
+  get(context) {
+    return this;
+  }
+
 }
 
 module.exports = IfStatement;

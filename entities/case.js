@@ -1,4 +1,5 @@
 const Type = require('./type.js');
+const TypeObject = require('./helpers/type_object.js')
 
 class Case {
   constructor(test, block) {
@@ -11,11 +12,14 @@ class Case {
   }
 
   analyze(context) {
-    // console.log(util.inspect(this.block, { depth: null }));
     this.test.analyze(context);
-    Type.Bool.assertTypeCompatability([this.test.type], `case: ${this.test}`);
+    this.test.type.assertTypeCompatability(new TypeObject(['Bool']));
 
-    this.block.analyze(context.createChildContextForBlock());
+    this.block.analyze(context);
+  }
+
+  get(context) {
+    return this;
   }
 }
 

@@ -10,11 +10,22 @@ class BinaryExpression {
   }
 
   analyze(context) {
+    this.op.analyze();
     this.left.analyze(context);
     this.right.analyze(context);
-    this.type = this.op.resultType();
-    this.op.argumentType().assertTypeCompatability([this.left.type, this.right.type], [this.op, this.left.type, this.right.type]);
+
+    this.left.type.assertTypeCompatability(this.right.type);
+    this.op.argumentType.assertTypeCompatability(this.left.type);
+    this.op.argumentType.assertTypeCompatability(this.right.type);
+
+    this.type = this.op.getBinaryType(this.left.type, this.right.type);
   }
+
+  get(context) {
+    return this;
+  }
+
+
 }
 
 module.exports = BinaryExpression;

@@ -3,9 +3,6 @@ class Block {
     this.statements = statements;
   }
 
-  analyze(context) {
-    this.statements.forEach(s => s.analyze(context));
-  }
 
 /* eslint-disable quotes */
   toString() {
@@ -15,6 +12,14 @@ class Block {
     });
     s = `${s})`;
     return s;
+  }
+
+  analyze(context) {
+    this.statements.forEach(s => s.analyze(context));
+  }
+
+  get(context) {
+    return this;
   }
 }
 /* eslint-enable quotes */

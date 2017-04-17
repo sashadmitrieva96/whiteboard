@@ -1,22 +1,25 @@
 class Binding {
   constructor(key, value) {
     this.key = key;
-    this.value = value;
+    this.expression = value;
+    this.isBinding = true;
   }
 
   toString() {
-    return `(Entry ${this.key.toString()}, ${this.value.toString()})`;
+    return `(Entry ${this.key.toString()}, ${this.expression.toString()})`;
   }
 
   analyze(context) {
-    // console.log('1.) ', this);
-    this.value.analyze(context);
-    this.key.analyze(context);
-    // console.log('2.) ', this);
-    this.type = this.value.type;
-    // this.expression.analyze(context);
-    context.addVariable(this.id, this);
+    this.expression.analyze(context);
+    this.type = this.expression.type;
+    context.addVariable(this.key, this.expression);
   }
+
+  get(context) {
+    return context.lookup(this.key);
+  }
+
+
 }
 
 module.exports = Binding;

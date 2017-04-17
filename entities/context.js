@@ -24,23 +24,6 @@ class Context {
     return new Context(this, this.inFunction, this.inLoop, this.inTypeDecl);
   }
 
-  getType() {
-    if (this.type) {
-      return this.type;
-    } else if (this.parent === null) {
-      throw new Error('no type found');
-    } else {
-      return this.parent.getType();
-    }
-  }
-
-  addVariable(id, entity) {
-    if (id in this.closure) {
-      entity.type.assertTypeCompatability([this.lookup(id).type], `Attempt to redefine ${id}, to Type ${entity.type} from Type ${this.lookup(id).type}`);
-    }
-    this.closure[id] = entity;
-  }
-
   inClosure(id) {
     return !(this.closure[id] === undefined);
   }
@@ -63,6 +46,30 @@ class Context {
     }
   }
 
+  check(id) {
+    if (id in this.closure) {
+      return true;
+    } else if (this.parent === null) {
+      return false;
+    }
+    return this.parent.check(id);
+  }
+
+  replace(id, entity) {
+    if (!this.check(id)) {
+      throw new Error(`${id} has not been declared`);
+    }
+    this.closure[id] = entity;
+  }
+
+
+  addVariable(id, entity) {
+    if (id in this.closure) {
+      throw new Error(`${id} already declared in closure`);
+    }
+    this.closure[id] = entity;
+  }
+
   lookup(id) {
     // console.log("____________" + id);
     // console.log(this);
@@ -75,15 +82,12 @@ class Context {
     }
   }
 
-  addType(name) {
-    this.inClosure(); // LINTER CHEAT
-    if (Type.typeList[name]) {
-      throw new Error(`Type ${name} has already been defined`);
-    }
-    Type.typeList[name] = new Type(name);
-  }
 }
 
-Context.INITIAL = () => new Context(null, false, false, false);
+Context.INITIAL = new Context(null, false, false, false);
+
+Context.INITIAL.addVariable('Str', new Type('Str'));
+Context.INITIAL.addVariable('Bool', new Type('Bool'));
+Context.INITIAL.addVariable('Num', new Type('Num'));
 
 module.exports = Context;

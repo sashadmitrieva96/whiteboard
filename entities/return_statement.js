@@ -1,6 +1,6 @@
 class ReturnStatement {
   constructor(exp) {
-    this.exp = exp;
+    this.expression = exp;
   }
 
   toString() {
@@ -8,17 +8,18 @@ class ReturnStatement {
   }
 
   analyze(context) {
-    context.assertInFunction('Return statement is not in function');
-    this.exp.analyze(context);
-    this.type = this.exp.type;
-    // console.log(context);
-    // console.log();
-    this.type.assertTypeCompatability([context.getType()], `return type ${this.type} does not match function type ${context.type}`);
-    /* eslint-disable */
-    context.type = this.type;
-    /* eslint-enable */
-    this.isReturn = true;
+    context.assertInFunction();
+    if (this.expression) {
+      this.expression.analyze(context);
+      this.type = this.expression.type;
+      context.type = this.type;
+    }
   }
+
+  get(context) {
+    return this;
+  }
+
 }
 
 module.exports = ReturnStatement;

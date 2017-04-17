@@ -13,7 +13,7 @@ WhiteBoard  {
 
   Decl        =  ObjDecl                                    --obj
               |  FunDecl                                    --fun
-              |  id ("=" Exp)                               --var
+              |  id ("=" Exp)                               --ass
               |  type id ("=" Exp)?                         --init
 
   ObjDecl     =  "Type" type "=" Param ":" Block
@@ -21,7 +21,7 @@ WhiteBoard  {
 
   Binding     =  Exp ":" Exp
 
-  Return      =  "return" Exp
+  Return      =  "return" Exp?
   Break       =  "break"
 
   For         =  "for" id "in" Exp ":" Block
@@ -37,12 +37,16 @@ WhiteBoard  {
   Exp         =  And
 
   Param       =  "(" (SParam ("," SParam)*)?  ")"
-  SParam      =  Binding                                     --Binding
-              |  type? id                                    --id
+
+  SParam      =  type id                                     --id
+              |  Binding                                     --binding
 
 
-  Args        =  "(" (Exp ("," Exp)*)?  ")"                 --exp
-              |  "(" (Binding ("," Binding)*)?  ")"         --named
+  Args        =  "(" (SArg ("," SArg)*)?  ")"
+
+  SArg        =  Binding                                    --order
+              |  Exp                                        --named
+
 
   Access      =  "." id                                     --lit
               |  "[" Exp "]"                                --exp
@@ -100,7 +104,7 @@ WhiteBoard  {
   keyword     =  ( "not" | "true" | "false" | "Type" | "for" | "in" | "return" | "break" | "or" | "and" | "if" | "else" | "mod" | "return") ~idrest
 
 
-  id          =  ~keyword(letter)idrest*
+  id          =  ~keyword letter idrest*
   idrest      =  letter | digit | "_"
 
 }

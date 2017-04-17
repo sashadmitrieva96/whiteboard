@@ -1,13 +1,19 @@
-// const util = require('util');
+const util = require('util');
 
 class Params {
   constructor(p1, params) {
-    if (params.length === 0) {
+    // console.log('P1:', p1);
+    // console.log('REST: ', params);
+    if (!params) {
       this.params = p1;
-    } else {
-      this.params = p1.length === 0 ? [] : p1.concat(params[0]);
+    } else if (params) {
+      this.params = p1 ? [p1].concat(params) : [];
+    }
+    if (!p1) {
+      this.params = [];
     }
     this.paramNames = [];
+    // console.log(util.inspect(this, { depth: null }));
   }
 
   toString() {
@@ -20,30 +26,22 @@ class Params {
   }
 
   analyze(context) {
-    this.params.forEach((s) => {
-      // console.log(s);
-      s.analyze(context);
-      if (s.id) {
-        // console.log('PARAM ID:  ', s);
-        this.paramNames.push(s.id);
-        context.addVariable(s.id.id, s);
-      } else if (s.key) {
-        this.paramNames.push(s.key.id);
-        context.addVariable(s.key.id, s);
-      }
+    this.params.forEach((p) => {
+      // console.log('********', p);
+      p.analyze(context);
+      this.paramNames.push(p.key);
     });
-    // console.log('pNames:', util.inspect(this.paramNames, {depth: null}));
   }
 
   hasName(name) {
-    for (let i = 0; i < this.paramNames.length; i++) {
-      const pName = this.paramNames[i];
-      if (name === pName.id) {
-        return true;
-      }
-    }
-    return false;
+    // console.log(this.paramNames);
+    return this.paramNames.includes(name);
   }
+
+  get(context) {
+    return this;
+  }
+
 
 }
 

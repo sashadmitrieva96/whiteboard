@@ -4,8 +4,13 @@ class Break {
   }
 
   analyze(context) {
-    context.assertInLoop('break statement not in loop');
+    context.assertInLoop();
   }
+
+  get(context) {
+    return this;
+  }
+
 }
 
 module.exports = Break;

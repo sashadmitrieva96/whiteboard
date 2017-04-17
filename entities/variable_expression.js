@@ -1,20 +1,25 @@
 class VariableExpression {
   constructor(id) {
-    this.id = id;
+    this.key = id;
   }
 
   toString() {
     return `(VariableId : ${this.id.toString()})`;
   }
 
-  get(context) {
-    // console.log(context);
-    return context.lookup(this.id);
+  analyze(context) {
+    this.type = context.lookup(this.key).type;
+    // this.value = context.lookup(this.key);
+    // this = context.lookup(this.key);
+    // Object.assign(this, context.lookup(this.key));
   }
 
-  analyze(context) {
-    this.type = context.lookup(this.id).type;
+  get(context) {
+    console.log(this.key);
+    console.log(context.lookup(this.key));
+    return context.lookup(this.key).get(context);
   }
+
 }
 
 module.exports = VariableExpression;

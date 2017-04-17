@@ -16,17 +16,15 @@ class Program {
   }
 
   analyze() {
-    const context = Context.INITIAL();
+    const context = Context.INITIAL;
     // console.log(context);
-    this.statements.forEach((s) => {
-      // console.log(util.inspect(context, { depth: null }));
-      s.analyze(context);
-    });
+    this.statements.forEach(s => s.analyze(context));
     // console.log(util.inspect(context, { depth: null }));
     return true;
-    // console.log(Type.typeList);
-    // console.log(context);
-    // return true;
+  }
+
+  get(context) {
+    return this;
   }
 }
 

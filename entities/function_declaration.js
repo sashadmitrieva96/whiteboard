@@ -1,9 +1,11 @@
 const Type = require('./type.js');
+const TypeObject = require('./helpers/type_object.js');
+const util = require('util');
 
 class FunctionDeclaration {
   constructor(id, type, params, block) {
     this.type = type;
-    this.id = id;
+    this.key = id;
     this.params = params;
     this.block = block;
   }
@@ -12,24 +14,30 @@ class FunctionDeclaration {
     return `(FunctionID : ${this.id.toString()}, Params : ${this.params.toString()}, Block : ${this.block.toString()})`;
   }
 
-  // FINISH THIS!
   analyze(context) {
-    const localContext = context.createChildContextForFunction(this);
-    this.params.analyze(localContext);
-    if (this.type.type.length !== 0) {
-      localContext.type = this.type;
+
+    // make sure the type exists
+
+    this.closure = context.createChildContextForFunction();
+    this.params.analyze(this.closure);
+    this.block.analyze(this.closure);
+
+
+    if (this.type !== '') {
+      context.lookup(this.type);
+      this.type = new TypeObject([this.type]);
+      this.type.assertTypeCompatability(this.closure.type);
     } else {
-      localContext.type = Type.UNKNOWN;
-      // console.log("NO DECLARED TYPE FOR FUNCTIOn");
+      this.type = this.closure.type;
     }
-    // console.log('          ' + util.inspect(localContext));
-    this.block.analyze(localContext);
-    this.type = localContext.type;
+    context.addVariable(this.key, this);
+    this.isFunction = true;
 
+    // console.log('FUN DECL:  ', util.inspect(context, { depth: null }));
+  }
 
-    context.addVariable(this.id, this);
-    // console.log(this.params.analyze(context));
-    // console.log('function declared');
+  get(context) {
+    return this;
   }
 
 }

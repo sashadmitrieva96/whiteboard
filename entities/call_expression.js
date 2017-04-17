@@ -12,22 +12,20 @@ class CallExpressions {
 
   analyze(context) {
     this.callee.analyze(context);
-    if (this.callee.get) {
-      this.callee = this.callee.get(context);
-    }
-    this.type = this.callee.type;
-    this.args.analyze(context);
+    console.log('=======', this.callee);
+    this.callee = this.callee.get(context);
+    console.log('=======', this.callee);
     this.checkArguments(this.callee);
+    this.args.analyze(context);
+    this.type = this.callee.type;
   }
 
   checkArguments(callee) {
     let hasSeenNamed = false;
     const matchedParamNames = new Set([]);
-    // console.log("*****#***" + util.inspect(this.callee, { depth: null}));
     this.args.args.forEach((arg, index) => {
-      // console.log(arg);
-      // console.log(index);
-      if (arg.id) {
+      // console.log('############', arg);
+      if (arg.isBinding) {
         hasSeenNamed = true;
       } else if (hasSeenNamed) {
         throw Error('positional after named. you dumb');
@@ -37,7 +35,7 @@ class CallExpressions {
         throw Error('too many arguments');
       }
       // console.log('callee params: ', callee.params.params);
-      const name = arg.id ? arg.id.id : callee.params.params[index].id.id;
+      const name = arg.isBinding ? arg.key : callee.params.params[index].key;
       // console.log('name  ', name);
       if (matchedParamNames.has(name)) {
         throw Error(`matched parameter ${name} multiple times.`);
@@ -47,6 +45,10 @@ class CallExpressions {
       }
       matchedParamNames.add(name);
     });
+  }
+
+  get(context) {
+    return this;
   }
 }
 

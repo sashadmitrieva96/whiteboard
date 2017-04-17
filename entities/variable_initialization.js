@@ -1,11 +1,12 @@
-// const Type = require('./type.js');
-// const util = require('util');
+const Type = require('./type.js');
+const TypeObject = require('./helpers/type_object.js');
+const util = require('util');
 
 class VariableInitialization {
   constructor(id, type, expression) {
-    this.id = id;
+    this.key = id;
     this.type = type;
-    this.expression = expression[0];
+    this.expression = expression;
   }
 
 /* eslint-disable quotes */
@@ -22,16 +23,21 @@ class VariableInitialization {
   }
 
   analyze(context) {
-    // console.log('******' + util.inspect(this.type, { depth: null }));
-
+    context.lookup(this.type);
+    this.type = new TypeObject([this.type]);
     if (this.expression) {
-      // console.log(this.expression);
       this.expression.analyze(context);
-      this.type.assertTypeCompatability([this.expression.type], `declared Type ${this.type} does not match expression type ${this.expression.type}`);
+      this.type.assertTypeCompatability(this.expression.type);
     }
-    context.addVariable(this.id, this);
-    // console.log(util.inspect(context, { depth: null }));
+
+    context.addVariable(this.key, this);
   }
+
+  get(context) {
+    console.log('vi:', this.expression.get(context));
+    return this.expression.get(context);
+  }
+
 }
 /* eslint-enable quotes */
 

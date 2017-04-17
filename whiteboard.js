@@ -13,7 +13,6 @@ const ForStatement = require('./entities/for_statement.js');
 const WhileStatement = require('./entities/while_statement.js');
 const ReturnStatement = require('./entities/return_statement.js');
 const BreakStatement = require('./entities/break.js');
-const VariableDeclaration = require('./entities/variable_declaration.js');
 const VariableInitialization = require('./entities/variable_initialization.js');
 const TypeDeclaration = require('./entities/type_declaration.js');
 const FunctionDeclaration = require('./entities/function_declaration.js');
@@ -30,6 +29,14 @@ const BoolLiteral = require('./entities/bool_lit.js');
 const StringLiteral = require('./entities/str_lit.js');
 const Type = require('./entities/type.js');
 const Operand = require('./entities/operand.js');
+const VariableAssignment = require('./entities/variable_assignment.js');
+
+const util = require('util');
+
+
+const unpack = ((a) => {
+  return a.length === 0 ? null : a[0];
+});
 
 /* eslint-disable no-unused-vars */
 const semantics = grammar.createSemantics().addOperation('ast', {
@@ -38,26 +45,27 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Block: (i, statement, d) => new Block(statement.ast()),
 
   If: (i, ifExp, c, ifBlock, el, il, eiExps, eic, eiBlocks, e, ec, eBlock) =>
-    new IfStatement(ifExp.ast(), ifBlock.ast(), eiExps.ast(), eiBlocks.ast(), eBlock.ast()),
+    new IfStatement(ifExp.ast(), ifBlock.ast(), eiExps.ast(), eiBlocks.ast(), unpack(eBlock.ast())),
   For: (f, id, i, exp, c, block) => new ForStatement(id.sourceString, exp.ast(), block.ast()),
   While: (w, exp, c, block) => new WhileStatement(exp.ast(), block.ast()),
-  Return: (r, exp) => new ReturnStatement(exp.ast()),
+  Return: (r, exp) => new ReturnStatement(unpack(exp.ast())),
   Break: b => new BreakStatement(),
 
-  Access_lit: (p, id) => id.ast(),
+  Access_lit: (p, id) => {
+    return id.sourceString;
+  },
   Access_exp: (o, exp, c) => exp.ast(),
 
-  Binding: (key, c, value) => new Binding(new VariableInitialization(key.sourceString, Type.UNKNOWN, []), value.ast()),
+  Binding: (key, c, value) => new Binding(key.sourceString, value.ast()), // CHANGE NULL
 
-  Args_exp: (o, e, cl, el, c) => new Args(e.ast(), el.ast()), // doesnt get first
-  Args_named: (o, e, cl, el, c) => new Args(e.ast(), el.ast()),
+  Args: (o, e, cl, el, c) => new Args(unpack(e.ast()), unpack(el.ast())), // doesnt get first
 
   ObjDecl: (t, id, e, params, c, block) => new TypeDeclaration(id.sourceString, params.ast(), block.ast()),
   FunDecl: (t, id, e, params, c, block) =>
-    new FunctionDeclaration(id.sourceString, new Type(t.sourceString), params.ast(), block.ast()),
+    new FunctionDeclaration(id.sourceString, t.sourceString, params.ast(), block.ast()),
 
-  Decl_var: (id, e, val) => new VariableDeclaration(id.sourceString, val.ast()),
-  Decl_init: (t, id, e, val) => new VariableInitialization(id.sourceString, new Type(t.sourceString), val.ast()),
+  Decl_ass: (id, e, val) => new VariableAssignment(id.sourceString, val.ast()),
+  Decl_init: (t, id, e, val) => new VariableInitialization(id.sourceString, t.sourceString, unpack(val.ast())),
 
   And_bin: (left, op, right) => new BinaryExpression(left.ast(), new Operand(op.sourceString), right.ast()),
   Or_bin: (left, op, right) => new BinaryExpression(left.ast(), new Operand(op.sourceString), right.ast()),
@@ -69,9 +77,11 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
   Exp2_call: (obj, args) => new CallExpression(obj.ast(), args.ast()),
 
-  Param: (o, p, cl, pl, c) => new Params(p.ast(), pl.ast()),
+  Param: (o, p, cl, pl, clos) => {
+    return new Params(unpack(p.ast()), unpack(pl.ast()));
+  },
 
-  SParam_id: (t, id) => new VariableInitialization(new VariableExpression(id.sourceString), new Type(t.sourceString), []),
+  SParam_id: (t, id) => new VariableInitialization(id.sourceString, t.sourceString, null),
 
   Exp2_acc: (obj, prop) => new MemberExpression(obj.ast(), prop.ast()),
 
@@ -89,14 +99,14 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 /* I put this part in the export so we didn't have to have a giant copy of
    the parser in the test file, but we'll keep this here just in case. */
 
-// const match = grammar.match(process.argv[2]);
-// if (match.succeeded()) {
-//   console.log(semantics(match).ast().analyze());
-// } else {
-//   console.error(match.message);
-//   console.log('fail');
-//   process.exitCode = 1;
-// }
+const match = grammar.match(process.argv[2]);
+if (match.succeeded()) {
+  console.log(semantics(match).ast().analyze());
+} else {
+  console.error(match.message);
+  console.log('fail');
+  process.exitCode = 1;
+}
 
 module.exports = (program) => {
   const match = grammar.match(preparse(program));

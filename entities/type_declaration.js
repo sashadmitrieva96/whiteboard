@@ -1,4 +1,6 @@
 // const Type = require('./type.js');
+const TypeObject = require('./helpers/type_object');
+const util = require('util');
 
 class TypeDeclaration {
   constructor(id, params, block) {
@@ -13,24 +15,19 @@ class TypeDeclaration {
   }
 
   analyze(context) {
-    // add id to Type
-    const blockContext = context.createChildContextForBlock();
-
-
-    this.params.analyze(blockContext);
-    this.block.analyze(blockContext);
-
-
-    // console.log(this);
+    this.closure = context.createChildContextForType();
+    this.params.analyze(this.closure);
+    this.block.analyze(this.closure);
     context.addVariable(this.id, this);
+    this.type = new TypeObject([this.id]);
 
-    context.addType(this.id);
-    this.closure = blockContext;
-    // console.log("------",  context.closure);
-    // console.log("++++++", blockContext.closure);
-    // this.type = Type.lookupType(this.id);
-    // console.log(context);
+    // console.log(util.inspect(this.closure, { depth: null }));
   }
+
+  get(context) {
+    return this;
+  }
+
 }
 
 module.exports = TypeDeclaration;

@@ -47,5 +47,15 @@ const preparse = (source) => {
   return result;
 };
 
+let test = `
+Type Square = (width, height):
+  area = ():
+    return width * height
+
+`;
+
+// Type Square = (Num width, Num height): ⇨area = ():  ⇨return width * height  ⇦⇦
+
+preparse(test);
 
 module.exports = preparse;

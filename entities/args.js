@@ -1,9 +1,12 @@
 class Args {
   constructor(a1, args) {
-    if (args.length === 0) {
+    if (!args) {
       this.args = a1;
-    } else {
-      this.args = a1.length === 0 ? [] : a1.concat(args[0]);
+    } else if (args) {
+      this.args = a1 ? [a1].concat(args) : [];
+    }
+    if (!a1) {
+      this.args = [];
     }
   }
 
@@ -17,8 +20,15 @@ class Args {
   }
 
   analyze(context) {
-    this.args.forEach(s => s.analyze(context));
+    this.args.forEach((a) => {
+      a.analyze(context);
+    });
   }
+
+  get(context) {
+    return this;
+  }
+
 }
 
 module.exports = Args;
