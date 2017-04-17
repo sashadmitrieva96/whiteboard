@@ -7,8 +7,6 @@ class TypeObject {
     if (!other) {
       throw new Error('other has no type');
     }
-    // console.log(this);
-    // console.log(other);
     const shared = (a1, a2) => {
       return a1.filter((n) => {
         return a2.includes(n);

@@ -16,7 +16,7 @@ class Binding {
   }
 
   get(context) {
-    return context.lookup(this.key);
+    return context.lookup(this.key).get(context);
   }
 
 

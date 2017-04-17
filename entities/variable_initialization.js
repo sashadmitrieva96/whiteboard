@@ -34,7 +34,6 @@ class VariableInitialization {
   }
 
   get(context) {
-    console.log('vi:', this.expression.get(context));
     return this.expression.get(context);
   }
 

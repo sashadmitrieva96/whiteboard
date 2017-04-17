@@ -30,7 +30,6 @@ class Operand {
     if (stringOps.includes(this.op)) {
       result.push('Str');
     }
-    console.log('argType', result);
     return result;
   }
 
@@ -49,7 +48,6 @@ class Operand {
     if (stringOps.includes(this.op)) {
       result.push('Str');
     }
-    console.log('resType', result);
 
     return result;
   }

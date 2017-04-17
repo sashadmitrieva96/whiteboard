@@ -17,9 +17,7 @@ class Program {
 
   analyze() {
     const context = Context.INITIAL;
-    // console.log(context);
     this.statements.forEach(s => s.analyze(context));
-    // console.log(util.inspect(context, { depth: null }));
     return true;
   }
 

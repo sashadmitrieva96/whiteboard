@@ -71,8 +71,6 @@ class Context {
   }
 
   lookup(id) {
-    // console.log("____________" + id);
-    // console.log(this);
     if (id in this.closure) {
       return this.closure[id];
     } else if (this.parent === null) {

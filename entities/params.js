@@ -2,8 +2,6 @@ const util = require('util');
 
 class Params {
   constructor(p1, params) {
-    // console.log('P1:', p1);
-    // console.log('REST: ', params);
     if (!params) {
       this.params = p1;
     } else if (params) {
@@ -13,7 +11,6 @@ class Params {
       this.params = [];
     }
     this.paramNames = [];
-    // console.log(util.inspect(this, { depth: null }));
   }
 
   toString() {
@@ -27,14 +24,12 @@ class Params {
 
   analyze(context) {
     this.params.forEach((p) => {
-      // console.log('********', p);
       p.analyze(context);
       this.paramNames.push(p.key);
     });
   }
 
   hasName(name) {
-    // console.log(this.paramNames);
     return this.paramNames.includes(name);
   }
 

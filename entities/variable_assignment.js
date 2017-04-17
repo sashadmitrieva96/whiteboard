@@ -10,14 +10,13 @@ class VariableAssignment {
   analyze(context) {
     this.expression.analyze(context);
     this.type = this.expression.type;
-    // console.log(this.type);
 
     this.type.assertTypeCompatability(context.lookup(this.key).type);
     context.replace(this.key, this);
   }
 
   get(context) {
-    return context.lookup(this.key);
+    return this.expression.get(context);
   }
 }
 

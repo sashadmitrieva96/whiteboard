@@ -13,10 +13,8 @@ const preparse = (source) => {
     } else if (/\s/.test(content[0])) {
       throw new Error(`illegal whitespace character: \\u{${content.charCodeAt(0).toString(16)}}`);
     } else if (indent === stack[stack.length - 1]) {
-      // console.log('no change');
       result += content;
     } else if (indent > stack[stack.length - 1]) {
-      // console.log('increase indent');
       stack.push(indent);
       result += '⇨';
       result += content;
@@ -25,7 +23,6 @@ const preparse = (source) => {
       while (nextIndent < stack[stack.length - 1]) {
         result += '⇦';
         nextIndent = stack.pop();
-        // console.log(nextIndent, indent);
         if (indent > nextIndent) {
           throw new Error('Indentation Error');
         } else if (nextIndent === indent) {
@@ -46,16 +43,5 @@ const preparse = (source) => {
   // console.log(result);
   return result;
 };
-
-let test = `
-Type Square = (width, height):
-  area = ():
-    return width * height
-
-`;
-
-// Type Square = (Num width, Num height): ⇨area = ():  ⇨return width * height  ⇦⇦
-
-preparse(test);
 
 module.exports = preparse;

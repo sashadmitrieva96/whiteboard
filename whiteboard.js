@@ -31,12 +31,8 @@ const Type = require('./entities/type.js');
 const Operand = require('./entities/operand.js');
 const VariableAssignment = require('./entities/variable_assignment.js');
 
-const util = require('util');
 
-
-const unpack = ((a) => {
-  return a.length === 0 ? null : a[0];
-});
+const unpack = (a => (a.length === 0 ? null : a[0]));
 
 /* eslint-disable no-unused-vars */
 const semantics = grammar.createSemantics().addOperation('ast', {
@@ -51,9 +47,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Return: (r, exp) => new ReturnStatement(unpack(exp.ast())),
   Break: b => new BreakStatement(),
 
-  Access_lit: (p, id) => {
-    return id.sourceString;
-  },
+  Access_lit: (p, id) => id.sourceString,
   Access_exp: (o, exp, c) => exp.ast(),
 
   Binding: (key, c, value) => new Binding(key.sourceString, value.ast()), // CHANGE NULL
@@ -77,9 +71,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
   Exp2_call: (obj, args) => new CallExpression(obj.ast(), args.ast()),
 
-  Param: (o, p, cl, pl, clos) => {
-    return new Params(unpack(p.ast()), unpack(pl.ast()));
-  },
+  Param: (o, p, cl, pl, clos) => new Params(unpack(p.ast()), unpack(pl.ast())),
 
   SParam_id: (t, id) => new VariableInitialization(id.sourceString, t.sourceString, null),
 

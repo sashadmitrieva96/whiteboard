@@ -4,7 +4,6 @@ const util = require('util');
 
 class TypeDeclaration {
   constructor(id, params, block) {
-    // console.log('+++++++++    ' + id);
     this.id = id;
     this.params = params;
     this.block = block;
@@ -20,8 +19,6 @@ class TypeDeclaration {
     this.block.analyze(this.closure);
     context.addVariable(this.id, this);
     this.type = new TypeObject([this.id]);
-
-    // console.log(util.inspect(this.closure, { depth: null }));
   }
 
   get(context) {

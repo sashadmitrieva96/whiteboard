@@ -32,8 +32,6 @@ class FunctionDeclaration {
     }
     context.addVariable(this.key, this);
     this.isFunction = true;
-
-    // console.log('FUN DECL:  ', util.inspect(context, { depth: null }));
   }
 
   get(context) {

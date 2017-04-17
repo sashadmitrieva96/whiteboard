@@ -30,9 +30,7 @@ class IfStatement {
 
   analyze(context) {
     const blockContext = context.createChildContextForBlock();
-    console.log('block context:', util.inspect(blockContext, { depth: null }));
     this.cases.forEach((c) => {
-      console.log(c);
       c.analyze(blockContext);
     });
   }
