@@ -1,3 +1,4 @@
+
 const fs = require('fs');
 const ohm = require('ohm-js');
 
@@ -30,6 +31,8 @@ const StringLiteral = require('./entities/str_lit.js');
 const Type = require('./entities/type.js');
 const Operand = require('./entities/operand.js');
 const VariableAssignment = require('./entities/variable_assignment.js');
+
+require('./backend/javascript-generator.js');
 
 
 const unpack = (a => (a.length === 0 ? null : a[0]));
@@ -93,7 +96,10 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
 const m = grammar.match(process.argv[2]);
 if (m.succeeded()) {
-  console.log(semantics(m).ast().analyze());
+  const ast = semantics(m).ast();
+  ast.analyze();
+  ast.gen();
+  // console.log(semantics(m).ast().analyze());
 } else {
   console.error(m.message);
   console.log('fail');

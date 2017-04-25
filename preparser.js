@@ -44,4 +44,20 @@ const preparse = (source) => {
   return result;
 };
 
+// const test = `
+// if true:
+//   Num x = 7
+// else if:
+//   Num x = 9
+// else if:
+//   Str y = 'op'
+// else:
+//   false
+// `;
+
+// if true: ⇨Num x = 7 ⇦else if 4 == 8: ⇨x = 9 ⇦else if 7 < 10: ⇨Str y = 'op' ⇦else: ⇨false ⇦
+
+
+// console.log(preparse(test));
+
 module.exports = preparse;

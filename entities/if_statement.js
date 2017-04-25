@@ -13,6 +13,7 @@ class IfStatement {
 
     if (eBlock) {
       this.cases.push(new Case(new BoolLiteral('true'), eBlock));
+      this.cases[this.cases.length - 1].isElse = true;
     }
   }
 
