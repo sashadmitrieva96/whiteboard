@@ -4,7 +4,7 @@ class ReturnStatement {
   }
 
   toString() {
-    return `(Return -> ${this.exp.toString()})`;
+    return `(Return -> ${this.expression.toString()})`;
   }
 /* eslint no-param-reassign: 0*/
   analyze(context) {

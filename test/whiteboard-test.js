@@ -11,11 +11,11 @@ const grammar = ohm.grammar(language);
 // Grammar Tests
 const positiveTests = [
   `array[-3].funcall(p1, p2)`,
-  `Type Square = (w, h):
-        width = w
-        height = h
-        area = ():
-            return width * height
+  `Type Square = (Num w, Num h):
+      Num width = w
+      Num height = h
+      Num area = ():
+          return width * height
 
     `,
   `a[0] or !true and ('baller' >= area[2](a, b, c))`,
@@ -56,25 +56,23 @@ const AST_POS_TESTS = [
   ],
 
   [
-    `kevin = 4`,
-    `{ Program (VariableID = kevin, Val : (NumLit : 4))}`,
+    `Num kevin = 4`,
+    `{ Program (VariableID = kevin, Type : Num, Val : (NumLit : 4))}`,
   ],
 
   [
     `Dog woomfy`,
-    `{ Program (VariableID = woomfy, Type : (TypeId : Dog))}`,
+    `{ Program (VariableID = woomfy, Type : Dog)}`,
   ],
 
-  [`
-Type Square = (w, h):
-          width = w
-          height = h
-          area = ():
-              return width * height
-
-
-`,
-    `{ Program (TypeId : Square (TypeParams:= (Params (VariableID = (VariableId : w), Type : (TypeId : *Unknown))(VariableID = (VariableId : h), Type : (TypeId : *Unknown)))) (TypeBody : (Block (VariableID = width, Val : (VariableId : w)) (VariableID = height, Val : (VariableId : h)) (FunctionID : area, Params : (Params ), Block : (Block (Return -> (BinaryExpression (Left : (VariableId : width)) (Op : *) (Right : (VariableId : height)))))))))}`,
+  [
+    `Type Square = (Num w, Num h):
+        Num width = w
+        Num height = h
+        Num area = ():
+            return width * height
+    `,
+    `{ Program (TypeId : Square (TypeParams:= (Params (VariableID = w, Type : Num)(VariableID = h, Type : Num))) (TypeBody : (Block (VariableID = width, Type : Num, Val : (VariableId : w)) (VariableID = height, Type : Num, Val : (VariableId : h)) (FunctionID : area, Params : (Params ), Block : (Block (Return -> (BinaryExpression (Left : (VariableId : width)) (Op : *) (Right : (VariableId : height)))))))))}`,
   ],
 ];
 
@@ -102,11 +100,11 @@ const AST_NEG_TESTS = [
 // Semantics Tests
 const SEMANTICS_POS_TESTS = [
   `
-multiply = (a, b):
+Num multiply = (Num a, Num b):
   return a * b
 
 `,
-  // `kevin = 4`,
+  `Num kevin = 4`,
 //
 //   `Type Square = (w, h):
 //       width = w
@@ -183,7 +181,7 @@ if 6:
       return true`, 'Error: Return statement is not in function'],
   [`Num let = (o)`, 'Error: The id o has not been declared'],
   [`
-fun = (x, y, z):
+fun = (Num x, Num y, Num z):
   return x
 x = fun(w: 88, 9)
 `, ''],

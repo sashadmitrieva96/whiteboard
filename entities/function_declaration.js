@@ -9,7 +9,7 @@ class FunctionDeclaration {
   }
 
   toString() {
-    return `(FunctionID : ${this.id.toString()}, Params : ${this.params.toString()}, Block : ${this.block.toString()})`;
+    return `(FunctionID : ${this.key.toString()}, Params : ${this.params.toString()}, Block : ${this.block.toString()})`;
   }
 
   analyze(context) {

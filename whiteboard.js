@@ -95,17 +95,17 @@ const semantics = grammar.createSemantics().addOperation('ast', {
    the parser in the test file, but we'll keep this here just in case.
    ***Note: this breaks npm test */
 
-const m = grammar.match(process.argv[2]);
-if (m.succeeded()) {
-  const ast = semantics(m).ast();
-  ast.analyze();
-  ast.gen();
-  // console.log(semantics(m).ast().analyze());
-} else {
-  console.error(m.message);
-  console.log('fail');
-  process.exitCode = 1;
-}
+// const m = grammar.match(process.argv[2]);
+// if (m.succeeded()) {
+//   const ast = semantics(m).ast();
+//   ast.analyze();
+//   ast.gen();
+//   // console.log(semantics(m).ast().analyze());
+// } else {
+//   console.error(m.message);
+//   console.log('fail');
+//   process.exitCode = 1;
+// }
 
 module.exports = (program) => {
   const match = grammar.match(preparse(program));
