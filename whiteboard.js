@@ -92,7 +92,8 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 /* eslint-enable no-unused-vars */
 
 /* I put this part in the export so we didn't have to have a giant copy of
-   the parser in the test file, but we'll keep this here just in case. */
+   the parser in the test file, but we'll keep this here just in case.
+   ***Note: this breaks npm test */
 
 const m = grammar.match(process.argv[2]);
 if (m.succeeded()) {

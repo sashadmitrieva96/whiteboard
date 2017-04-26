@@ -34,8 +34,17 @@ const emit = (line) => {
 };
 
 const getOp = (op) => {
-  return { '==': '===', '!=': '!==', and: '&&', or: '||', not: '!', mod: '%' }[op] || op;
+  const opTable = {
+    '==': '===',
+    '!=': '!==',
+    and: '&&',
+    or: '||',
+    not: '!',
+    mod: '%',
+  };
+  return opTable[op] || op;
 };
+
 
 const WBtoJS = (() => {
   let idNum = 0;
