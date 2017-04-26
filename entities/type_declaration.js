@@ -3,8 +3,10 @@ const TypeObject = require('./helpers/type_object');
 class TypeDeclaration {
   constructor(id, params, block) {
     this.id = id;
+    console.log(this.id);
     this.params = params;
     this.block = block;
+    this.isType = true;
   }
 
   toString() {

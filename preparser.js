@@ -45,10 +45,10 @@ const preparse = (source) => {
 };
 
 const test = `
-Num mult = (Num a, Num b):
-  if a > 0:
-    Str c = false
-  return a * b
+Type Square = (Num w, Num h):
+  Num area = ():
+    return w * h
+
 `;
 // Num mult = (Num a, Num b): ⇨if a > 0: ⇨Str c = false ⇦return a * b ⇦
 

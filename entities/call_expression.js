@@ -10,10 +10,9 @@ class CallExpressions {
 
   analyze(context) {
     this.callee.analyze(context);
-    this.callee = this.callee.get(context);
-    this.checkArguments(this.callee);
+    this.checkArguments(this.callee.get(context));
     this.args.analyze(context);
-    this.type = this.callee.type;
+    this.type = this.callee.get(context).type;
   }
 
   checkArguments(callee) {

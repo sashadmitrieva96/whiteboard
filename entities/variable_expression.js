@@ -8,7 +8,9 @@ class VariableExpression {
   }
 
   analyze(context) {
-    this.type = context.lookup(this.key).type;
+    const res = context.lookup(this.key);
+    this.type = res.type;
+    this.isType = res.isType;
   }
 
   get(context) {

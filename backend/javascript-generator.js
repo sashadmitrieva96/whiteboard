@@ -1,3 +1,5 @@
+// doesnt handle our scope correctly LUL
+
 const Program = require('./../entities/program.js');
 const Block = require('./../entities/block.js');
 const IfStatement = require('./../entities/if_statement.js');
@@ -19,8 +21,8 @@ const Args = require('./../entities/args.js');
 const NumLiteral = require('./../entities/num_lit.js');
 const BoolLiteral = require('./../entities/bool_lit.js');
 const StringLiteral = require('./../entities/str_lit.js');
-const Type = require('./../entities/type.js');
-const Operand = require('./../entities/operand.js');
+// const Type = require('./../entities/type.js');
+// const Operand = require('./../entities/operand.js');
 const VariableAssignment = require('./../entities/variable_assignment.js');
 
 const indentSize = 2;
@@ -30,7 +32,6 @@ let indentLevel = 0;
 const emit = (line) => {
   console.log(`${' '.repeat(indentSize * indentLevel)}${line}`);
 };
-
 
 const getOp = (op) => {
   return { '==': '===', '!=': '!==', and: '&&', or: '||', not: '!', mod: '%' }[op] || op;
@@ -44,30 +45,85 @@ const WBtoJS = (() => {
       idNum += 1;
       map.set(v, idNum);
     }
+    // console.log(map);
     return `var_${map.get(v)}`;
   };
 })();
 
+Object.assign(ForStatement.prototype, {
+  gen() {
+    // gonna have to figure this out
+  },
+});
+
+Object.assign(MemberExpression.prototype, {
+  gen() {
+    if (this.type) {
+      return `${this.object.gen()}.${this.property.gen()}`;
+    }
+    emit(`${this.object.gen()}.${this.property.gen()}`);
+  },
+});
+
+Object.assign(TypeDeclaration.prototype, {
+  gen() {
+    emit(`class ${WBtoJS(this.id)} {`);
+    indentLevel += 1;
+    emit(`constructor ${this.params.gen()} {`);
+    this.block.gen('this.');
+    emit('}');
+    indentLevel -= 1;
+    emit('}');
+  },
+});
+
 Object.assign(Program.prototype, {
   gen() {
     this.statements.forEach(s => s.gen());
+    // console.log(WBtoJS.map);
   },
 });
 
 Object.assign(Block.prototype, {
-  gen() {
+  gen(prefix) {
     indentLevel += 1;
-    this.statements.forEach(s => s.gen());
+    this.statements.forEach(s => s.gen(prefix));
     indentLevel -= 1;
   },
 });
 
 Object.assign(FunctionDeclaration.prototype, {
   // maybe have our functions add a rest param into the js?
-  gen() {
-    emit(`${WBtoJS(this.key)} = ${this.params.gen()} => {`);
+  gen(prefix = 'let ') {
+    emit(`${prefix}${WBtoJS(this.key)} = ${this.params.gen()} => {`);
     this.block.gen();
     emit('}');
+  },
+});
+
+Object.assign(Binding.prototype, {
+  gen() {
+    return `${this.key} = ${this.expression.gen()}`;
+  },
+});
+
+Object.assign(CallExpression.prototype, {
+  gen() {
+    if (this.type) {
+      return `${this.callee.gen()}${this.args.gen()}`;
+    }
+    emit(`${this.callee.gen()}${this.args.gen()}`);
+  },
+});
+
+Object.assign(Args.prototype, {
+  // doesnt work for defaults lel... change analyze to help
+  gen() {
+    const result = [];
+    this.args.forEach((arg) => {
+      result.push(arg.gen());
+    });
+    return `(${result.join(', ')})`;
   },
 });
 
@@ -118,7 +174,7 @@ Object.assign(BinaryExpression.prototype, {
 });
 
 Object.assign(VariableExpression.prototype, {
-  gen() { return `${WBtoJS(this.key)}`; },
+  gen() { return `${this.isType ? 'new ' : ''}${WBtoJS(this.key)}`; },
 });
 
 Object.assign(BoolLiteral.prototype, {
@@ -134,9 +190,9 @@ Object.assign(NumLiteral.prototype, {
 });
 
 Object.assign(VariableInitialization.prototype, {
-  gen() {
+  gen(prefix = 'let ') {
     if (this.expression) {
-      emit(`let ${WBtoJS(this.key)} = ${this.expression.gen()}`);
+      emit(`${prefix}${WBtoJS(this.key)} = ${this.expression.gen()}`);
     } else {
       return WBtoJS(this.key);
     }

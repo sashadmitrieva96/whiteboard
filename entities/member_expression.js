@@ -25,10 +25,10 @@ class MemberExpression {
     } else {
       this.property.analyze(context);
       this.property = this.property.get(context);
-      console.log(this.property);
-      this.property.type.assertTypeCompatability(new TypeObject(['Str', 'Num']));
+      // console.log(this.property);
+      this.property.get(context).type.assertTypeCompatability(new TypeObject(['Str', 'Num']));
       // doesnt handle strings that were not explicitely defined.
-      const varExp = new VariableExpression(this.property.value);
+      const varExp = new VariableExpression(this.property.get(context).value);
       varExp.analyze(this.object.get(context).callee.closure);
       this.type = varExp.type;
     }

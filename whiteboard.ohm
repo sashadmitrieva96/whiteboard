@@ -17,7 +17,7 @@ WhiteBoard  {
               |  type id ("=" Exp)?                         --init
 
   ObjDecl     =  "Type" type "=" Param ":" Block
-  FunDecl     =  type? id "=" Param ":" Block
+  FunDecl     =  type id "=" Param ":" Block
 
   Binding     =  Exp ":" Exp
 
@@ -38,7 +38,7 @@ WhiteBoard  {
 
   Param       =  "(" (SParam ("," SParam)*)?  ")"
 
-  SParam      =  type id                                     --id
+  SParam      =  type Primary_id                             --id
               |  Binding                                     --binding
 
 
