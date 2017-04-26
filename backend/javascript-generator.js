@@ -31,10 +31,16 @@ const emit = (line) => {
   console.log(`${' '.repeat(indentSize * indentLevel)}${line}`);
 };
 
-
-const getOp = (op) => {
-  return { '==': '===', '!=': '!==', and: '&&', or: '||', not: '!', mod: '%' }[op] || op;
+const opTable = {
+  '==': '===',
+  '!=': '!==',
+  and: '&&',
+  or: '||',
+  not: '!',
+  mod: '%'
 };
+const getOp = op => opTable[op] || op;
+
 
 const WBtoJS = (() => {
   let idNum = 0;
