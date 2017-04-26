@@ -2,7 +2,7 @@ const Program = require('./../entities/program.js');
 const Block = require('./../entities/block.js');
 const IfStatement = require('./../entities/if_statement.js');
 const ForStatement = require('./../entities/for_statement.js');
-const WhileStatement = require('./../entities/while_statement.js');
+// const WhileStatement = require('./../entities/while_statement.js');
 const ReturnStatement = require('./../entities/return_statement.js');
 const BreakStatement = require('./../entities/break.js');
 const VariableInitialization = require('./../entities/variable_initialization.js');
@@ -62,6 +62,38 @@ Object.assign(Block.prototype, {
   },
 });
 
+Object.assign(FunctionDeclaration.prototype, {
+  // maybe have our functions add a rest param into the js?
+  gen() {
+    emit(`${WBtoJS(this.key)} = ${this.params.gen()} => {`);
+    this.block.gen();
+    emit('}');
+  },
+});
+
+Object.assign(Params.prototype, {
+  gen() {
+    let result = '(';
+    this.params.forEach((p, i) => {
+      const comma = (i === this.params.length - 1) ? '' : ', ';
+      result = `${result}${p.gen()}${comma}`;
+    });
+    return `${result})`;
+  },
+});
+
+Object.assign(ReturnStatement.prototype, {
+  gen() {
+    emit(`return ${this.expression.gen()}`);
+  },
+});
+
+Object.assign(BreakStatement.prototype, {
+  gen() {
+    emit('break');
+  },
+});
+
 Object.assign(IfStatement.prototype, {
   gen() {
     this.cases.forEach((c, i) => {
@@ -103,6 +135,10 @@ Object.assign(NumLiteral.prototype, {
 
 Object.assign(VariableInitialization.prototype, {
   gen() {
-    emit(`let ${WBtoJS(this.key)} = ${this.expression.gen()}`);
+    if (this.expression) {
+      emit(`let ${WBtoJS(this.key)} = ${this.expression.gen()}`);
+    } else {
+      return WBtoJS(this.key);
+    }
   },
 });
