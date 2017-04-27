@@ -1,9 +1,12 @@
 class Params {
   constructor(p1, params) {
-    if (params.length === 0) {
+    if (!params) {
       this.params = p1;
-    } else {
-      this.params = p1.length === 0 ? [] : p1.concat(params[0]);
+    } else if (params) {
+      this.params = p1 ? [p1].concat(params) : [];
+    }
+    if (!p1) {
+      this.params = [];
     }
     this.paramNames = [];
   }
@@ -18,19 +21,20 @@ class Params {
   }
 
   analyze(context) {
-    this.params.forEach((s) => {
-      s.analyze(context);
-      if (s.id) {
-        this.paramNames.push(s.id);
-      } else if (s.key) {
-        this.paramNames.push(s.id);
-      }
+    this.params.forEach((p) => {
+      p.analyze(context);
+      this.paramNames.push(p.key);
     });
   }
 
   hasName(name) {
     return this.paramNames.includes(name);
   }
+
+  get() {
+    return this;
+  }
+
 
 }
 

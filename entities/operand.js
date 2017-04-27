@@ -1,4 +1,4 @@
-const Type = require('./type.js');
+const TypeObject = require('./helpers/type_object.js');
 
 class Operand {
   constructor(op) {
@@ -6,34 +6,60 @@ class Operand {
   }
 
   toString() {
-    return `${this.op}`
+    return `${this.op}`;
   }
 
-  argumentType() {
-    let numberOps = ['>=', '>', '<=', '<', '+', '-', '*', '/', '%', 'mod', '**', '-'];
+  analyze() {
+    this.type = new TypeObject(this.resultType());
+    this.argumentType = new TypeObject(this.argType());
+  }
 
-    let booleanOps = ['and', 'or', '!=', '==', '!', 'not'];
+  argType() {
+    const numberOps = ['==', '!=', '>=', '>', '<=', '<', '+', '-', '*', '/', '%', 'mod', '**', '-'];
+    const booleanOps = ['==', '!=', 'and', 'or', '!', 'not'];
+    const stringOps = ['==', '!=', '+'];
 
+    const result = [];
     if (booleanOps.includes(this.op)) {
-      return Type.Bool;
-    } else if (numberOps.includes(this.op)) {
-      return Type.Num;
+      result.push('Bool');
     }
-    throw Error(`unknown operand ${this.op}`);
-
+    if (numberOps.includes(this.op)) {
+      result.push('Num');
+    }
+    if (stringOps.includes(this.op)) {
+      result.push('Str');
+    }
+    return result;
   }
 
   resultType() {
-    let numberOps = ['+', '-', '*', '/', '%', 'mod', '**', '-'];
+    const numberOps = ['+', '-', '*', '/', '%', 'mod', '**', '-'];
+    const booleanOps = ['==', '!=', '>=', '>', '<=', '<', 'and', 'or', '!', 'not'];
+    const stringOps = ['+'];
 
-    let booleanOps = ['>=', '>', '<=', '<', 'and', 'or', '!=', '==', '!', 'not'];
-
+    const result = [];
     if (booleanOps.includes(this.op)) {
-      return Type.Bool;
-    } else if (numberOps.includes(this.op)) {
-      return Type.Num;
+      result.push('Bool');
     }
-    throw Error(`unknown operand ${this.op}`);
+    if (numberOps.includes(this.op)) {
+      result.push('Num');
+    }
+    if (stringOps.includes(this.op)) {
+      result.push('Str');
+    }
+
+    return result;
+  }
+
+  getBinaryType(l) {
+    if (this.op !== '+') {
+      return this.type;
+    }
+    return l;
+  }
+
+  get() {
+    return this;
   }
 }
 

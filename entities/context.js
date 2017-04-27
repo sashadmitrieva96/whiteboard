@@ -1,36 +1,30 @@
-const util = require('util');
 const Type = require('./type.js');
 
 class Context {
-  constructor({ parent = null, inFunction = false, inLoop = false, inTypeDecl = false }) {
+  constructor(parent = null, inFunction = false, inLoop = false, inTypeDecl = false, number = 0) {
     this.parent = parent;
     this.inFunction = inFunction;
     this.inLoop = inLoop;
     this.inTypeDecl = inTypeDecl;
     this.closure = Object.create(null);
+
+    this.index = number;
+    this.currChildren = 0;
   }
 
   createChildContextForFunction() {
-    return new Context(this, true, this.inLoop, this.inTypeDecl);
+    return new Context(this, true, this.inLoop, this.inTypeDecl, this.currChildren++);
   }
 
   createChildContextForLoop() {
-    return new Context(this, this.inFunction, true, this.inTypeDecl);
+    return new Context(this, this.inFunction, true, this.inTypeDecl, this.currChildren++);
   }
   createChildContextForType() {
-    return new Context(this, this.inFunction, this.inLoop, true);
+    return new Context(this, this.inFunction, this.inLoop, true, this.currChildren++);
   }
 
   createChildContextForBlock() {
-    return new Context(this, this.inFunction, this.inLoop, this.inTypeDecl);
-  }
-
-  addVariable(id, entity) {
-    // console.log(`ADDING VAR ${id} INTO ${util.inspect(this.closure)}`);
-    if (id in this.closure) {
-      entity.type.assertTypeCompatability([this.lookup(id).type], `Attempt to redefine ${id}, to Type ${entity.type} from Type ${this.lookup(id).type}`);
-    }
-    this.closure[id] = entity;
+    return new Context(this, this.inFunction, this.inLoop, this.inTypeDecl, this.currChildren++);
   }
 
   inClosure(id) {
@@ -55,6 +49,44 @@ class Context {
     }
   }
 
+  check(id) {
+    if (id in this.closure) {
+      return true;
+    } else if (this.parent === null) {
+      return false;
+    }
+    return this.parent.check(id);
+  }
+
+  replace(id, entity) {
+    if (!this.check(id)) {
+      throw new Error(`${id} has not been declared`);
+    }
+    this.closure[id] = entity;
+  }
+
+
+  addVariable(id, entity) {
+    if (id in this.closure) {
+      throw new Error(`${id} already declared in closure`);
+    }
+    this.closure[id] = entity;
+  }
+
+  getName(id) {
+    if (id in this.closure) {
+      return `${this.getIndex()}_${id}`;
+    } else if (this.parent === null) {
+      throw new Error(`The id ${id} has not been declared`);
+    } else {
+      return this.parent.getName(id);
+    }
+  }
+
+  getIndex() {
+    return `${this.parent ? this.parent.getIndex() : ''}${this.index}_`;
+  }
+
   lookup(id) {
     if (id in this.closure) {
       return this.closure[id];
@@ -65,14 +97,12 @@ class Context {
     }
   }
 
-  addType(name) {
-    if (Type.typeList[name]) {
-      throw new Error(`Type ${name} has already been defined`);
-    }
-    Type.typeList[name] = new Type(name);
-  }
 }
 
-Context.INITIAL = () => new Context({ parent: null, inFunction: false, inLoop: false, inTypeDecl: false });
+Context.INITIAL = new Context(null, false, false, false, 0);
+
+Context.INITIAL.addVariable('Str', new Type('Str'));
+Context.INITIAL.addVariable('Bool', new Type('Bool'));
+Context.INITIAL.addVariable('Num', new Type('Num'));
 
 module.exports = Context;

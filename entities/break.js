@@ -1,11 +1,17 @@
 class Break {
+  /* eslint class-methods-use-this: 0*/
   toString() {
     return '(break)';
   }
 
-  analyze(context) {
-    context.assertInLoop('break statement not in loop');
+  analyze() {
+    context.assertInLoop();
   }
+
+  get() {
+    return this;
+  }
+
 }
 
 module.exports = Break;

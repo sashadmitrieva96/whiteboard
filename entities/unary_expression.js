@@ -1,20 +1,24 @@
-const Type = require('./type.js');
-
 class UnaryExpression {
   constructor(op, exp) {
     this.op = op;
-    this.exp = exp;
+    this.expression = exp;
   }
 
   toString() {
-    return `(UnaryExpression ${this.op.toString()} :  ${this.exp.toString()})`;
+    return `(UnaryExpression ${this.op.toString()} :  ${this.expression.toString()})`;
   }
 
   analyze(context) {
-    this.type = this.op.resultType();
-    this.exp.analyze(context);
-    this.op.argumentType().assertTypeCompatability([this.exp.type]);
+    this.expression.analyze(context);
+    this.op.analyze();
+    this.op.argumentType.assertTypeCompatability(this.expression.type);
+    this.type = this.op.type;
   }
+
+  get() {
+    return this;
+  }
+
 }
 
 

@@ -1,19 +1,25 @@
 class ReturnStatement {
   constructor(exp) {
-    this.exp = exp;
+    this.expression = exp;
   }
 
   toString() {
-    return `(Return -> ${this.exp.toString()})`;
+    return `(Return -> ${this.expression.toString()})`;
   }
-
+/* eslint no-param-reassign: 0*/
   analyze(context) {
-    context.assertInFunction('Return statement is not in function');
-    this.exp.analyze(context);
-    if (!context.type.equals(this.exp.type)) {
-      throw Error('return type doesnt match function type');
+    context.assertInFunction();
+    if (this.expression) {
+      this.expression.analyze(context);
+      this.type = this.expression.type;
+      context.type = this.type;
     }
   }
+
+  get() {
+    return this;
+  }
+
 }
 
 module.exports = ReturnStatement;

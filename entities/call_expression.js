@@ -1,5 +1,3 @@
-const Type = require('./type.js');
-
 class CallExpressions {
   constructor(callee, args) {
     this.callee = callee;
@@ -12,17 +10,16 @@ class CallExpressions {
 
   analyze(context) {
     this.callee.analyze(context);
-
+    this.checkArguments(this.callee.get(context));
     this.args.analyze(context);
-    this.checkArguments(this.callee);
+    this.type = this.callee.get(context).type;
   }
 
   checkArguments(callee) {
     let hasSeenNamed = false;
     const matchedParamNames = new Set([]);
-    console.log(this.args);
     this.args.args.forEach((arg, index) => {
-      if (arg.id) {
+      if (arg.isBinding) {
         hasSeenNamed = true;
       } else if (hasSeenNamed) {
         throw Error('positional after named. you dumb');
@@ -31,8 +28,7 @@ class CallExpressions {
       if (index >= callee.params.length) {
         throw Error('too many arguments');
       }
-
-      const name = arg.id ? arg.id : callee.params[index].id;
+      const name = arg.isBinding ? arg.key : callee.params.params[index].key;
       if (matchedParamNames.has(name)) {
         throw Error(`matched parameter ${name} multiple times.`);
       }
@@ -41,7 +37,10 @@ class CallExpressions {
       }
       matchedParamNames.add(name);
     });
-    this.type = Type.UNKNOWN;
+  }
+
+  get() {
+    return this;
   }
 }
 

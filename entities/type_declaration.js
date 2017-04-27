@@ -1,26 +1,31 @@
-const Type = require('./type.js');
+const TypeObject = require('./helpers/type_object');
 
 class TypeDeclaration {
   constructor(id, params, block) {
-    this.id = id;
+    this.key = id;
+    console.log(this.key);
     this.params = params;
     this.block = block;
+    this.isType = true;
   }
 
   toString() {
-    return `(TypeId : ${this.id} (TypeParams:= ${this.params.toString()}) (TypeBody : ${this.block.toString()}))`;
+    return `(TypeId : ${this.key} (TypeParams:= ${this.params.toString()}) (TypeBody : ${this.block.toString()}))`;
   }
 
   analyze(context) {
-    // add id to Type
-    const blockContext = context.createChildContextForBlock();
-    this.params.analyze(blockContext);
-    this.block.analyze(blockContext);
-    context.addVariable(this.id, this);
-    context.addType(this.id);
-    this.type = Type.lookupType(this.id);
-    // console.log(this.type);
+    this.closure = context.createChildContextForType();
+    this.params.analyze(this.closure);
+    this.block.analyze(this.closure);
+    context.addVariable(this.key, this);
+    this.name = context.getName(this.key);
+    this.type = new TypeObject([this.key]);
   }
+
+  get() {
+    return this;
+  }
+
 }
 
 module.exports = TypeDeclaration;

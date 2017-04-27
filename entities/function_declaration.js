@@ -1,35 +1,38 @@
-const Type = require('./type.js');
+const TypeObject = require('./helpers/type_object.js');
 
 class FunctionDeclaration {
   constructor(id, type, params, block) {
     this.type = type;
-    this.id = id;
+    this.key = id;
     this.params = params;
     this.block = block;
   }
 
   toString() {
-    return `(FunctionID : ${this.id.toString()}, Params : ${this.params.toString()}, Block : ${this.block.toString()})`;
+    return `(FunctionID : ${this.key.toString()}, Params : ${this.params.toString()}, Block : ${this.block.toString()})`;
   }
 
-  // FINISH THIS!
   analyze(context) {
-    const localContext = context.createChildContextForFunction(this);
-    // console.log(this.params);
-    this.params.analyze(localContext);
+    // RETURNS DONT PROPOGATE TYPE!! BUG CATCHER BATKEV AT IT AGAIN!!!!
+    this.closure = context.createChildContextForFunction();
+    this.params.analyze(this.closure);
+    this.block.analyze(this.closure);
 
-    if (this.body) {
-      this.body.forEach(s => s.analyze(localContext));
-    }
 
-    if (this.type) {
-      localContext.type = this.type.analyze(context).type;
+    if (this.type !== '') {
+      context.lookup(this.type);
+      this.type = new TypeObject([this.type]);
+      this.type.assertTypeCompatability(this.closure.type);
     } else {
-      localContext.type = Type.UNKNOWN;
+      this.type = this.closure.type;
     }
+    context.addVariable(this.key, this);
+    this.name = context.getName(this.key);
+    this.isFunction = true;
+  }
 
-    context.addVariable(this.id, this);
-    console.log('function declared');
+  get() {
+    return this;
   }
 
 }

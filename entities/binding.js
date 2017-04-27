@@ -1,21 +1,25 @@
-// const Type = require('./type.js');
-
 class Binding {
   constructor(key, value) {
     this.key = key;
-    this.value = value;
+    this.expression = value;
+    this.isBinding = true;
   }
 
   toString() {
-    return `(Entry ${this.key.toString()}, ${this.value.toString()})`;
+    return `(Entry ${this.key.toString()}, ${this.expression.toString()})`;
   }
 
   analyze(context) {
-    this.type = this.value.analyze(context).type;
-
     this.expression.analyze(context);
-    context.addVariable(this.id, this);
+    this.type = this.expression.type;
+    context.addVariable(this.key, this.expression);
   }
+
+  get(context) {
+    return context.lookup(this.key).get(context);
+  }
+
+
 }
 
 module.exports = Binding;

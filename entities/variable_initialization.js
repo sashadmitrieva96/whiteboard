@@ -1,20 +1,19 @@
-const Type = require('./type.js');
-const util = require('util');
+const TypeObject = require('./helpers/type_object.js');
 
 class VariableInitialization {
   constructor(id, type, expression) {
-    this.id = id;
+    this.key = id;
     this.type = type;
-    this.expression = expression[0];
+    this.expression = expression;
   }
 
 /* eslint-disable quotes */
   toString() {
-    let str = `(VariableID = ${this.id.toString()}`;
-    if (this.type.length !== 0) {
+    let str = `(VariableID = ${this.key.toString()}`;
+    if (this.type) {
       str += `, Type : ${this.type.toString()}`;
     }
-    if (this.expression.length !== 0) {
+    if (this.expression) {
       str += `, Val : ${this.expression.toString()}`;
     }
     str += `)`;
@@ -22,19 +21,21 @@ class VariableInitialization {
   }
 
   analyze(context) {
-    // console.log(util.inspect(context, {depth: null}));
-    // console.log(Type);
-    if (!this.type) {
-      this.type = Type.UNKNOWN;
-    }
+    context.lookup(this.type);
+    this.type = new TypeObject([this.type]);
     if (this.expression) {
       this.expression.analyze(context);
-      console.log(this.expression);
-      this.type.assertTypeCompatability([this.expression.type], `declared Type ${this.type} does not match expression type ${this.expression.type}`);
+      this.type.assertTypeCompatability(this.expression.type);
     }
-    // console.log(this.type);
-    context.addVariable(this.id, this);
+
+    context.addVariable(this.key, this);
+    this.name = context.getName(this.key);
   }
+
+  get(context) {
+    return this.expression.get(context);
+  }
+
 }
 /* eslint-enable quotes */
 

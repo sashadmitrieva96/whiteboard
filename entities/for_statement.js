@@ -1,7 +1,7 @@
 class ForStatement {
   constructor(id, exp, block) {
     this.id = id;
-    this.exp = exp;
+    this.expression = exp;
     this.block = block;
   }
 
@@ -10,11 +10,17 @@ class ForStatement {
   }
 
   analyze(context) {
-    const localContext = context.createChildContextForLoop(this);
-    localContext.addVariable(this.id);
-    this.exp.forEach(p => p.analyze(localContext));
-    this.block.forEach(s => s.analyze(localContext));
+    this.closure = context.createChildContextForLoop();
+    this.expression.analyze(this.closure);
+    this.closure.addVariable(this.id, this.expression);
+    this.block.analyze(this.closure);
   }
+
+  get() {
+    return this;
+  }
+
+
 }
 
 module.exports = ForStatement;

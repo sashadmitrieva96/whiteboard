@@ -13,16 +13,16 @@ WhiteBoard  {
 
   Decl        =  ObjDecl                                    --obj
               |  FunDecl                                    --fun
-              |  id ("=" Exp)                               --var
+              |  id ("=" Exp)                               --ass
               |  type id ("=" Exp)?                         --init
 
 
   ObjDecl     =  "Type" type "=" Param ":" Block
-  FunDecl     =  type? id "=" Param ":" Block
+  FunDecl     =  type id "=" Param ":" Block
 
   Binding     =  Exp ":" Exp
 
-  Return      =  "return" Exp
+  Return      =  "return" Exp?
   Break       =  "break"
 
   For         =  "for" id "in" Exp ":" Block
@@ -33,21 +33,26 @@ WhiteBoard  {
 
   While       =  "while" Exp ":" Block
 
-  Block       =  Statement* "."
+  Block       =  indent Statement* dedent
 
   Exp         =  And
 
 
   Param       =  "(" (SParam ("," SParam)*)?  ")"
-  SParam      =  Binding                                     --Binding
-              |  type? id                                    --id
+
+  SParam      =  type Primary_id                             --id
+              |  Binding                                     --binding
+              
+
+  Args        =  "(" (SArg ("," SArg)*)?  ")"
+
+  SArg        =  Binding                                    --order
+              |  Exp                                        --named
 
 
-  Args        =  "(" (Exp ("," Exp)*)?  ")"                --exp
-              |  "(" (Dict ("," Dict)*)?  ")"              --named
-
-  Access      =  "." id                                    --lit
-              |  "[" Exp "]"                               --exp
+  Access      =  "." id                                     --lit
+              |  "[" Exp "]"                                --exp
+              
 
   And         =  And "and" Or                              --bin
               |  Or
@@ -94,14 +99,17 @@ WhiteBoard  {
 
   negop       =  "-" | "!" | "not"
   powop       =  "**"
+  indent      =  "⇨"
+  dedent      =  "⇦"
+
+  newline     =  "\n"+
+  space      :=  " " | "\t" | "\n"
 
 
-  keyword     =  ("true" | "false" | "Num" | "Bool" | "String" | "Type"
-                 | "fun" | "for" | "in" | "return" | "break" | "or"
-                 | "and" | "if" | "else" | "mod" | "return") ~idrest
+  keyword     =  ( "not" | "true" | "false" | "Type" | "for" | "in" | "return" | "break" | "or" | "and" | "if" | "else" | "mod" | "return") ~idrest
 
 
-  id          =  ~keyword(letter)idrest*
+  id          =  ~keyword letter idrest*
   idrest      =  letter | digit | "_"
 
 }
