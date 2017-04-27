@@ -51,6 +51,7 @@ Type Square = (Num w, Num h):
 
 `;
 // Num mult = (Num a, Num b): ⇨if a > 0: ⇨Str c = false ⇦return a * b ⇦
+// Type Square = (Num w, Num h): ⇨Num area = (): ⇨return w * h ⇦⇦
 
 // console.log(preparse(test));
 

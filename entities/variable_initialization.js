@@ -29,6 +29,7 @@ class VariableInitialization {
     }
 
     context.addVariable(this.key, this);
+    this.name = context.getName(this.key);
   }
 
   get(context) {

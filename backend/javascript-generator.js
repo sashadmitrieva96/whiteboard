@@ -1,4 +1,3 @@
-// doesnt handle our scope correctly LUL
 
 const Program = require('./../entities/program.js');
 const Block = require('./../entities/block.js');
@@ -50,12 +49,13 @@ const WBtoJS = (() => {
   let idNum = 0;
   const map = new Map();
   return (v) => {
+    // console.log(v);
     if (!map.has(v)) {
       idNum += 1;
       map.set(v, idNum);
     }
     // console.log(map);
-    return `var_${map.get(v)}`;
+    return `_${map.get(v)}`;
   };
 })();
 
@@ -76,7 +76,7 @@ Object.assign(MemberExpression.prototype, {
 
 Object.assign(TypeDeclaration.prototype, {
   gen() {
-    emit(`class ${WBtoJS(this.id)} {`);
+    emit(`class ${WBtoJS(this.name)} {`);
     indentLevel += 1;
     emit(`constructor ${this.params.gen()} {`);
     this.block.gen('this.');
@@ -89,7 +89,6 @@ Object.assign(TypeDeclaration.prototype, {
 Object.assign(Program.prototype, {
   gen() {
     this.statements.forEach(s => s.gen());
-    // console.log(WBtoJS.map);
   },
 });
 
@@ -104,7 +103,7 @@ Object.assign(Block.prototype, {
 Object.assign(FunctionDeclaration.prototype, {
   // maybe have our functions add a rest param into the js?
   gen(prefix = 'let ') {
-    emit(`${prefix}${WBtoJS(this.key)} = ${this.params.gen()} => {`);
+    emit(`${prefix}${WBtoJS(this.name)} = ${this.params.gen()} => {`);
     this.block.gen();
     emit('}');
   },
@@ -171,7 +170,7 @@ Object.assign(IfStatement.prototype, {
 });
 
 Object.assign(VariableAssignment.prototype, {
-  gen() { emit(`${WBtoJS(this.key)} = ${this.expression.gen()}`); },
+  gen() { emit(`${WBtoJS(this.name)} = ${this.expression.gen()}`); },
 });
 
 Object.assign(UnaryExpression.prototype, {
@@ -183,7 +182,7 @@ Object.assign(BinaryExpression.prototype, {
 });
 
 Object.assign(VariableExpression.prototype, {
-  gen() { return `${this.isType ? 'new ' : ''}${WBtoJS(this.key)}`; },
+  gen() { return `${this.isType ? 'new ' : ''}${WBtoJS(this.name)}`; },
 });
 
 Object.assign(BoolLiteral.prototype, {
@@ -201,9 +200,9 @@ Object.assign(NumLiteral.prototype, {
 Object.assign(VariableInitialization.prototype, {
   gen(prefix = 'let ') {
     if (this.expression) {
-      emit(`${prefix}${WBtoJS(this.key)} = ${this.expression.gen()}`);
+      emit(`${prefix}${WBtoJS(this.name)} = ${this.expression.gen()}`);
     } else {
-      return WBtoJS(this.key);
+      return WBtoJS(this.name);
     }
   },
 });

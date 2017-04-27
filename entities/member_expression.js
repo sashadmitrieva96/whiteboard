@@ -20,7 +20,9 @@ class MemberExpression {
   analyze(context) {
     this.object.analyze(context);
     if (this.isLiteral) {
-      this.property.analyze(this.object.get(context).callee.closure);
+      // ASSUMES A FUNCTION...?
+      console.log('test', this.object.get(context).callee.get(context).closure);
+      this.property.analyze(this.object.get(context).callee.get(context).closure);
       this.type = this.property.type;
     } else {
       this.property.analyze(context);

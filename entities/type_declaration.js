@@ -18,6 +18,7 @@ class TypeDeclaration {
     this.params.analyze(this.closure);
     this.block.analyze(this.closure);
     context.addVariable(this.key, this);
+    this.name = context.getName(this.key);
     this.type = new TypeObject([this.key]);
   }
 
