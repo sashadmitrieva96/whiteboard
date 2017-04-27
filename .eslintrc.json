@@ -4,8 +4,7 @@
         "import"
     ],
     "env": {
-        "mocha": true,
-        "jquery": true
+        "mocha": true
     },
     "rules": {
         "no-plusplus": [
@@ -14,7 +13,6 @@
         ],
         "linebreak-style": "off",
         "no-console": "off",
-        "max-len": "off",
-        "prefer-template": "off"
+        "max-len": "off"
     }
 }
