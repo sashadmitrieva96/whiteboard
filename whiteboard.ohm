@@ -16,6 +16,7 @@ WhiteBoard  {
               |  id ("=" Exp)                               --ass
               |  type id ("=" Exp)?                         --init
 
+
   ObjDecl     =  "Type" type "=" Param ":" Block
   FunDecl     =  type id "=" Param ":" Block
 
@@ -36,11 +37,12 @@ WhiteBoard  {
 
   Exp         =  And
 
+
   Param       =  "(" (SParam ("," SParam)*)?  ")"
 
   SParam      =  type Primary_id                             --id
               |  Binding                                     --binding
-
+              
 
   Args        =  "(" (SArg ("," SArg)*)?  ")"
 
@@ -50,6 +52,7 @@ WhiteBoard  {
 
   Access      =  "." id                                     --lit
               |  "[" Exp "]"                                --exp
+              
 
   And         =  And "and" Or                              --bin
               |  Or
@@ -60,6 +63,7 @@ WhiteBoard  {
 
   Term        =  Term addop Fact                           --bin
               |  Fact
+
   Fact        =  Fact mulop Neg                            --bin
               |  Neg
 
@@ -100,6 +104,7 @@ WhiteBoard  {
 
   newline     =  "\n"+
   space      :=  " " | "\t" | "\n"
+
 
   keyword     =  ( "not" | "true" | "false" | "Type" | "for" | "in" | "return" | "break" | "or" | "and" | "if" | "else" | "mod" | "return") ~idrest
 

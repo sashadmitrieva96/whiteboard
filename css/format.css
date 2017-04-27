@@ -1,0 +1,50 @@
+.row {
+    display: block;
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    margin-left: -50px;
+}
+
+.col-lg-12 {
+    padding-left: none;
+    margin-left: -2%;
+}
+
+#info {
+    margin-left: 0%;
+}
+
+#description-row {
+    left: 230px;
+}
+
+.inactive {
+    visibility: hidden;
+}
+
+.active {
+    visibility: visible;
+}
+
+.navbar {
+    background: #0362D7;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.navbar a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: white;
+}
