@@ -61,39 +61,6 @@ const WBtoJS = (() => {
   };
 })();
 
-const generateBuiltInFunction = (entity, params, body) => {
-  emit(`function ${WBtoJS(entity.name)}(${params}) { ${body} }`);
-};
-const addToProto = (Obj, entity, body) => {
-  emit(`${Obj}.prototype.${WBtoJS(entity.name)} = ${body}`);
-};
-
-const declareType = (entity) => {
-  emit(`const ${WBtoJS(entity.name)} = Object.create(null)`);
-};
-
-const addToType = (parent, entity, params, body) => {
-  emit(`${WBtoJS(parent.name)}.${WBtoJS(entity.name)} = (${params}) => { ${body} }`);
-};
-
-
-generateBuiltInFunction(INITIAL.lookup('print'), '_', 'console.log(_)');
-
-//  Math Methods
-declareType(INITIAL.lookup('Math'));
-addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[0], '_', 'return Math.cos(_)');
-addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[1], '_', 'return Math.sin(_)');
-addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[2], '_', 'return Math.tan(_)');
-addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[3], '_', 'return Math.abs(_)');
-addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[4], '_', 'return Math.floor(_)');
-
-//  String Methods
-addToProto('String', INITIAL.lookup('Str').block.statements[0], 'function() { return this.length }');
-addToProto('String', INITIAL.lookup('Str').block.statements[1], 'function(a, b) { return this.substring(a, b) }');
-addToProto('String', INITIAL.lookup('Str').block.statements[2], 'function(i) { return this.indexOf(i) }');
-addToProto('String', INITIAL.lookup('Str').block.statements[3], 'function(i) { return this.charAt(i) }');
-
-
 /*
 
 
@@ -154,7 +121,8 @@ Object.assign(FunctionDeclaration.prototype, {
 
 Object.assign(Binding.prototype, {
   gen() {
-    return `${this.key} = ${this.expression.gen()}`;
+    const op = this.paramName ? ':' : '=';
+    return `${WBtoJS(this.name)} ${op} ${this.expression.gen()}`;
   },
 });
 
@@ -169,24 +137,29 @@ Object.assign(CallExpression.prototype, {
 });
 
 Object.assign(Args.prototype, {
-  // doesnt work for defaults lel... change analyze to help
+  // doesnt work for non-defaults lel... change analyze to help
   gen() {
     const result = [];
     this.args.forEach((arg) => {
-      result.push(arg.gen());
+      // console.log(arg);
+      if (arg.isBinding) {
+        result.push(arg.gen());
+      } else {
+        result.push(`${WBtoJS(arg.paramName)} : ${arg.gen()}`);
+      }
     });
-    return `(${result.join(', ')})`;
+    return `({${result.join(', ')}})`;
   },
 });
 
 Object.assign(Params.prototype, {
   gen() {
-    let result = '(';
+    let result = '({';
     this.params.forEach((p, i) => {
       const comma = (i === this.params.length - 1) ? '' : ', ';
-      result = `${result}${p.gen()}${comma}`;
+      result = `${result}${p.gen({ inFunCall: false })}${comma}`;
     });
-    return `${result})`;
+    return `${result}})`;
   },
 });
 
@@ -214,7 +187,10 @@ Object.assign(IfStatement.prototype, {
 });
 
 Object.assign(VariableAssignment.prototype, {
-  gen() { emit(`${WBtoJS(this.name)} = ${this.expression.gen()}`); },
+  gen() {
+    console.log(this.paramName);
+    emit(`${WBtoJS(this.name)} = ${this.expression.gen()}`);
+  },
 });
 
 Object.assign(UnaryExpression.prototype, {
@@ -250,3 +226,50 @@ Object.assign(VariableInitialization.prototype, {
     }
   },
 });
+
+/*
+  Built in library
+*/
+
+// USE NAME INPUT TO GET NON NAMED ARGS
+
+const generateBuiltInFunction = (entity, body) => {
+  // console.log(entity);
+  const name = WBtoJS(entity.name);
+  const params = entity.params.gen();
+  let block = body;
+  for (let i in entity.params.params) {
+    const num = 1 + parseInt(i, 10);
+    let replaceString = `#${num}`;
+    block = block.replace(new RegExp(replaceString, 'gi'), WBtoJS(entity.params.params[i].name));
+  }
+  emit(`function ${name}${params} { ${block} }`);
+};
+const addToProto = (Obj, entity, body) => {
+  emit(`${Obj}.prototype.${WBtoJS(entity.name)} = ${body}`);
+};
+
+const declareType = (entity) => {
+  emit(`const ${WBtoJS(entity.name)} = Object.create(null)`);
+};
+
+const addToType = (parent, entity, params, body) => {
+  emit(`${WBtoJS(parent.name)}.${WBtoJS(entity.name)} = (${params}) => { ${body} }`);
+};
+
+
+generateBuiltInFunction(INITIAL.lookup('print'), 'console.log(#1)');
+
+//  Math Methods
+declareType(INITIAL.lookup('Math'));
+addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[0], '_', 'return Math.cos(_)');
+addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[1], '_', 'return Math.sin(_)');
+addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[2], '_', 'return Math.tan(_)');
+addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[3], '_', 'return Math.abs(_)');
+addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[4], '_', 'return Math.floor(_)');
+
+//  String Methods
+addToProto('String', INITIAL.lookup('Str').block.statements[0], 'function() { return this.length }');
+addToProto('String', INITIAL.lookup('Str').block.statements[1], 'function(a, b) { return this.substring(a, b) }');
+addToProto('String', INITIAL.lookup('Str').block.statements[2], 'function(i) { return this.indexOf(i) }');
+addToProto('String', INITIAL.lookup('Str').block.statements[3], 'function(i) { return this.charAt(i) }');

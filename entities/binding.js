@@ -9,10 +9,18 @@ class Binding {
     return `(Entry ${this.key.toString()}, ${this.expression.toString()})`;
   }
 
-  analyze(context) {
+  analyze(context, assignmentContext) {
     this.expression.analyze(context);
     this.type = this.expression.type;
-    context.addVariable(this.key, this.expression);
+    if (assignmentContext) {
+      assignmentContext.replace(this.key, this.expression);
+      this.name = assignmentContext.getName(this.key);
+    } else {
+      context.addVariable(this.key, this.expression);
+      this.name = context.getName(this.key);
+    }
+
+
   }
 
   get(context) {

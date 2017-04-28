@@ -25,6 +25,7 @@ class Params {
       p.analyze(context);
       this.paramNames.push(p.key);
     });
+    // console.log(this.paramNames);
   }
 
   hasName(name) {

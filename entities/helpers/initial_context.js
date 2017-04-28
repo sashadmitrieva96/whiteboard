@@ -108,7 +108,7 @@ const MATH = new TypeDeclaration(
 const PRINT = new FunctionDeclaration(
   'print',
   '',
-  new Params([new VariableInitialization('test', STR, null)]),
+  new Params([new VariableInitialization('val', STR, null)]),
   new Block([])
 );
 

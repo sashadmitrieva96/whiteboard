@@ -21,9 +21,9 @@ class Args {
     return list;
   }
 
-  analyze(context) {
-    this.args.forEach((a) => {
-      a.analyze(context);
+  analyze(context, funContext) {
+    this.args.forEach((a, i) => {
+      a.analyze(context, funContext);
     });
   }
 
