@@ -1,11 +1,10 @@
-const util = require('util');
+// const util = require('util');
 
 const INITIAL = require('./../entities/helpers/initial_context.js');
 const Program = require('./../entities/program.js');
 const Block = require('./../entities/block.js');
 const IfStatement = require('./../entities/if_statement.js');
 const ForStatement = require('./../entities/for_statement.js');
-// const WhileStatement = require('./../entities/while_statement.js');
 const ReturnStatement = require('./../entities/return_statement.js');
 const BreakStatement = require('./../entities/break.js');
 const VariableInitialization = require('./../entities/variable_initialization.js');
@@ -22,8 +21,6 @@ const Args = require('./../entities/args.js');
 const NumLiteral = require('./../entities/num_lit.js');
 const BoolLiteral = require('./../entities/bool_lit.js');
 const StringLiteral = require('./../entities/str_lit.js');
-// const Type = require('./../entities/type.js');
-// const Operand = require('./../entities/operand.js');
 const VariableAssignment = require('./../entities/variable_assignment.js');
 
 const indentSize = 2;
@@ -48,6 +45,7 @@ const getOp = (op) => {
 
 
 const WBtoJS = (() => {
+  // Split up numbers between def_lib and normal vars
   let idNum = 0;
   const map = new Map();
   return (v) => {
@@ -128,7 +126,7 @@ Object.assign(Binding.prototype, {
 
 Object.assign(CallExpression.prototype, {
   gen() {
-    const prefix = this.calleeRoot.isFunction ? '' : 'new'
+    const prefix = this.calleeRoot.isFunction ? '' : 'new '
     if (this.type) {
       return `${this.callee.gen(prefix)}${this.args.gen()}`;
     }
@@ -137,11 +135,10 @@ Object.assign(CallExpression.prototype, {
 });
 
 Object.assign(Args.prototype, {
-  // doesnt work for non-defaults lel... change analyze to help
+  // doesnt work for non-defaults lel... change analyze to help TODO DONE
   gen() {
     const result = [];
     this.args.forEach((arg) => {
-      // console.log(arg);
       if (arg.isBinding) {
         result.push(arg.gen());
       } else {
@@ -228,48 +225,59 @@ Object.assign(VariableInitialization.prototype, {
 });
 
 /*
+--------------------------------------------------------------------------
   Built in library
+--------------------------------------------------------------------------
 */
 
-// USE NAME INPUT TO GET NON NAMED ARGS
-
-const generateBuiltInFunction = (entity, body) => {
-  // console.log(entity);
-  const name = WBtoJS(entity.name);
-  const params = entity.params.gen();
-  let block = body;
-  for (let i in entity.params.params) {
-    const num = 1 + parseInt(i, 10);
-    let replaceString = `#${num}`;
-    block = block.replace(new RegExp(replaceString, 'gi'), WBtoJS(entity.params.params[i].name));
-  }
-  emit(`function ${name}${params} { ${block} }`);
+const LibraryGenerator = {
+  // condense this to just pass in a patern into one function
+  replaceParams(params, body) {
+    // I feel cool using this
+    let block = body;
+    for (let i = 0; i < params.params.length; i++) {
+      const replaceString = `#${i}`;
+      block = block.replace(new RegExp(replaceString, 'gi'), WBtoJS(params.params[i].name));
+    }
+    return block;
+  },
+  addFunction(entity, body) {
+    const name = WBtoJS(entity.name);
+    const params = entity.params.gen();
+    const block = LibraryGenerator.replaceParams(entity.params, body);
+    emit(`function ${name}${params} { ${block} }`);
+  },
+  addProto(objectName, entity, body) {
+    const name = WBtoJS(entity.name);
+    const params = entity.params.gen();
+    const block = LibraryGenerator.replaceParams(entity.params, body);
+    emit(`${objectName}.prototype.${name} = ${params} => {${block}}`);
+  },
+  addType(entity) {
+    emit(`const ${WBtoJS(entity.name)} = {}`);
+    // maybe should be Object.create(null), but might be some utility behind using some proto methods
+  },
+  addFunctionToType(type, entity, body) {
+    const name = WBtoJS(entity.name);
+    const params = entity.params.gen();
+    const block = LibraryGenerator.replaceParams(entity.params, body);
+    emit(`${WBtoJS(type.name)}.${name} = ${params} => { ${block} }`);
+  },
 };
-const addToProto = (Obj, entity, body) => {
-  emit(`${Obj}.prototype.${WBtoJS(entity.name)} = ${body}`);
-};
+// need to clean up the block.statements[number] ... its so ugly :( -me
 
-const declareType = (entity) => {
-  emit(`const ${WBtoJS(entity.name)} = Object.create(null)`);
-};
-
-const addToType = (parent, entity, params, body) => {
-  emit(`${WBtoJS(parent.name)}.${WBtoJS(entity.name)} = (${params}) => { ${body} }`);
-};
-
-
-generateBuiltInFunction(INITIAL.lookup('print'), 'console.log(#1)');
+LibraryGenerator.addFunction(INITIAL.lookup('print'), 'console.log(#0)');
 
 //  Math Methods
-declareType(INITIAL.lookup('Math'));
-addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[0], '_', 'return Math.cos(_)');
-addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[1], '_', 'return Math.sin(_)');
-addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[2], '_', 'return Math.tan(_)');
-addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[3], '_', 'return Math.abs(_)');
-addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[4], '_', 'return Math.floor(_)');
+LibraryGenerator.addType(INITIAL.lookup('Math'));
+LibraryGenerator.addFunctionToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[0], 'return Math.cos(#0)');
+LibraryGenerator.addFunctionToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[1], 'return Math.sin(#0)');
+LibraryGenerator.addFunctionToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[2], 'return Math.tan(#0)');
+LibraryGenerator.addFunctionToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[3], 'return Math.abs(#0)');
+LibraryGenerator.addFunctionToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[4], 'return Math.floor(#0)');
 
 //  String Methods
-addToProto('String', INITIAL.lookup('Str').block.statements[0], 'function() { return this.length }');
-addToProto('String', INITIAL.lookup('Str').block.statements[1], 'function(a, b) { return this.substring(a, b) }');
-addToProto('String', INITIAL.lookup('Str').block.statements[2], 'function(i) { return this.indexOf(i) }');
-addToProto('String', INITIAL.lookup('Str').block.statements[3], 'function(i) { return this.charAt(i) }');
+LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[0], 'return this.length');
+LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[1], 'return this.substring(#0, #1)');
+LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[2], 'return this.indexOf(#0)');
+LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[3], 'return this.charAt(#0)');
