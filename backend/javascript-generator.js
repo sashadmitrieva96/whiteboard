@@ -1,4 +1,6 @@
+const util = require('util');
 
+const INITIAL = require('./../entities/helpers/initial_context.js');
 const Program = require('./../entities/program.js');
 const Block = require('./../entities/block.js');
 const IfStatement = require('./../entities/if_statement.js');
@@ -58,6 +60,18 @@ const WBtoJS = (() => {
     return `_${map.get(v)}`;
   };
 })();
+
+const generateBuiltInFunction = (entity, params, body) => {
+  emit(`function ${WBtoJS(entity.name)}(${params}) { ${body} }`);
+};
+const addToProto = (Obj, entity, body) => {
+  emit(`${Obj}.prototype.${WBtoJS(entity.name)} = ${body}`);
+};
+
+// console.log(util.inspect(INITIAL.lookup('Str').block.statements[1], { depth: null }));
+generateBuiltInFunction(INITIAL.lookup('print'), '_', 'console.log(_)');
+addToProto('String', INITIAL.lookup('Str').block.statements[0], 'function() { return this.length }');
+addToProto('String', INITIAL.lookup('Str').block.statements[1], 'function(a, b) { return this.substring(a, b) }');
 
 Object.assign(ForStatement.prototype, {
   gen() {

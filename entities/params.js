@@ -38,4 +38,10 @@ class Params {
 
 }
 
+Params.newParam = (params) => {
+  const result = new Params();
+  result.params = params;
+  return result;
+};
+
 module.exports = Params;

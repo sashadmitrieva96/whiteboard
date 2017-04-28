@@ -19,10 +19,14 @@ class MemberExpression {
 
   analyze(context) {
     this.object.analyze(context);
+    // console.log('test', context.lookup(this.getType(this.object.get(context))));
     if (this.isLiteral) {
       // ASSUMES A FUNCTION...?
-      console.log('test', this.object.get(context).callee.get(context).closure);
-      this.property.analyze(this.object.get(context).callee.get(context).closure);
+      const gotObject = this.object.get(context);
+      // const propClosure = gotObject.callee.get(context).closure;
+      const propClosure = context.lookup(this.getType(this.object.get(context))).closure;
+      // console.log('test', this.object.get(context));
+      this.property.analyze(propClosure);
       this.type = this.property.type;
     } else {
       this.property.analyze(context);
@@ -36,8 +40,12 @@ class MemberExpression {
     }
   }
 
-  get() {
-    return this;
+  getType(entity) {
+    return entity.type.type[0];
+  }
+
+  get(context) {
+    return context.lookup(this.getType(this.object.get(context))).closure.lookup(this.property.key);
   }
 
 

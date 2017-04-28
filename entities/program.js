@@ -1,4 +1,5 @@
-const Context = require('./context.js');
+// const Context = require('./context.js');
+const InitialContext = require('./helpers/initial_context.js');
 
 class Program {
   constructor(statements) {
@@ -15,7 +16,8 @@ class Program {
   }
 
   analyze() {
-    const context = Context.INITIAL;
+    const context = InitialContext;
+    // console.log(require('util').inspect(context, { depth: null }));
     this.statements.forEach(s => s.analyze(context));
     return true;
   }

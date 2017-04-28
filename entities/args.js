@@ -1,5 +1,6 @@
 class Args {
   constructor(a1, args) {
+    // console.log('IN ARGS');
     if (!args) {
       this.args = a1;
     } else if (args) {
@@ -8,6 +9,7 @@ class Args {
     if (!a1) {
       this.args = [];
     }
+    // console.log(this.args);
   }
 
   toString() {
