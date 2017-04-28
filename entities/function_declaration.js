@@ -22,6 +22,8 @@ class FunctionDeclaration {
     if (this.type !== '') {
       context.lookup(this.type);
       this.type = new TypeObject([this.type]);
+      // console.log(this.type);
+      // console.log(this.closure.type);
       this.type.assertTypeCompatability(this.closure.type);
     } else {
       this.type = this.closure.type;

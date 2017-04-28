@@ -1,4 +1,4 @@
-class CallExpressions {
+class CallExpression {
   constructor(callee, args) {
     this.callee = callee;
     this.args = args;
@@ -10,9 +10,22 @@ class CallExpressions {
 
   analyze(context) {
     this.callee.analyze(context);
+    // console.log(this.callee.get(context));
+    let cale = this.callee.get(context);
+    if (cale.isFunction) {
+      cale = this.callee.get(context);
+    } else {
+      cale = context.lookup(this.getType(this.callee.get(context)));
+    }
+    // console.log('__', this.callee.get(context));
+    // console.log('----', cale);
     this.checkArguments(this.callee.get(context));
     this.args.analyze(context);
     this.type = this.callee.get(context).type;
+  }
+
+  getType(entity) {
+    return entity.type.type[0];
   }
 
   checkArguments(callee) {
@@ -44,4 +57,4 @@ class CallExpressions {
   }
 }
 
-module.exports = CallExpressions;
+module.exports = CallExpression;
