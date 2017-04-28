@@ -105,6 +105,21 @@ const MATH = new TypeDeclaration(
   ])
 );
 
+const LIST = new TypeDeclaration(
+  'List',
+  new Params(undefined, undefined, true),
+  new Block([
+    new FunctionDeclaration(
+      'get',
+      '',
+      Params.newParam([new VariableInitialization('index', NUM, null)]),
+      new Block([
+        new ReturnStatement(new Numlit())
+      ])
+    )
+  ])
+);
+
 const PRINT = new FunctionDeclaration(
   'print',
   '',
@@ -117,6 +132,7 @@ INITIAL.addVariable('Bool', new Type('Bool'));
 INITIAL.addVariable('Num', new Type('Num'));
 Str.analyze(INITIAL);
 MATH.analyze(INITIAL);
+LIST.analyze(INITIAL);
 
 PRINT.analyze(INITIAL);
 

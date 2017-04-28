@@ -131,6 +131,7 @@ Object.assign(CallExpression.prototype, {
     if (this.type) {
       return `${this.callee.gen(prefix)}${this.args.gen()}`;
     }
+    console.log(this.callee);
     emit(`${this.callee.gen(prefix)}${this.args.gen()}`);
   },
 });
@@ -147,9 +148,8 @@ Object.assign(Args.prototype, {
     });
     if (this.rest.isEmpty()) {
       return `({${result.join(', ')}})`;
-    } else {
-      return `({${result.join(', ')}}, ${this.rest.gen()})`;
     }
+    return `({${result.join(', ')}}, ${this.rest.gen()})`;
   },
 });
 
@@ -254,6 +254,7 @@ const LibraryGenerator = {
       const replaceString = `#${i}`;
       block = block.replace(new RegExp(replaceString, 'gi'), WBtoJS(params.params[i].name));
     }
+    block = block.replace(new RegExp(`#${params.params.length}`, 'gi'), WBtoJS(params.restName));
     return block;
   },
   addFunction(entity, body) {
@@ -268,7 +269,17 @@ const LibraryGenerator = {
     const block = LibraryGenerator.replaceParams(entity.params, body);
     emit(`${objectName}.prototype.${name} = function${params} {${block}}`);
   },
-  addType(entity) {
+  addType(entity, body) {
+    const name = WBtoJS(entity.name);
+    const params = entity.params.gen();
+    const block = LibraryGenerator.replaceParams(entity.params, body);
+    emit(`class ${name} {
+  constructor${params} {
+    this.value = ${block}
+  }
+}`);
+  },
+  addObject(entity) {
     emit(`const ${WBtoJS(entity.name)} = {}`);
     // maybe should be Object.create(null), but might be some utility behind using some proto methods
   },
@@ -276,20 +287,31 @@ const LibraryGenerator = {
     const name = WBtoJS(entity.name);
     const params = entity.params.gen();
     const block = LibraryGenerator.replaceParams(entity.params, body);
+    emit(`${WBtoJS(type.name)}.prototype.${name} = function${params} {${block}}`);
+  },
+  addFunctionToObject(type, entity, body) {
+    const name = WBtoJS(entity.name);
+    const params = entity.params.gen();
+    const block = LibraryGenerator.replaceParams(entity.params, body);
     emit(`${WBtoJS(type.name)}.${name} = function${params} {${block}}`);
   },
 };
 // need to clean up the block.statements[number] ... its so ugly :( -me
+// console.log(INITIAL.lookup('List').block.statements[0]);
 
 LibraryGenerator.addFunction(INITIAL.lookup('print'), 'console.log(#0)');
 
+// List Methods
+LibraryGenerator.addType(INITIAL.lookup('List'), '#0');
+LibraryGenerator.addFunctionToType(INITIAL.lookup('List'), INITIAL.lookup('List').block.statements[0], 'return this.value[#0]');
+
 //  Math Methods
-LibraryGenerator.addType(INITIAL.lookup('Math'));
-LibraryGenerator.addFunctionToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[0], 'return Math.cos(#0)');
-LibraryGenerator.addFunctionToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[1], 'return Math.sin(#0)');
-LibraryGenerator.addFunctionToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[2], 'return Math.tan(#0)');
-LibraryGenerator.addFunctionToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[3], 'return Math.abs(#0)');
-LibraryGenerator.addFunctionToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[4], 'return Math.floor(#0)');
+LibraryGenerator.addObject(INITIAL.lookup('Math'));
+LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[0], 'return Math.cos(#0)');
+LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[1], 'return Math.sin(#0)');
+LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[2], 'return Math.tan(#0)');
+LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[3], 'return Math.abs(#0)');
+LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[4], 'return Math.floor(#0)');
 
 //  String Methods
 LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[0], 'return this.length');
