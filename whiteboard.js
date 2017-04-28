@@ -74,7 +74,8 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
   Exp2_call: (obj, args) => new CallExpression(obj.ast(), args.ast()),
 
-  Param: (o, p, cl, pl, clos) => new Params(unpack(p.ast()), unpack(pl.ast())),
+  Param_norm: (o, p, cl, pl, clos) => new Params(unpack(p.ast()), unpack(pl.ast()), false),
+  Param_rest: (o, p, cl, pl, c, dots, clos) => new Params(unpack(p.ast()), unpack(pl.ast()), true),
 
   SParam_id: (t, id) => new VariableInitialization(id.sourceString, t.sourceString, null),
 

@@ -1,5 +1,7 @@
+const Rest = require('./rest.js');
+
 class Params {
-  constructor(p1, params) {
+  constructor(p1, params, hasRest) {
     if (!params) {
       this.params = p1;
     } else if (params) {
@@ -8,6 +10,7 @@ class Params {
     if (!p1) {
       this.params = [];
     }
+    this.hasRest = hasRest;
     this.paramNames = [];
   }
 
@@ -25,6 +28,10 @@ class Params {
       p.analyze(context);
       this.paramNames.push(p.key);
     });
+    if (this.hasRest) {
+      context.addVariable('rest', new Rest());
+      this.restName = context.getName('rest');
+    }
     // console.log(this.paramNames);
   }
 

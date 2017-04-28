@@ -1,3 +1,5 @@
+const Rest = require('./rest.js');
+
 class Args {
   constructor(a1, args) {
     // console.log('IN ARGS');
@@ -9,6 +11,7 @@ class Args {
     if (!a1) {
       this.args = [];
     }
+    this.rest = new Rest();
     // console.log(this.args);
   }
 
@@ -22,9 +25,12 @@ class Args {
   }
 
   analyze(context, funContext) {
-    this.args.forEach((a, i) => {
+    this.args.forEach((a) => {
       a.analyze(context, funContext);
     });
+    if (!this.rest.isEmpty()) {
+      this.rest.analyze();
+    }
   }
 
   get() {

@@ -22,6 +22,7 @@ const NumLiteral = require('./../entities/num_lit.js');
 const BoolLiteral = require('./../entities/bool_lit.js');
 const StringLiteral = require('./../entities/str_lit.js');
 const VariableAssignment = require('./../entities/variable_assignment.js');
+const Rest = require('./../entities/rest.js');
 
 const indentSize = 2;
 
@@ -135,7 +136,6 @@ Object.assign(CallExpression.prototype, {
 });
 
 Object.assign(Args.prototype, {
-  // doesnt work for non-defaults lel... change analyze to help TODO DONE
   gen() {
     const result = [];
     this.args.forEach((arg) => {
@@ -145,7 +145,11 @@ Object.assign(Args.prototype, {
         result.push(`${WBtoJS(arg.paramName)} : ${arg.gen()}`);
       }
     });
-    return `({${result.join(', ')}})`;
+    if (this.rest.isEmpty()) {
+      return `({${result.join(', ')}})`;
+    } else {
+      return `({${result.join(', ')}}, ${this.rest.gen()})`;
+    }
   },
 });
 
@@ -156,7 +160,18 @@ Object.assign(Params.prototype, {
       const comma = (i === this.params.length - 1) ? '' : ', ';
       result = `${result}${p.gen({ inFunCall: false })}${comma}`;
     });
-    return `${result}})`;
+    return `${result}} ${this.hasRest ? `, ...${WBtoJS(this.restName)}` : ''})`; // add resterino
+  },
+});
+
+Object.assign(Rest.prototype, {
+  gen() {
+    let result = '';
+    this.arguments.forEach((a, i) => {
+      const comma = (i === this.arguments.length - 1) ? '' : ', ';
+      result = `${result}${a.gen({ inFunCall: false })}${comma}`;
+    });
+    return `${result}`;
   },
 });
 
@@ -251,7 +266,7 @@ const LibraryGenerator = {
     const name = WBtoJS(entity.name);
     const params = entity.params.gen();
     const block = LibraryGenerator.replaceParams(entity.params, body);
-    emit(`${objectName}.prototype.${name} = ${params} => {${block}}`);
+    emit(`${objectName}.prototype.${name} = function${params} {${block}}`);
   },
   addType(entity) {
     emit(`const ${WBtoJS(entity.name)} = {}`);
@@ -261,7 +276,7 @@ const LibraryGenerator = {
     const name = WBtoJS(entity.name);
     const params = entity.params.gen();
     const block = LibraryGenerator.replaceParams(entity.params, body);
-    emit(`${WBtoJS(type.name)}.${name} = ${params} => { ${block} }`);
+    emit(`${WBtoJS(type.name)}.${name} = function${params} {${block}}`);
   },
 };
 // need to clean up the block.statements[number] ... its so ugly :( -me

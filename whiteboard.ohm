@@ -36,7 +36,8 @@ WhiteBoard  {
 
   Exp         =  And
 
-  Param       =  "(" (SParam ("," SParam)*)?  ")"
+  Param       =  "(" (SParam ("," SParam)*)? ("," "...")? ")"    --rest
+              |  "(" (SParam ("," SParam)*)? ")"                 --norm
 
   SParam      =  type Primary_id                             --id
               |  Binding                                     --binding
