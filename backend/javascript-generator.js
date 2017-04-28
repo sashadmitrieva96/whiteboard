@@ -68,10 +68,19 @@ const addToProto = (Obj, entity, body) => {
   emit(`${Obj}.prototype.${WBtoJS(entity.name)} = ${body}`);
 };
 
-// console.log(util.inspect(INITIAL.lookup('Str').block.statements[1], { depth: null }));
+
 generateBuiltInFunction(INITIAL.lookup('print'), '_', 'console.log(_)');
+//  String Methods
 addToProto('String', INITIAL.lookup('Str').block.statements[0], 'function() { return this.length }');
 addToProto('String', INITIAL.lookup('Str').block.statements[1], 'function(a, b) { return this.substring(a, b) }');
+addToProto('String', INITIAL.lookup('Str').block.statements[2], 'function(i) { return this.indexOf(i) }');
+addToProto('String', INITIAL.lookup('Str').block.statements[3], 'function(i) { return this.charAt(i) }');
+
+
+/*
+
+
+*/
 
 Object.assign(ForStatement.prototype, {
   gen() {

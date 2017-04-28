@@ -19,6 +19,8 @@ const STR = 'Str';
 const NUM = 'Num';
 const BOOL = 'Bool';
 
+
+
 const Str = new TypeDeclaration(
   STR,
   new Params(),
@@ -35,6 +37,22 @@ const Str = new TypeDeclaration(
       Params.newParam([
         new VariableInitialization('start', NUM, null),
         new VariableInitialization('end', NUM, null)
+      ]),
+      new Block([new ReturnStatement(new StringLiteral(''))])
+    ),
+    new FunctionDeclaration(
+      'index_of',
+      NUM,
+      Params.newParam([
+        new VariableInitialization('index', STR, null)
+      ]),
+      new Block([new ReturnStatement(new Numlit('0'))])
+    ),
+    new FunctionDeclaration(
+      'char_at',
+      STR,
+      Params.newParam([
+        new VariableInitialization('index', NUM, null)
       ]),
       new Block([new ReturnStatement(new StringLiteral(''))])
     )
