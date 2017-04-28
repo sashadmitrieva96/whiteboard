@@ -93,9 +93,10 @@ const Math = new TypeDeclaration(
       )
   ])
 );
-Hey ryan I am doing the add function for lists and don't get how to know the
+/* Hey ryan I am doing the add function for lists and don't get how to know the
 return value like for math its always NUM but for lists you can put anything
 into a list so what do?
+*/
 const lists = new TypeDeclaration(
   'list',
   new Params(new VariableInitialization()),

@@ -18,6 +18,7 @@ class CallExpression {
       cale = context.lookup(this.getType(this.callee.get(context)));
     }
     // console.log('__', this.callee.get(context));
+    this.calleeRoot = this.callee.get(context);
     // console.log('----', cale);
     this.checkArguments(this.callee.get(context));
     this.args.analyze(context);

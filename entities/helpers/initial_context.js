@@ -20,7 +20,6 @@ const NUM = 'Num';
 const BOOL = 'Bool';
 
 
-
 const Str = new TypeDeclaration(
   STR,
   new Params(),
@@ -59,6 +58,52 @@ const Str = new TypeDeclaration(
   ])
 );
 
+const MATH = new TypeDeclaration(
+  'Math',
+  new Params(),
+  new Block([
+    new FunctionDeclaration(
+      'cos',
+      NUM,
+      Params.newParam([new VariableInitialization('val', NUM, null)]),
+      new Block([
+        new ReturnStatement(new Numlit())
+      ])
+    ),
+    new FunctionDeclaration(
+      'sin',
+      NUM,
+      Params.newParam([new VariableInitialization('val', NUM, null)]),
+      new Block([
+        new ReturnStatement(new Numlit())
+      ])
+    ),
+    new FunctionDeclaration(
+      'tan',
+      NUM,
+      Params.newParam([new VariableInitialization('val', NUM, null)]),
+      new Block([
+        new ReturnStatement(new Numlit())
+      ])
+    ),
+    new FunctionDeclaration(
+      'abs',
+      NUM,
+      Params.newParam([new VariableInitialization('val', NUM, null)]),
+      new Block([
+        new ReturnStatement(new Numlit())
+      ])
+    ),
+    new FunctionDeclaration(
+      'floor',
+      NUM,
+      Params.newParam([new VariableInitialization('val', NUM, null)]),
+      new Block([
+        new ReturnStatement(new Numlit())
+      ])
+    )
+  ])
+);
 
 const PRINT = new FunctionDeclaration(
   'print',
@@ -71,6 +116,7 @@ const PRINT = new FunctionDeclaration(
 INITIAL.addVariable('Bool', new Type('Bool'));
 INITIAL.addVariable('Num', new Type('Num'));
 Str.analyze(INITIAL);
+MATH.analyze(INITIAL);
 
 PRINT.analyze(INITIAL);
 

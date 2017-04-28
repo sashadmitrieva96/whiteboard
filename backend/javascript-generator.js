@@ -68,8 +68,25 @@ const addToProto = (Obj, entity, body) => {
   emit(`${Obj}.prototype.${WBtoJS(entity.name)} = ${body}`);
 };
 
+const declareType = (entity) => {
+  emit(`const ${WBtoJS(entity.name)} = Object.create(null)`);
+};
+
+const addToType = (parent, entity, params, body) => {
+  emit(`${WBtoJS(parent.name)}.${WBtoJS(entity.name)} = (${params}) => { ${body} }`);
+};
+
 
 generateBuiltInFunction(INITIAL.lookup('print'), '_', 'console.log(_)');
+
+//  Math Methods
+declareType(INITIAL.lookup('Math'));
+addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[0], '_', 'return Math.cos(_)');
+addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[1], '_', 'return Math.sin(_)');
+addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[2], '_', 'return Math.tan(_)');
+addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[3], '_', 'return Math.abs(_)');
+addToType(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[4], '_', 'return Math.floor(_)');
+
 //  String Methods
 addToProto('String', INITIAL.lookup('Str').block.statements[0], 'function() { return this.length }');
 addToProto('String', INITIAL.lookup('Str').block.statements[1], 'function(a, b) { return this.substring(a, b) }');
@@ -84,7 +101,10 @@ addToProto('String', INITIAL.lookup('Str').block.statements[3], 'function(i) { r
 
 Object.assign(ForStatement.prototype, {
   gen() {
-    // gonna have to figure this out
+    // gonna have to figure this out more good, but works for now
+    emit(`for (let ${WBtoJS(this.id)} in ${this.expression.gen()}) {`);
+    this.block.gen();
+    emit('}');
   },
 });
 
@@ -140,10 +160,11 @@ Object.assign(Binding.prototype, {
 
 Object.assign(CallExpression.prototype, {
   gen() {
+    const prefix = this.calleeRoot.isFunction ? '' : 'new'
     if (this.type) {
-      return `${this.callee.gen()}${this.args.gen()}`;
+      return `${this.callee.gen(prefix)}${this.args.gen()}`;
     }
-    emit(`${this.callee.gen()}${this.args.gen()}`);
+    emit(`${this.callee.gen(prefix)}${this.args.gen()}`);
   },
 });
 
@@ -205,7 +226,7 @@ Object.assign(BinaryExpression.prototype, {
 });
 
 Object.assign(VariableExpression.prototype, {
-  gen() { return `${this.isType ? 'new ' : ''}${WBtoJS(this.name)}`; },
+  gen(prefix = '') { return `${prefix}${WBtoJS(this.name)}`; },
 });
 
 Object.assign(BoolLiteral.prototype, {

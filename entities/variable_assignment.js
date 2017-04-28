@@ -9,6 +9,7 @@ class VariableAssignment {
     this.type = this.expression.type;
 
     this.type.assertTypeCompatability(context.lookup(this.key).type);
+    this.name = context.lookup(this.key).name;
     context.replace(this.key, this);
   }
 
