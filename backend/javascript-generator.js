@@ -28,20 +28,15 @@ const Rest = require('./../entities/rest.js');
 const indentSize = 2;
 let indentLevel = 0;
 
-const test = /(whiteboard.js)$/.test(process.argv[1]);
-
-if (test) {
-  const options = ['-p', '-a', '-g'];
-  const fileIndex = process.argv[2] in options ? 3 : 2;
-  const newFile = process.argv[fileIndex].replace('.wb', '.js');
-  fs.writeFile(newFile, '// Javascript code generated from Whiteboard code!\n');
-}
-
+const options = ['-p', '-a', '-g'];
+const fileIndex = options.includes(process.argv[2]) ? 3 : 2;
+console.log(options.includes(process.argv[2]));
+const newFile = process.argv[fileIndex].replace('.wb', '.js');
+fs.writeFileSync(newFile, '// Javascript code generated from Whiteboard code!\n');
 
 const emit = (line) => {
-  if (test) {
-    fs.appendFile(newFile, `${' '.repeat(indentSize * indentLevel)}${line}\n`);
-  }
+  // Needs to be synchronus or else code is generated out of order
+  fs.appendFileSync(newFile, `${' '.repeat(indentSize * indentLevel)}${line}\n`);
   console.log(`${' '.repeat(indentSize * indentLevel)}${line}`);
 };
 
@@ -313,7 +308,7 @@ const LibraryGenerator = {
 // need to clean up the block.statements[number] ... its so ugly :( -me
 
 const setUpLibrary = () => {
-  emit('/* ---------------- START OF LIBRARY --------------------- */');
+  emit('///* ---------------- START OF LIBRARY --------------------- */');
 
   LibraryGenerator.addFunction(INITIAL.lookup('print'), 'console.log(#0)');
 

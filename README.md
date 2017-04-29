@@ -5,6 +5,7 @@ a whiteboard for the world to write on
 
 whiteboard is an easy-to-learn scripting language that compiles to Javascript, made with the intent of introducing programming syntax to first-time users.
 
+
 ### Grammar
 #### Macrosyntax
 
