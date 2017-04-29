@@ -1,4 +1,5 @@
 // const util = require('util');
+const fs = require('fs');
 
 const INITIAL = require('./../entities/helpers/initial_context.js');
 const Program = require('./../entities/program.js');
@@ -25,10 +26,16 @@ const VariableAssignment = require('./../entities/variable_assignment.js');
 const Rest = require('./../entities/rest.js');
 
 const indentSize = 2;
-
 let indentLevel = 0;
 
+const options = ['-p', '-a', '-g'];
+const fileIndex = process.argv[2] in options ? 3 : 2;
+const newFile = process.argv[fileIndex].replace('.wb', '.js');
+fs.writeFile(newFile, '// Javascript code generated from Whiteboard code!\n');
+
+
 const emit = (line) => {
+  fs.appendFile(newFile, `${' '.repeat(indentSize * indentLevel)}${line}\n`);
   console.log(`${' '.repeat(indentSize * indentLevel)}${line}`);
 };
 
@@ -300,8 +307,7 @@ const LibraryGenerator = {
 // need to clean up the block.statements[number] ... its so ugly :( -me
 
 const setUpLibrary = () => {
-
-emit('/* ---------------- START OF LIBRARY --------------------- */');
+  emit('/* ---------------- START OF LIBRARY --------------------- */');
 
   LibraryGenerator.addFunction(INITIAL.lookup('print'), 'console.log(#0)');
 

@@ -14,6 +14,7 @@
         "linebreak-style": "off",
         "no-console": "off",
         "max-len": "off",
-        "consistent-return": "off"
+        "consistent-return": "off",
+        "no-use-before-define": "off"
     }
 }

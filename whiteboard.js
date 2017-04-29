@@ -97,9 +97,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 // If you change this code, make sure you run 'npm install -g' after you save
 if (/(whiteboard.js)$/.test(process.argv[1])) {
   const runAll = (program) => {
-    console.log('\nSemantic analyzer returned: ', program.analyze());
-    console.log('Abstract Syntax Tree: \n', program.toString());
-    console.log('\nJS Program Generated: \n');
+    program.analyze();
     program.gen();
   };
 
