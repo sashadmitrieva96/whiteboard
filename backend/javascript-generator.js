@@ -131,7 +131,7 @@ Object.assign(CallExpression.prototype, {
     if (this.type) {
       return `${this.callee.gen(prefix)}${this.args.gen()}`;
     }
-    console.log(this.callee);
+    // console.log(this.callee);
     emit(`${this.callee.gen(prefix)}${this.args.gen()}`);
   },
 });
@@ -200,7 +200,7 @@ Object.assign(IfStatement.prototype, {
 
 Object.assign(VariableAssignment.prototype, {
   gen() {
-    console.log(this.paramName);
+    // console.log(this.paramName);
     emit(`${WBtoJS(this.name)} = ${this.expression.gen()}`);
   },
 });
@@ -299,11 +299,18 @@ const LibraryGenerator = {
 // need to clean up the block.statements[number] ... its so ugly :( -me
 // console.log(INITIAL.lookup('List').block.statements[0]);
 
+emit('');
+emit('/* ---------------- START OF LIBRARY --------------------- */');
+emit('');
+
 LibraryGenerator.addFunction(INITIAL.lookup('print'), 'console.log(#0)');
 
 // List Methods
 LibraryGenerator.addType(INITIAL.lookup('List'), '#0');
 LibraryGenerator.addFunctionToType(INITIAL.lookup('List'), INITIAL.lookup('List').block.statements[0], 'return this.value[#0]');
+LibraryGenerator.addFunctionToType(INITIAL.lookup('List'), INITIAL.lookup('List').block.statements[1], 'return this.value.length');
+LibraryGenerator.addFunctionToType(INITIAL.lookup('List'), INITIAL.lookup('List').block.statements[2],
+`let s = this.value.slice(0, #0); let e = this.value.slice(#0, this.value.length); let temp = new ${WBtoJS(INITIAL.lookup('List').name)}({}, [...s, #1, ...e]); temp.value = temp.value[0]; return temp;`);
 
 //  Math Methods
 LibraryGenerator.addObject(INITIAL.lookup('Math'));
@@ -318,3 +325,7 @@ LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[0], '
 LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[1], 'return this.substring(#0, #1)');
 LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[2], 'return this.indexOf(#0)');
 LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[3], 'return this.charAt(#0)');
+
+emit('');
+emit('/* ----------------- END OF LIBRARY ---------------------- */');
+emit('');

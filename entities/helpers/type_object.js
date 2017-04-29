@@ -1,6 +1,7 @@
 class TypeObject {
-  constructor(listOfTypes) {
+  constructor(listOfTypes, structure = 'prim') {
     this.type = listOfTypes;
+    this.structure = structure;
   }
 
   assertTypeCompatability(other) {

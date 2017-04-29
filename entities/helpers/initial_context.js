@@ -13,6 +13,8 @@ const Args = require('./../args.js');
 const StringLiteral = require('./../str_lit');
 const VariableExpression = require('./../variable_expression.js')
 
+const TypeObject = require('./type_object.js');
+
 const INITIAL = new Context(null, false, false, false, 0);
 
 const STR = 'Str';
@@ -116,6 +118,23 @@ const LIST = new TypeDeclaration(
       new Block([
         new ReturnStatement(new Numlit())
       ])
+    ),
+    new FunctionDeclaration(
+      'length',
+      NUM,
+      new Params(),
+      new Block([new ReturnStatement(new Numlit('0'))])
+    ),
+    new FunctionDeclaration(
+      'insert',
+      '',
+      Params.newParam([
+        new VariableInitialization('index', NUM, null), // actually NUM
+        new VariableInitialization('value', NUM, null)  // shouldnt be NUM
+      ]),
+      new Block([
+        new ReturnStatement(new VariableInitialization('res', NUM, null))
+      ])
     )
   ])
 );
@@ -128,6 +147,7 @@ const PRINT = new FunctionDeclaration(
 );
 
 // INITIAL.addVariable('Str', Str);
+INITIAL.addVariable('Type', new Type('Type'));
 INITIAL.addVariable('Bool', new Type('Bool'));
 INITIAL.addVariable('Num', new Type('Num'));
 Str.analyze(INITIAL);
