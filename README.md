@@ -5,7 +5,43 @@ a whiteboard for the world to write on
 
 whiteboard is an easy-to-learn scripting language that compiles to Javascript, made with the intent of introducing programming syntax to first-time users.
 
+## WOOMFY'S GUIDE ON HOW TO USE WHITEBOARD
+ Hey, what's up! It's @woomfy here with a guide on how to get you started with whiteboard! I'll take you step by step on how to use, edit, and manage this code base.
 
+#### Step 1
+If you haven't already, CLONE THE REPOSITORY (and get those node modules, ya bby).
+
+Like this:
+```
+git clone https://github.com/sashadmitrieva96/whiteboard.git
+npm install
+```
+
+#### Step 2
+Great! Now you're ready to code, so write up your favorite algorithm and save it in a .wb file.
+
+MAKE SURE YOU HAVE LF LINE ENDINGS OR ELSE IT WON'T WORK!
+Time to run the compiler:
+```
+whiteboard YOURFILENAMEHERE.wb
+node YOURFILENAMEHERE.js
+```
+This will generate a .js file which you can then run with node!
+
+### Step 3
+You: "I've made some changes to whiteboard's source code but it doesn't seem like the it's working!"
+
+Yeah, so....the way we get our fancy "whiteboard KILLMEPLEASE.wb" shell command is by linking whiteboard.js to a location on our path, which allows us to use it like any other shell command. MAIN POINT: You gotta re-link it after every change. You probably only kind of know what that means, because I barely understand it.
+
+(lmao google ftw)
+
+Node let's us easily do it like this:
+```
+npm install -g
+```
+AWESOME! Now you can make contributions to whiteboard.
+
+Thanks for watching. Please like, comment, and subscribe for more! This is @woomfy signing off!
 ### Grammar
 #### Macrosyntax
 

@@ -30,7 +30,6 @@ let indentLevel = 0;
 
 const options = ['-p', '-a', '-g'];
 const fileIndex = options.includes(process.argv[2]) ? 3 : 2;
-console.log(options.includes(process.argv[2]));
 const newFile = process.argv[fileIndex].replace('.wb', '.js');
 fs.writeFileSync(newFile, '// Javascript code generated from Whiteboard code!\n');
 
