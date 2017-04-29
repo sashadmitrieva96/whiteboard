@@ -30,13 +30,20 @@ let indentLevel = 0;
 
 const options = ['-p', '-a', '-g'];
 const fileIndex = options.includes(process.argv[2]) ? 3 : 2;
+const printCode = fileIndex === 3;
 const newFile = process.argv[fileIndex].replace('.wb', '.js');
-fs.writeFileSync(newFile, '// Javascript code generated from Whiteboard code!\n');
+
+if (printCode) {
+  fs.writeFileSync(newFile, '// Javascript code generated from Whiteboard code!\n');
+}
 
 const emit = (line) => {
-  // Needs to be synchronus or else code is generated out of order
-  fs.appendFileSync(newFile, `${' '.repeat(indentSize * indentLevel)}${line}\n`);
-  console.log(`${' '.repeat(indentSize * indentLevel)}${line}`);
+  if (printCode) {
+    console.log(`${' '.repeat(indentSize * indentLevel)}${line}`);
+  } else {
+    // Needs to be synchronus or else code is generated out of order
+    fs.appendFileSync(newFile, `${' '.repeat(indentSize * indentLevel)}${line}\n`);
+  }
 };
 
 const getOp = (op) => {
@@ -307,11 +314,13 @@ const LibraryGenerator = {
 // need to clean up the block.statements[number] ... its so ugly :( -me
 
 const setUpLibrary = () => {
-  emit('///* ---------------- START OF LIBRARY --------------------- */');
+  emit('/* ---------------- START OF LIBRARY --------------------- */');
 
+  emit('\n// PRINT');
   LibraryGenerator.addFunction(INITIAL.lookup('print'), 'console.log(#0)');
 
   // List Methods
+  emit('\n// LIST');
   LibraryGenerator.addType(INITIAL.lookup('List'), '#0');
   LibraryGenerator.addFunctionToType(INITIAL.lookup('List'), INITIAL.lookup('List').block.statements[0], 'return this.value[#0]');
   LibraryGenerator.addFunctionToType(INITIAL.lookup('List'), INITIAL.lookup('List').block.statements[1], 'return this.value.length');
@@ -319,6 +328,7 @@ const setUpLibrary = () => {
   `let s = this.value.slice(0, #0); let e = this.value.slice(#0, this.value.length); let temp = new ${WBtoJS(INITIAL.lookup('List').name)}({}, [...s, #1, ...e]); temp.value = temp.value[0]; return temp;`);
 
   //  Math Methods
+  emit('\n// MATH');
   LibraryGenerator.addObject(INITIAL.lookup('Math'));
   LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[0], 'return Math.cos(#0)');
   LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[1], 'return Math.sin(#0)');
@@ -327,6 +337,7 @@ const setUpLibrary = () => {
   LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[4], 'return Math.floor(#0)');
 
   //  String Methods
+  emit('\n// STRING');
   LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[0], 'return this.length');
   LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[1], 'return this.substring(#0, #1)');
   LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[2], 'return this.indexOf(#0)');
