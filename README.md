@@ -31,13 +31,15 @@ This will generate a .js file which you can then run with node!
 ### Step 3
 You: "I've made some changes to whiteboard's source code but it doesn't seem like the it's working!"
 
-Yeah, so....the way we get our fancy "whiteboard KILLMEPLEASE.wb" shell command is by linking whiteboard.js to a location on our path, which allows us to use it like any other shell command. MAIN POINT: You gotta re-link it after every change. You probably only kind of know what that means, because I barely understand it.
+~~Yeah, so....the way we get our fancy "whiteboard KILLMEPLEASE.wb" shell command is by linking whiteboard.js to a location on our path, which allows us to use it like any other shell command. MAIN POINT: You gotta re-link it after every change. You probably only kind of know what that means, because I barely understand it.~~
 
 (lmao google ftw)
 
-Node let's us easily do it like this:
+~~Node let's us easily do it like this:~~
+Just run npm link, you only gotta do it once:
 ```
-npm install -g
+// npm install -g <------ just kidding don't use this
+npm link
 ```
 AWESOME! Now you can make contributions to whiteboard.
 

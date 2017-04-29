@@ -1,4 +1,4 @@
-Str woomfy = 'hello'
+Str woomfy = 'succ'
 print(woomfy)
 
 Type Dog = (Str n):
