@@ -127,7 +127,7 @@ if (/(whiteboard.js)$/.test(process.argv[1])) {
   }
 
   const compile = process.argv[2] in optionTable ? optionTable[process.argv[fileIndex - 1]] : runAll;
-  const file = fs.readFileSync(process.argv[fileIndex], 'utf8');
+  const file = preparse(fs.readFileSync(process.argv[fileIndex], 'utf8'));
   const match = grammar.match(file);
 
   if (!match.succeeded()) {

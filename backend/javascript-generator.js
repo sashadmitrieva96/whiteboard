@@ -127,7 +127,7 @@ Object.assign(Binding.prototype, {
 
 Object.assign(CallExpression.prototype, {
   gen() {
-    const prefix = this.calleeRoot.isFunction ? '' : 'new '
+    const prefix = this.calleeRoot.isFunction ? '' : 'new ';
     if (this.type) {
       return `${this.callee.gen(prefix)}${this.args.gen()}`;
     }

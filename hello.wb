@@ -1,1 +1,8 @@
-print('hello world')
+Str woomfy = 'hello'
+print(woomfy)
+
+Type Dog = (Str n):
+  Str name = n
+
+Dog snoopy = Dog('woomfy')
+print(snoopy.name)
