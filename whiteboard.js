@@ -90,28 +90,62 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   type: (name, p2) => new Type(name.sourceString, p2.sourceString),
 
 });
+
+
 /* eslint-enable no-unused-vars */
+if (process.argv[1] === `${process.cwd()}\\whiteboard.js`) {
+  const runAll = (program) => {
+    console.log('\nSemantic analyzer returned: ', program.analyze());
+    console.log('Abstract Syntax Tree: \n', program.toString());
+    console.log('\nJS Program Generated: \n');
+    program.gen();
+  };
 
-/* I put this part in the export so we didn't have to have a giant copy of
-   the parser in the test file, but we'll keep this here just in case.
-   ***Note: this breaks npm test */
+  const generate = (program) => {
+    program.analyze();
+    console.log('\nJS Program Generated: \n');
+    program.gen();
+  };
 
-const m = grammar.match(process.argv[2]);
-if (m.succeeded()) {
-  const ast = semantics(m).ast();
-  ast.analyze();
-  ast.gen();
-  // console.log(semantics(m).ast().analyze());
-} else {
-  console.error(m.message);
-  console.log('fail');
-  process.exitCode = 1;
+  const optionTable = {
+    '-p': program => console.log('Abstract Syntax Tree: \n', program.toString()),
+    '-a': program => console.log('Semantic analyzer returned: ', program.analyze()),
+    '-g': program => generate(program),
+  };
+
+  const syntaxError = (match) => {
+    console.error(match.message);
+    throw new Error('Syntax error');
+  };
+
+  const fileIndex = process.argv[2] in optionTable ? 3 : 2;
+
+  // Check if input file is .wb
+  if (!/(\.wb)$/.test(process.argv[fileIndex])) {
+    throw new Error('Incorrect file type, use only .wb files');
+  }
+
+  const compile = process.argv[2] in optionTable ? optionTable[process.argv[2]] : runAll;
+  const file = fs.readFileSync(process.argv[fileIndex], 'utf8');
+  const match = grammar.match(file);
+
+  if (!match.succeeded()) {
+    syntaxError(match);
+  }
+
+  const program = semantics(match).ast();
+
+  // This line of code makes .wb code into .js code!
+  // Run 'node whiteboard.js hello.wb'
+  compile(program);
 }
 
-module.exports = (program) => {
-  const match = grammar.match(preparse(program));
-  if (!match.succeeded()) {
+
+/* For running npm test */
+module.exports = (p) => {
+  const m = grammar.match(preparse(p));
+  if (!m.succeeded()) {
     throw new Error('lol thats an error bro');
   }
-  return semantics(match).ast();
+  return semantics(m).ast();
 };
