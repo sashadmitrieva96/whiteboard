@@ -1,4 +1,4 @@
-const TypeObject = require('./helpers/type_object.js');
+const Type = require('./type.js');
 
 class Operand {
   constructor(op) {
@@ -10,8 +10,8 @@ class Operand {
   }
 
   analyze() {
-    this.type = new TypeObject(this.resultType());
-    this.argumentType = new TypeObject(this.argType());
+    this.type = new Type(this.resultType());
+    this.argumentType = new Type(this.argType());
   }
 
   argType() {
@@ -21,13 +21,13 @@ class Operand {
 
     const result = [];
     if (booleanOps.includes(this.op)) {
-      result.push('Bool');
+      result.push(Type.Bool);
     }
     if (numberOps.includes(this.op)) {
-      result.push('Num');
+      result.push(Type.Num);
     }
     if (stringOps.includes(this.op)) {
-      result.push('Str');
+      result.push(Type.Str);
     }
     return result;
   }
@@ -39,21 +39,41 @@ class Operand {
 
     const result = [];
     if (booleanOps.includes(this.op)) {
-      result.push('Bool');
+      result.push(Type.Bool);
     }
     if (numberOps.includes(this.op)) {
-      result.push('Num');
+      result.push(Type.Num);
     }
     if (stringOps.includes(this.op)) {
-      result.push('Str');
+      result.push(Type.Str);
     }
 
     return result;
   }
 
-  getBinaryType(l) {
+  compatibleWithArgument(type) {
+    const poss = this.argType();
+    let result = false;
+    poss.forEach((t) => {
+      if (t.isCompatible(type)) {
+        result = true;
+      }
+    });
+    return result;
+  }
+
+  getBinaryType(l, r) {
     if (this.op !== '+') {
-      return this.type;
+      let result = null;
+      this.resultType().forEach((t) => {
+        if (t.isCompatible(l)) {
+          result = l;
+        }
+      });
+      if (result === null) {
+        throw Error('BIN TYPE NOT FOUND');
+      }
+      return result;
     }
     return l;
   }

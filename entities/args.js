@@ -2,7 +2,6 @@ const Rest = require('./rest.js');
 
 class Args {
   constructor(a1, args) {
-    // console.log('IN ARGS');
     if (!args) {
       this.args = a1;
     } else if (args) {
@@ -12,7 +11,6 @@ class Args {
       this.args = [];
     }
     this.rest = new Rest();
-    // console.log(this.args);
   }
 
   toString() {

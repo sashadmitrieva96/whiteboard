@@ -1,4 +1,4 @@
-const TypeObject = require('./helpers/type_object');
+const Type = require('./type');
 
 class TypeDeclaration {
   constructor(id, params, block) {
@@ -13,13 +13,13 @@ class TypeDeclaration {
   }
 
   analyze(context) {
-    context.addVariable(this.key, this);
-    // console.log(context);
+    context.addVariable(this.key.type, this);
+
     this.closure = context.createChildContextForType();
     this.params.analyze(this.closure);
     this.block.analyze(this.closure);
-    this.name = context.getName(this.key);
-    this.type = new TypeObject([this.key]);
+    this.name = context.getName(this.key.type);
+    this.type = new Type(Type.Type.type, this.key);
   }
 
   get() {

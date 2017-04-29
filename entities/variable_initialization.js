@@ -1,8 +1,9 @@
-const TypeObject = require('./helpers/type_object.js');
+const Type = require('./type.js');
 
 class VariableInitialization {
   constructor(id, type, expression) {
     this.key = id;
+    // console.log('VAR INIT: ', type);
     this.type = type;
     this.expression = expression;
   }
@@ -21,11 +22,15 @@ class VariableInitialization {
   }
 
   analyze(context) {
-    context.lookup(this.type);
-    this.type = new TypeObject([this.type]);
+    context.lookup(this.type.type);
+    // this.type = new Type([this.type]);
     if (this.expression) {
       this.expression.analyze(context);
-      this.type.assertTypeCompatability(this.expression.type);
+      if (this.expression.resultType) {
+        this.type.assertTypeCompatability(this.expression.resultType(context));
+      } else {
+        this.type.assertTypeCompatability(this.expression.type);
+      }
     }
 
     context.addVariable(this.key, this);

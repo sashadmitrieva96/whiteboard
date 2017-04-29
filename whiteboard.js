@@ -57,12 +57,12 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
   Args: (o, e, cl, el, c) => new Args(unpack(e.ast()), unpack(el.ast())), // doesnt get first
 
-  ObjDecl: (t, id, e, params, c, block) => new TypeDeclaration(id.sourceString, params.ast(), block.ast()),
+  ObjDecl: (t, id, e, params, c, block) => new TypeDeclaration(new Type(id.sourceString), params.ast(), block.ast()),
   FunDecl: (t, id, e, params, c, block) =>
-    new FunctionDeclaration(id.sourceString, t.sourceString, params.ast(), block.ast()),
+    new FunctionDeclaration(id.sourceString, new Type(t.sourceString), params.ast(), block.ast()),
 
   Decl_ass: (id, e, val) => new VariableAssignment(id.sourceString, val.ast()),
-  Decl_init: (t, id, e, val) => new VariableInitialization(id.sourceString, t.sourceString, unpack(val.ast())),
+  Decl_init: (t, id, e, val) => new VariableInitialization(id.sourceString, new Type(t.sourceString), unpack(val.ast())),
 
   And_bin: (left, op, right) => new BinaryExpression(left.ast(), new Operand(op.sourceString), right.ast()),
   Or_bin: (left, op, right) => new BinaryExpression(left.ast(), new Operand(op.sourceString), right.ast()),
@@ -77,7 +77,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Param_norm: (o, p, cl, pl, clos) => new Params(unpack(p.ast()), unpack(pl.ast()), false),
   Param_rest: (o, p, cl, pl, c, dots, clos) => new Params(unpack(p.ast()), unpack(pl.ast()), true),
 
-  SParam_id: (t, id) => new VariableInitialization(id.sourceString, t.sourceString, null),
+  SParam_id: (t, id) => new VariableInitialization(id.sourceString, new Type(t.sourceString), null),
 
   Exp2_acc: (obj, prop) => new MemberExpression(obj.ast(), prop.ast()),
 
@@ -87,7 +87,7 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   Primary_str: s => new StringLiteral(s.sourceString),
   Primary_exp: (o, exp, c) => exp.ast(),
 
-  type: (name, p2) => new Type(name.sourceString, p2.sourceString),
+  // type: (name, p2) => new Type(name.sourceString, p2.sourceString),
 
 });
 /* eslint-enable no-unused-vars */

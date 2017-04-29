@@ -24,6 +24,13 @@ class CallExpression {
     return entity.type.type[0];
   }
 
+  resultType(context) {
+    if (this.callee.get(context).type.type === 'Function' || this.callee.get(context).type.type === 'Type') {
+      console.log('');
+    }
+    return this.callee.get(context).type.subType;
+  }
+
   checkArguments(callee, context) {
     let hasSeenNamed = false;
     const matchedParamNames = new Set([]);
@@ -50,7 +57,7 @@ class CallExpression {
           // callee.params.paramNames.push('rest');
         // }
         // const rest = callee.params.params[callee.params.params.length - 1];
-        
+
         this.args.rest.addArgument(arg);
         this.extraIndices.push(index);
         // cannot have binding in rest

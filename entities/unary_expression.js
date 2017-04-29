@@ -11,7 +11,7 @@ class UnaryExpression {
   analyze(context) {
     this.expression.analyze(context);
     this.op.analyze();
-    this.op.argumentType.assertTypeCompatability(this.expression.type);
+    this.op.compatibleWithArgument(this.expression.type);
     this.type = this.op.type;
   }
 

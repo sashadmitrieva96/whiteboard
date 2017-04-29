@@ -1,4 +1,4 @@
-const TypeObject = require('./helpers/type_object.js');
+const Type = require('./type.js');
 
 class Case {
   constructor(test, block) {
@@ -12,7 +12,7 @@ class Case {
 
   analyze(context) {
     this.test.analyze(context);
-    this.test.type.assertTypeCompatability(new TypeObject(['Bool']));
+    this.test.type.assertTypeCompatability(new Type('Bool'));
 
     this.block.analyze(context);
   }

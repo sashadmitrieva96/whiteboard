@@ -13,47 +13,40 @@ const Args = require('./../args.js');
 const StringLiteral = require('./../str_lit');
 const VariableExpression = require('./../variable_expression.js')
 
-const TypeObject = require('./type_object.js');
-
 const INITIAL = new Context(null, false, false, false, 0);
 
-const STR = 'Str';
-const NUM = 'Num';
-const BOOL = 'Bool';
-
-
 const Str = new TypeDeclaration(
-  STR,
+  Type.Str,
   new Params(),
   new Block([
     new FunctionDeclaration(
       'length',
-      NUM,
+      Type.Num,
       new Params(),
       new Block([new ReturnStatement(new Numlit('0'))])
     ),
     new FunctionDeclaration(
       'substring',
-      STR,
+      Type.Str,
       Params.newParam([
-        new VariableInitialization('start', NUM, null),
-        new VariableInitialization('end', NUM, null)
+        new VariableInitialization('start', Type.Num, null),
+        new VariableInitialization('end', Type.Num, null)
       ]),
       new Block([new ReturnStatement(new StringLiteral(''))])
     ),
     new FunctionDeclaration(
       'index_of',
-      NUM,
+      Type.Num,
       Params.newParam([
-        new VariableInitialization('index', STR, null)
+        new VariableInitialization('index', Type.Str, null)
       ]),
       new Block([new ReturnStatement(new Numlit('0'))])
     ),
     new FunctionDeclaration(
       'char_at',
-      STR,
+      Type.Str,
       Params.newParam([
-        new VariableInitialization('index', NUM, null)
+        new VariableInitialization('index', Type.Num, null)
       ]),
       new Block([new ReturnStatement(new StringLiteral(''))])
     )
@@ -61,45 +54,45 @@ const Str = new TypeDeclaration(
 );
 
 const MATH = new TypeDeclaration(
-  'Math',
+  new Type('Math'),
   new Params(),
   new Block([
     new FunctionDeclaration(
       'cos',
-      NUM,
-      Params.newParam([new VariableInitialization('val', NUM, null)]),
+      Type.Num,
+      Params.newParam([new VariableInitialization('val', Type.Num, null)]),
       new Block([
         new ReturnStatement(new Numlit())
       ])
     ),
     new FunctionDeclaration(
       'sin',
-      NUM,
-      Params.newParam([new VariableInitialization('val', NUM, null)]),
+      Type.Num,
+      Params.newParam([new VariableInitialization('val', Type.Num, null)]),
       new Block([
         new ReturnStatement(new Numlit())
       ])
     ),
     new FunctionDeclaration(
       'tan',
-      NUM,
-      Params.newParam([new VariableInitialization('val', NUM, null)]),
+      Type.Num,
+      Params.newParam([new VariableInitialization('val', Type.Num, null)]),
       new Block([
         new ReturnStatement(new Numlit())
       ])
     ),
     new FunctionDeclaration(
       'abs',
-      NUM,
-      Params.newParam([new VariableInitialization('val', NUM, null)]),
+      Type.Num,
+      Params.newParam([new VariableInitialization('val', Type.Num, null)]),
       new Block([
         new ReturnStatement(new Numlit())
       ])
     ),
     new FunctionDeclaration(
       'floor',
-      NUM,
-      Params.newParam([new VariableInitialization('val', NUM, null)]),
+      Type.Num,
+      Params.newParam([new VariableInitialization('val', Type.Num, null)]),
       new Block([
         new ReturnStatement(new Numlit())
       ])
@@ -108,32 +101,32 @@ const MATH = new TypeDeclaration(
 );
 
 const LIST = new TypeDeclaration(
-  'List',
-  new Params(undefined, undefined, true),
+  Type.List,
+  new Params([new VariableInitialization('Type', Type.Type, null)], undefined, true),
   new Block([
     new FunctionDeclaration(
       'get',
-      '',
-      Params.newParam([new VariableInitialization('index', NUM, null)]),
+      Type.Arbritrary,
+      Params.newParam([new VariableInitialization('index', Type.Num, null)]),
       new Block([
         new ReturnStatement(new Numlit())
       ])
     ),
     new FunctionDeclaration(
       'length',
-      NUM,
+      Type.Num,
       new Params(),
       new Block([new ReturnStatement(new Numlit('0'))])
     ),
     new FunctionDeclaration(
       'insert',
-      '',
+      Type.Arbritrary,
       Params.newParam([
-        new VariableInitialization('index', NUM, null), // actually NUM
-        new VariableInitialization('value', NUM, null)  // shouldnt be NUM
+        new VariableInitialization('index', Type.Num, null), // actually NUM
+        new VariableInitialization('value', Type.Arbritrary, null), // shouldnt be NUM
       ]),
       new Block([
-        new ReturnStatement(new VariableInitialization('res', NUM, null))
+        new ReturnStatement(new VariableInitialization('res', new Type('List', Type.Arbritrary), null))
       ])
     )
   ])
@@ -141,15 +134,19 @@ const LIST = new TypeDeclaration(
 
 const PRINT = new FunctionDeclaration(
   'print',
-  '',
-  new Params([new VariableInitialization('val', STR, null)]),
-  new Block([])
+  Type.None,
+  new Params([new VariableInitialization('val', Type.Str, null)]),
+  new Block([new ReturnStatement(new VariableInitialization('res', Type.None, null))])
 );
 
-// INITIAL.addVariable('Str', Str);
-INITIAL.addVariable('Type', new Type('Type'));
-INITIAL.addVariable('Bool', new Type('Bool'));
-INITIAL.addVariable('Num', new Type('Num'));
+INITIAL.addVariable('Type', Type.Type);
+INITIAL.addVariable('Bool', Type.Bool);
+INITIAL.addVariable('Num', Type.Num);
+
+INITIAL.addVariable('Function', Type.Function);
+INITIAL.addVariable('None', Type.None);
+INITIAL.addVariable('<arbitrary>', Type.Arbritrary);
+
 Str.analyze(INITIAL);
 MATH.analyze(INITIAL);
 LIST.analyze(INITIAL);

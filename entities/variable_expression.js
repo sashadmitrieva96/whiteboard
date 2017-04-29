@@ -10,6 +10,8 @@ class VariableExpression {
   analyze(context) {
     // console.log('****', require('util').inspect(context, { depth: null }));
     // console.log(this.key);
+    // console.log(this.key);
+    // console.log(context);
     const res = context.lookup(this.key);
     this.type = res.type;
     this.isType = res.isType;

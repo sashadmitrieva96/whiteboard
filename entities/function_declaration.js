@@ -1,8 +1,9 @@
-const TypeObject = require('./helpers/type_object.js');
+const Type = require('./type.js');
 
 class FunctionDeclaration {
   constructor(id, type, params, block) {
-    this.type = type;
+    this.type = new Type(Type.Function.type, type);
+    // console.log('Fun DECL: ', id, this.type);
     this.key = id;
     this.params = params;
     this.block = block;
@@ -20,11 +21,9 @@ class FunctionDeclaration {
 
 
     if (this.type !== '') {
-      context.lookup(this.type);
-      this.type = new TypeObject([this.type]);
-      // console.log(this.type);
-      // console.log(this.closure.type);
-      this.type.assertTypeCompatability(this.closure.type);
+      // console.log('fun');
+      context.lookup(this.type.type);
+      this.type.assertProducesType(this.closure.type);
     } else {
       this.type = this.closure.type;
     }

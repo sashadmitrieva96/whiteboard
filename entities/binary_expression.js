@@ -15,8 +15,8 @@ class BinaryExpression {
     this.right.analyze(context);
 
     this.left.type.assertTypeCompatability(this.right.type);
-    this.op.argumentType.assertTypeCompatability(this.left.type);
-    this.op.argumentType.assertTypeCompatability(this.right.type);
+    this.op.compatibleWithArgument(this.left.type);
+    this.op.compatibleWithArgument(this.right.type);
 
     this.type = this.op.getBinaryType(this.left.type, this.right.type);
   }
