@@ -13,6 +13,7 @@
         ],
         "linebreak-style": "off",
         "no-console": "off",
-        "max-len": "off"
+        "max-len": "off",
+        "consistent-return": "off"
     }
 }

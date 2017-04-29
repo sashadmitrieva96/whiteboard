@@ -127,7 +127,7 @@ Object.assign(Binding.prototype, {
 
 Object.assign(CallExpression.prototype, {
   gen() {
-    const prefix = this.calleeRoot.isFunction ? '' : 'new '
+    const prefix = this.calleeRoot.isFunction ? '' : 'new ';
     if (this.type) {
       return `${this.callee.gen(prefix)}${this.args.gen()}`;
     }
@@ -299,13 +299,15 @@ const LibraryGenerator = {
 // need to clean up the block.statements[number] ... its so ugly :( -me
 // console.log(INITIAL.lookup('List').block.statements[0]);
 
-emit('');
-emit('/* ---------------- START OF LIBRARY --------------------- */');
-emit('');
+emit('\n\n/* ---------------- START OF LIBRARY --------------------- */');
 
+emit('\n PRINT');
+emit('----------------------------------------------------------');
 LibraryGenerator.addFunction(INITIAL.lookup('print'), 'console.log(#0)');
 
 // List Methods
+emit('\n LIST');
+emit('----------------------------------------------------------');
 LibraryGenerator.addType(INITIAL.lookup('List'), '#0');
 LibraryGenerator.addFunctionToType(INITIAL.lookup('List'), INITIAL.lookup('List').block.statements[0], 'return this.value[#0]');
 LibraryGenerator.addFunctionToType(INITIAL.lookup('List'), INITIAL.lookup('List').block.statements[1], 'return this.value.length');
@@ -313,6 +315,8 @@ LibraryGenerator.addFunctionToType(INITIAL.lookup('List'), INITIAL.lookup('List'
 `let s = this.value.slice(0, #0); let e = this.value.slice(#0, this.value.length); let temp = new ${WBtoJS(INITIAL.lookup('List').name)}({}, [...s, #1, ...e]); temp.value = temp.value[0]; return temp;`);
 
 //  Math Methods
+emit('\n MATH');
+emit('----------------------------------------------------------');
 LibraryGenerator.addObject(INITIAL.lookup('Math'));
 LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[0], 'return Math.cos(#0)');
 LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[1], 'return Math.sin(#0)');
@@ -321,11 +325,12 @@ LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Mat
 LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[4], 'return Math.floor(#0)');
 
 //  String Methods
+emit('\n STRING');
+emit('----------------------------------------------------------');
 LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[0], 'return this.length');
 LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[1], 'return this.substring(#0, #1)');
 LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[2], 'return this.indexOf(#0)');
 LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[3], 'return this.charAt(#0)');
 
-emit('');
-emit('/* ----------------- END OF LIBRARY ---------------------- */');
-emit('');
+
+emit('\n/* ----------------- END OF LIBRARY ---------------------- */\n\n');
