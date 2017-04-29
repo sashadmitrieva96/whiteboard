@@ -96,9 +96,23 @@ const semantics = grammar.createSemantics().addOperation('ast', {
 
 // If you change this code, make sure you run 'npm install -g' after you save
 if (/(whiteboard.js)$/.test(process.argv[1])) {
+
+  /* Suggestion: As a convention for adding command line operations, we should
+     write a function that contains the functionality of the option then call
+     the function in optionTable. It makes for nice clean code! */
+
   const runAll = (program) => {
     program.analyze();
     program.gen();
+  };
+
+  const parse = (program) => {
+    console.log('Abstract Syntax Tree: \n', program.toString());
+  };
+
+  const analyze = (program) => {
+    program.analyze();
+    console.log('Semantic analyzer returned: ', util.inspect(program, { depth: null }));
   };
 
   const generate = (program) => {
@@ -107,12 +121,10 @@ if (/(whiteboard.js)$/.test(process.argv[1])) {
     program.gen();
   };
 
+
   const optionTable = {
-    '-p': program => console.log('Abstract Syntax Tree: \n', program.toString()),
-    '-a': (program) => {
-      program.analyze();
-      console.log('Semantic analyzer returned: ', util.inspect(program, { depth: null }))
-    },
+    '-p': program => parse(program),
+    '-a': program => analyze(program),
     '-g': program => generate(program),
   };
 
