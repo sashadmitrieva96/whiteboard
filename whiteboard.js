@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const ohm = require('ohm-js');
+const util = require('util');
 
 const language = fs.readFileSync('whiteboard.ohm');
 const grammar = ohm.grammar(language);
@@ -110,7 +111,7 @@ if (/(whiteboard.js)$/.test(process.argv[1])) {
 
   const optionTable = {
     '-p': program => console.log('Abstract Syntax Tree: \n', program.toString()),
-    '-a': program => console.log('Semantic analyzer returned: ', program.analyze()),
+    '-a': program => console.log('Semantic analyzer returned: ', util.inspect(program.analyze(), { depth: null })),
     '-g': program => generate(program),
   };
 

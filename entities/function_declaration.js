@@ -15,6 +15,7 @@ class FunctionDeclaration {
 
   analyze(context) {
     // RETURNS DONT PROPOGATE TYPE!! BUG CATCHER BATKEV AT IT AGAIN!!!!
+    context.addVariable(this.key, this);
     this.closure = context.createChildContextForFunction();
     this.params.analyze(this.closure);
     this.block.analyze(this.closure);
@@ -27,7 +28,6 @@ class FunctionDeclaration {
     } else {
       this.type = this.closure.type;
     }
-    context.addVariable(this.key, this);
     this.name = context.getName(this.key);
     this.isFunction = true;
   }
