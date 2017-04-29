@@ -1,4 +1,4 @@
-const Rest = require('./rest.js');
+// const Rest = require('./rest.js');
 
 class CallExpression {
   constructor(callee, args) {
@@ -35,10 +35,8 @@ class CallExpression {
     let hasSeenNamed = false;
     const matchedParamNames = new Set([]);
     this.startingSize = callee.params.params.length;
-    // console.log('params: ', this.startingSize);
     this.extraIndices = [];
     this.args.args.forEach((arg, index) => {
-      // console.log(arg);
       let name;
       if (arg.isBinding) {
         hasSeenNamed = true;
@@ -50,13 +48,6 @@ class CallExpression {
         if (!callee.params.hasRest) {
           throw Error('callee is not rest capable, too many args');
         }
-        // console.log('IN REST');
-        // might not need this??.. def not
-        // if (index === this.startingSize) {
-          // callee.params.params.push(new Rest());
-          // callee.params.paramNames.push('rest');
-        // }
-        // const rest = callee.params.params[callee.params.params.length - 1];
 
         this.args.rest.addArgument(arg);
         this.extraIndices.push(index);
@@ -64,12 +55,7 @@ class CallExpression {
         if (arg.isBinding) {
           throw Error('Cannot bind values in rest');
         }
-        // console.log(arg);
-
-        // throw Error('too many arguments');
       } else {
-        // console.log('ARG: ', arg);
-        // console.log(callee.params.params[index]);
         name = arg.isBinding ? arg.key : callee.params.params[index].key;
         if (matchedParamNames.has(name)) {
           throw Error(`matched parameter ${name} multiple times.`);
@@ -95,7 +81,7 @@ class CallExpression {
       }
     });
     if (result === null) {
-      throw new Error('param not found')
+      throw new Error('param not found');
     }
     // console.log('FOUND', result);
     return result;

@@ -91,7 +91,7 @@ WhiteBoard  {
 
   relop       =  ">=" | ">" | "<=" | "<" | "!=" | "=="
 
-  addop       =  "+" | "-"
+  addop       =  "+" | "-" | "^"
   mulop       =  "*" | "/" | "%" | "mod"
 
   negop       =  "-" | "!" | "not"

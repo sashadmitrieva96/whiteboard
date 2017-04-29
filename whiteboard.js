@@ -109,7 +109,10 @@ if (/(whiteboard.js)$/.test(process.argv[1])) {
 
   const optionTable = {
     '-p': program => console.log('Abstract Syntax Tree: \n', program.toString()),
-    '-a': program => console.log('Semantic analyzer returned: ', util.inspect(program.analyze(), { depth: null })),
+    '-a': (program) => {
+      program.analyze();
+      console.log('Semantic analyzer returned: ', util.inspect(program, { depth: null }))
+    },
     '-g': program => generate(program),
   };
 

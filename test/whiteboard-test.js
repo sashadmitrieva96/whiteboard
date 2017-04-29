@@ -57,12 +57,12 @@ const AST_POS_TESTS = [
 
   [
     `Num kevin = 4`,
-    `{ Program (VariableID = kevin, Type : Num, Val : (NumLit : 4))}`,
+    `{ Program (VariableID = kevin, Type : (Type: Num ), Val : (NumLit : 4))}`,
   ],
 
   [
     `Dog woomfy`,
-    `{ Program (VariableID = woomfy, Type : Dog)}`,
+    `{ Program (VariableID = woomfy, Type : (Type: Dog ))}`,
   ],
 
   [
@@ -72,7 +72,7 @@ const AST_POS_TESTS = [
         Num area = ():
             return width * height
     `,
-    `{ Program (TypeId : Square (TypeParams:= (Params (VariableID = w, Type : Num)(VariableID = h, Type : Num))) (TypeBody : (Block (VariableID = width, Type : Num, Val : (VariableId : w)) (VariableID = height, Type : Num, Val : (VariableId : h)) (FunctionID : area, Params : (Params ), Block : (Block (Return -> (BinaryExpression (Left : (VariableId : width)) (Op : *) (Right : (VariableId : height)))))))))}`,
+    `{ Program (TypeId : (Type: Square ) (TypeParams:= (Params (VariableID = w, Type : (Type: Num ))(VariableID = h, Type : (Type: Num )))) (TypeBody : (Block (VariableID = width, Type : (Type: Num ), Val : (VariableId : w)) (VariableID = height, Type : (Type: Num ), Val : (VariableId : h)) (FunctionID : area, Params : (Params ), Block : (Block (Return -> (BinaryExpression (Left : (VariableId : width)) (Op : *) (Right : (VariableId : height)))))))))}`,
   ],
 ];
 
@@ -105,65 +105,62 @@ Num multiply = (Num a, Num b):
 
 `,
   `Num kevin = 4`,
-//
-//   `Type Square = (w, h):
-//       width = w
-//       height = h
-//       area = ():
-//           return width * height`,
-//
+
+  `Type Square = (Num w, Num h):
+      Num width = w
+      Num height = h
+      Num area = ():
+          return width * height
+`,
+
+  `
+Num varEable = 4
+if varEable == 4:
+  varEable = 1
+else:
+  varEable = 0
+`,
+
+  `
+Bool bad = true
+Bool good = false
+Num side = (Bool guy):
+    if (guy != bad):
+        return 1
+    else if (guy != good):
+        return 2
+    return 3
+`,
+  `
+Bool testShould = (Num pass):
+    Bool but = (Bool it):
+        return it
+    Bool x = but(true)
+    return (x != false)`,
+
+  `
+Num x = 4
+if x < 5:
+    x = 5
+Num y = x
+`,
 //   `
-// Num varEable = 4
-// if varEable == 4:
-//   varEable = 1
-// else:
-//   varEable = 0
-// `,
-//
-//   `
-// bad = true
-// good = false
-// side = (guy):
-//     if (guy != bad):
-//         return 1
-//     else if (guy != good):
-//         return 2
-//     else:
-//         return 3
-// `,
-//   `
-// Type Test = ():
-//     x = 9
-//
-// Test should = (pass):
-//     but = (it):
-//         return it
-//     x = but(true)
-//     return (x != false)`,
-//
-//   `
-// x = 4
-// if x < 5:
-//     x = 5
-// y = x
-// `,
-//   `
-// y = 5
+// Num y = 5
 // for x in y:
 //   break
 // `,
-//   `
-// Type Person = (Str n):
-//   name = n
-//   Str getName = ():
-//     return name
-//
-// Person m
-// `, `
-// fun = (x, y, z):
-//   return x
-// x = fun(w: 88)
-// `,
+  `
+Type Person = (Str n):
+  Str name = n
+  Str getName = ():
+    return name
+
+Person m
+`, `
+Num fun = (Num x, Num y, Num z):
+  return x
+x = fun(x: 88)
+`,
 
 
 ];

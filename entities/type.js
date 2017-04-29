@@ -8,6 +8,11 @@ class Type {
     this.subType = subType;
   }
 
+
+  toString() {
+    return `(Type: ${this.type} ${this.subType ? `, subtype: ${this.subtype}` : ''})`;
+  }
+
   assertTypeCompatability(other) {
     if (!other) {
       throw new Error('other has no type');

@@ -19,8 +19,6 @@ class Binding {
       context.addVariable(this.key, this.expression);
       this.name = context.getName(this.key);
     }
-
-
   }
 
   get(context) {

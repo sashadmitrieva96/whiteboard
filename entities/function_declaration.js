@@ -18,7 +18,7 @@ class FunctionDeclaration {
     context.addVariable(this.key, this);
     this.closure = context.createChildContextForFunction();
     this.params.analyze(this.closure);
-    this.block.analyze(this.closure);
+    this.block.analyze(this.closure, true);
 
 
     if (this.type !== '') {

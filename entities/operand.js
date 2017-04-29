@@ -17,7 +17,7 @@ class Operand {
   argType() {
     const numberOps = ['==', '!=', '>=', '>', '<=', '<', '+', '-', '*', '/', '%', 'mod', '**', '-'];
     const booleanOps = ['==', '!=', 'and', 'or', '!', 'not'];
-    const stringOps = ['==', '!=', '+'];
+    const stringOps = ['^', '==', '!='];
 
     const result = [];
     if (booleanOps.includes(this.op)) {
@@ -35,7 +35,7 @@ class Operand {
   resultType() {
     const numberOps = ['+', '-', '*', '/', '%', 'mod', '**', '-'];
     const booleanOps = ['==', '!=', '>=', '>', '<=', '<', 'and', 'or', '!', 'not'];
-    const stringOps = [];
+    const stringOps = ['^'];
 
     const result = [];
     if (booleanOps.includes(this.op)) {
@@ -62,21 +62,8 @@ class Operand {
     return result;
   }
 
-  getBinaryType(l, r) {
+  getBinaryType() {
     return this.resultType()[0];
-    // if (this.op !== '+') {
-    //   let result = null;
-    //   this.resultType().forEach((t) => {
-    //     if (t.isCompatible(l)) {
-    //       result = l;
-    //     }
-    //   });
-    //   if (result === null) {
-    //     throw Error('BIN TYPE NOT FOUND');
-    //   }
-    //   return result;
-    // }
-    // return l;
   }
 
   get() {

@@ -28,10 +28,11 @@ const Rest = require('./../entities/rest.js');
 const indentSize = 2;
 let indentLevel = 0;
 
+
 const options = ['-p', '-a', '-g'];
 const fileIndex = options.includes(process.argv[2]) ? 3 : 2;
 const printCode = fileIndex === 3;
-const newFile = process.argv[fileIndex].replace('.wb', '.js');
+const newFile = process.argv[fileIndex] ? process.argv[fileIndex].replace('.wb', '.js') : 'test.js';
 
 if (printCode) {
   fs.writeFileSync(newFile, '// Javascript code generated from Whiteboard code!\n');
@@ -50,6 +51,7 @@ const getOp = (op) => {
   const opTable = {
     '==': '===',
     '!=': '!==',
+    '^': '+',
     and: '&&',
     or: '||',
     not: '!',

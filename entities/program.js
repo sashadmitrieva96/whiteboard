@@ -19,7 +19,7 @@ class Program {
     const context = InitialContext;
     // console.log(require('util').inspect(context, { depth: null }));
     this.statements.forEach(s => s.analyze(context));
-    return this;
+    return true;
   }
 
   get() {

@@ -1,9 +1,7 @@
-const Type = require('./type.js');
 
 class VariableInitialization {
   constructor(id, type, expression) {
     this.key = id;
-    // console.log('VAR INIT: ', type);
     this.type = type;
     this.expression = expression;
   }
@@ -23,7 +21,6 @@ class VariableInitialization {
 
   analyze(context) {
     context.lookup(this.type.type);
-    // this.type = new Type([this.type]);
     if (this.expression) {
       this.expression.analyze(context);
       if (this.expression.resultType) {
