@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 
 const fs = require('fs');
 const ohm = require('ohm-js');
@@ -90,10 +91,10 @@ const semantics = grammar.createSemantics().addOperation('ast', {
   type: (name, p2) => new Type(name.sourceString, p2.sourceString),
 
 });
-
-
 /* eslint-enable no-unused-vars */
-if (process.argv[1] === `${process.cwd()}\\whiteboard.js`) {
+
+// If you change this code, make sure you run 'npm install -g' after you save
+if (/(whiteboard.js)$/.test(process.argv[1])) {
   const runAll = (program) => {
     console.log('\nSemantic analyzer returned: ', program.analyze());
     console.log('Abstract Syntax Tree: \n', program.toString());
@@ -125,7 +126,7 @@ if (process.argv[1] === `${process.cwd()}\\whiteboard.js`) {
     throw new Error('Incorrect file type, use only .wb files');
   }
 
-  const compile = process.argv[2] in optionTable ? optionTable[process.argv[2]] : runAll;
+  const compile = process.argv[2] in optionTable ? optionTable[process.argv[fileIndex - 1]] : runAll;
   const file = fs.readFileSync(process.argv[fileIndex], 'utf8');
   const match = grammar.match(file);
 
@@ -136,7 +137,7 @@ if (process.argv[1] === `${process.cwd()}\\whiteboard.js`) {
   const program = semantics(match).ast();
 
   // This line of code makes .wb code into .js code!
-  // Run 'node whiteboard.js hello.wb'
+  // Run 'whiteboard hello.wb'
   compile(program);
 }
 
