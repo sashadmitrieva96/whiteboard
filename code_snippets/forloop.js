@@ -1,8 +1,11 @@
 // Javascript code generated from Whiteboard code!
+/* ---------------- START OF LIBRARY --------------------- */
+
+// PRINT
 function _1({_2} ) { console.log(_2) }
 
 // Range
-function _4({_5 = 0, _6} ) {
+function _4({_5 = 0, _6} ) { 
 let array = new Array();
 let range = _6 -_5
 for (i = 0; i < range; i++) {
@@ -15,34 +18,40 @@ function _7({} , ..._8) { return _8 }
 Array.prototype._9 = function({_10} ) {return this[_10]}
 Array.prototype._11 = function({} ) {return this.length}
 Array.prototype._12 = function({_13, _14} ) {let s = this.slice(0, _13); let e = this.slice(_13, this.length); let temp = new _7({}, [...s, _14, ...e]); temp = temp[0]; return temp;}
+Array.prototype._15 = function({_16} ) {this.push(_16); return this}
+Array.prototype._17 = function({} ) {return this.pop()}
 
 // MATH
-const _15 = {}
-_15._16 = function({_17} ) {return Math.cos(_17)}
-_15._18 = function({_19} ) {return Math.sin(_19)}
-_15._20 = function({_21} ) {return Math.tan(_21)}
-_15._22 = function({_23} ) {return Math.abs(_23)}
-_15._24 = function({_25} ) {return Math.floor(_25)}
+const _18 = {}
+_18._19 = function({_20} ) {return Math.cos(_20)}
+_18._21 = function({_22} ) {return Math.sin(_22)}
+_18._23 = function({_24} ) {return Math.tan(_24)}
+_18._25 = function({_26} ) {return Math.abs(_26)}
+_18._27 = function({_28} ) {return Math.floor(_28)}
 
 // STRING
-String.prototype._26 = function({} ) {return this.length}
-String.prototype._27 = function({_28, _29} ) {return this.substring(_28, _29)}
-String.prototype._30 = function({_31} ) {return this.indexOf(_31)}
-String.prototype._32 = function({_33} ) {return this.charAt(_33)}
+String.prototype._29 = function({} ) {return this.length}
+String.prototype._30 = function({_31, _32} ) {return this.substring(_31, _32)}
+String.prototype._33 = function({_34} ) {return this.indexOf(_34)}
+String.prototype._35 = function({_36} ) {return this.charAt(_36)}
 /* ----------------- END OF LIBRARY ---------------------- */
 
 
-let _34 = _4({_5 : 0, _6 : 9})
-let _35 = new _7({}, `op`, `opop`)
-for (let _36 in _34) {
-  if ((_34).hasOwnProperty(_36)) {
-    _36 = _34._9({_10 : _36})
-    for (let _37 in _35) {
-      if ((_35).hasOwnProperty(_37)) {
-        _37 = _35._9({_10 : _37})
-        _1({_2 : _36})
-        _1({_2 : _37})
+let _37 = _4({})
+let _38 = new _7({}, _4({_5 : 3, _6 : 5}), _4({_5 : 4, _6 : 6}))
+for (let _39 in _37) {
+  if ((_37).hasOwnProperty(_39)) {
+    _39 = _37._9({_10 : _39})
+    for (let _40 in _38) {
+      if ((_38).hasOwnProperty(_40)) {
+        _40 = _38._9({_10 : _40})
+        _1({_2 : _39})
+        _1({_2 : _40})
       }
     }
+    _1({_2 : `----------------`})
   }
 }
+let _41 = _4({_5 : 10, _6 : 20})
+_41._15({_16 : 4})
+_1({_2 : _41})

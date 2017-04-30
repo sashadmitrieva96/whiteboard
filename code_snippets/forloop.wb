@@ -1,5 +1,5 @@
-List l = range(0, 9)
-List l2 = List('op', 'opop')
+List l = range()
+List l2 = List(range(3, 5), range(4, 6))
 
 for x in l:
   x = l.get(x)
@@ -7,3 +7,9 @@ for x in l:
     y = l2.get(y)
     print(x)
     print(y)
+
+
+print('----------------')
+List x = range(10, 20)
+x.push(4)
+print(x)

@@ -1,11 +1,12 @@
 const Type = require('./type');
 
 class TypeDeclaration {
-  constructor(id, params, block) {
+  constructor(id, params, block, runtimeType) {
     this.key = id;
     this.params = params;
     this.block = block;
     this.isType = true;
+    this.runtimeType = runtimeType;
   }
 
   toString() {

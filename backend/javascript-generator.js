@@ -144,6 +144,9 @@ Object.assign(Block.prototype, {
 Object.assign(FunctionDeclaration.prototype, {
   // maybe have our functions add a rest param into the js?
   gen(prefix = 'let ') {
+    // Typing Lists
+    // if ()
+
     emit(`${prefix}${WBtoJS(this.name)} = ${this.params.gen()} => {`);
     this.block.gen();
     emit('}');
@@ -352,7 +355,8 @@ return array`);
   LibraryGenerator.addProto('Array', INITIAL.lookup('List').block.statements[1], 'return this.length');
   LibraryGenerator.addProto('Array', INITIAL.lookup('List').block.statements[2],
   `let s = this.slice(0, #0); let e = this.slice(#0, this.length); let temp = new ${WBtoJS(INITIAL.lookup('List').name)}({}, [...s, #1, ...e]); temp = temp[0]; return temp;`);
-
+  LibraryGenerator.addProto('Array', INITIAL.lookup('List').block.statements[3], 'this.push(#0); return this');
+  LibraryGenerator.addProto('Array', INITIAL.lookup('List').block.statements[4], 'return this.pop()');
   //  Math Methods
   emit('\n// MATH');
   LibraryGenerator.addObject(INITIAL.lookup('Math'));

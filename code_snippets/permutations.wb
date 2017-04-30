@@ -1,0 +1,20 @@
+List perms = (Num size):
+  if size == 0:
+    return List()
+  else if size == 1:
+    return List(List())
+
+  List prev = perms(size - 1)
+  List res = List()
+
+  for p in prev:
+    p = prev.get(p)
+    List r = range(0, size)
+    for i in r:
+      i = r.get(i)
+      List temp = p.insert(i, size)
+      res.push(temp)
+    Num x = 0
+  return res
+
+print(perms(3))

@@ -129,6 +129,25 @@ const LIST = new TypeDeclaration(
       new Block([
         new ReturnStatement(new VariableInitialization('res', new Type('List', Type.Arbritrary), null))
       ])
+    ),
+    new FunctionDeclaration(
+      'push',
+      Type.None,
+      Params.newParam([
+        new VariableInitialization('value', Type.Arbritrary, null), // shouldnt be NUM
+      ]),
+      new Block([
+        new ReturnStatement(new VariableInitialization('res', Type.None, null))
+      ])
+    ),
+    new FunctionDeclaration(
+      'pop',
+      Type.Arbritrary,
+      Params.newParam([
+      ]),
+      new Block([
+        new ReturnStatement(new VariableInitialization('res', Type.Arbritrary, null))
+      ])
     )
   ])
 );

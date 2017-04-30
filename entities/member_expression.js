@@ -16,11 +16,13 @@ class MemberExpression {
     return `(MemberObject : ${this.object.toString()} . MemberProperty : ${this.property.toString()})`;
   }
 
-  analyze(context) {
+  analyze(context, mba) {
+    console.log('please god', mba);
     this.object.analyze(context);
 
     if (this.isLiteral) {
       // const propClosure = context.lookup(this.getType(this.object.get(context))).closure;
+      console.log('ME: ', this.getType(this.object.get(context)));
       const propClosure = context.lookup(this.getType(this.object.get(context)).type).closure;
       // console.log('__', propClosure);
       this.property.analyze(propClosure);
