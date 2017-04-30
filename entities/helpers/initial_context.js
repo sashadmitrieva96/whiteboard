@@ -8,6 +8,7 @@ const Block = require('./../block.js');
 const ReturnStatement = require('./../return_statement.js');
 const Numlit = require('./../num_lit.js');
 const VariableInitialization = require('./../variable_initialization.js');
+const Binding = require('./../binding.js')
 const CallExpression = require('./../call_expression.js');
 const Args = require('./../args.js');
 const StringLiteral = require('./../str_lit');
@@ -132,6 +133,18 @@ const LIST = new TypeDeclaration(
   ])
 );
 
+const RANGE = new FunctionDeclaration(
+  'range',
+  new Type('List', Type.Num),
+  Params.newParam([
+    new Binding('start', new Numlit('0')), // actually NUM
+    new VariableInitialization('end', Type.Num, null), // shouldnt be NUM
+  ]),
+  new Block([
+    new ReturnStatement(new VariableInitialization('res', new Type('List', Type.Num), null))
+  ])
+);
+
 const PRINT = new FunctionDeclaration(
   'print',
   Type.None,
@@ -151,6 +164,7 @@ Str.analyze(INITIAL);
 MATH.analyze(INITIAL);
 LIST.analyze(INITIAL);
 
+RANGE.analyze(INITIAL);
 PRINT.analyze(INITIAL);
 
 module.exports = INITIAL;

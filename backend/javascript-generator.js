@@ -96,7 +96,11 @@ Object.assign(ForStatement.prototype, {
       }
     }
     emit(`for (let ${WBtoJS(this.thing.name)} in ${this.expression.gen()}) {`);
+    indentLevel += 1;
+    emit(`if ((${this.expression.gen()}).hasOwnProperty(${WBtoJS(this.thing.name)})) {`)
     this.block.gen();
+    emit('}');
+    indentLevel -= 1;
     emit('}');
   },
 });
@@ -331,6 +335,15 @@ const setUpLibrary = () => {
 
   emit('\n// PRINT');
   LibraryGenerator.addFunction(INITIAL.lookup('print'), 'console.log(#0)');
+
+  emit('\n// Range');
+  LibraryGenerator.addFunction(INITIAL.lookup('range'), `
+let array = new Array();
+let range = #1 -#0
+for (i = 0; i < range; i++) {
+    array[i] = i + #0;
+}
+return array`);
 
   // List Methods
   emit('\n// LIST');

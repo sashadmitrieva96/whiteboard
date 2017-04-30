@@ -1,5 +1,9 @@
-List l = List(3, 6, 9, 12)
+List l = range(0, 9)
+List l2 = List('op', 'opop')
 
 for x in l:
   x = l.get(x)
-  print(x)
+  for y in l2:
+    y = l2.get(y)
+    print(x)
+    print(y)
