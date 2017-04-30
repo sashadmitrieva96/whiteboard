@@ -30,10 +30,10 @@ class VariableInitialization {
         this.type.assertTypeCompatability(this.expression.type);
       }
       this.expression.type = this.type;
-      console.log('-----------');
-      console.log(this.key);
-      console.log(this.expression.type);
-      console.log('------------');
+      // console.log('-----------');
+      // console.log(this.key);
+      // console.log(this.expression.type);
+      // console.log('------------');
     }
     // TODO this is wrong
     context.addVariable(this.key, this);

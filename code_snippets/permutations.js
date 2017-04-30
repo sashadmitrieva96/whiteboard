@@ -28,40 +28,39 @@ _18._21 = function({_22} ) {return Math.sin(_22)}
 _18._23 = function({_24} ) {return Math.tan(_24)}
 _18._25 = function({_26} ) {return Math.abs(_26)}
 _18._27 = function({_28} ) {return Math.floor(_28)}
+_18._29 = function({_30, _31} ) {return Math.random()*(_31-_30+1)+_30;}
 
 // STRING
-String.prototype._29 = function({} ) {return this.length}
-String.prototype._30 = function({_31, _32} ) {return this.substring(_31, _32)}
-String.prototype._33 = function({_34} ) {return this.indexOf(_34)}
-String.prototype._35 = function({_36} ) {return this.charAt(_36)}
+String.prototype._32 = function({} ) {return this.length}
+String.prototype._33 = function({_34, _35} ) {return this.substring(_34, _35)}
+String.prototype._36 = function({_37} ) {return this.indexOf(_37)}
+String.prototype._38 = function({_39} ) {return this.charAt(_39)}
 /* ----------------- END OF LIBRARY ---------------------- */
 
 
-let _37 = ({_38} , ..._39) => {
-  _1({_2 : _38})
-  if((_38 === 0)) {
-    return new _7({})
+let _40 = ({_41} , ..._42) => {
+  if((_41 <= 1)) {
+    return new _7({}, new _7({}, _41))
   }
-  else if((_38 === 1)) {
-    return new _7({}, new _7({}, 1))
-  }
-  let _40 = _37({_38 : (_38 - 1)})
-  let _41 = new _7({})
-  for (let _42 in _40) {
-    if ((_40).hasOwnProperty(_42)) {
-      let _43 = _40._9({_10 : _42})
-      let _44 = _4({_5 : 0, _6 : _38})
-      for (let _45 in _44) {
-        if ((_44).hasOwnProperty(_45)) {
-          _45 = _44._9({_10 : _45})
-          let _46 = _43._12({_13 : _45, _14 : _38})
-          _41._15({_16 : _46})
+  let _43 = _40({_41 : (_41 - 1)})
+  let _44 = new _7({})
+  for (let _45 in _43) {
+    if ((_43).hasOwnProperty(_45)) {
+      let _46 = _43._9({_10 : _45})
+      let _47 = _4({_5 : 0, _6 : _41})
+      for (let _48 in _47) {
+        if ((_47).hasOwnProperty(_48)) {
+          _48 = _47._9({_10 : _48})
+          let _49 = _46._12({_13 : _48, _14 : _41})
+          _44._15({_16 : _49})
         }
       }
     }
   }
-  return _41
+  return _44
 }
-let _47 = _37({_38 : 4})
-_1({_2 : _47._11({})})
-_1({_2 : _47})
+let _50 = _40({_41 : 4})
+_1({_2 : _50._11({})})
+_1({_2 : _50})
+let _51 = _18._29({_30 : 0, _31 : 20})
+_1({_2 : _51})

@@ -13,6 +13,7 @@ class CallExpression {
   analyze(context) {
     // console.log('CE', this.callee);
     this.callee.analyze(context);
+    // console.log('CE GET', this.callee.get(context).type);
     // console.log('CECE  ', this.getType(this.callee));
 
     this.calleeRoot = this.callee.get(context);
@@ -42,7 +43,10 @@ class CallExpression {
     let hasSeenNamed = false;
     const matchedParamNames = new Set([]);
     this.startingSize = callee.params.params.length;
+    // console.log(callee);
+    // console.log(callee.params.params);
     this.extraIndices = [];
+    // console.log(this.args.args);
     this.args.args.forEach((arg, index) => {
       let name;
       if (arg.isBinding) {
@@ -63,6 +67,7 @@ class CallExpression {
           throw Error('Cannot bind values in rest');
         }
       } else {
+        // console.log(arg);
         name = arg.isBinding ? arg.key : callee.params.params[index].key;
         if (matchedParamNames.has(name)) {
           throw Error(`matched parameter ${name} multiple times.`);

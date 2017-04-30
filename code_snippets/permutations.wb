@@ -1,21 +1,22 @@
 List perms = (Num size):
-  print(size)
-  if size == 0:
-    return List()
-  else if size == 1:
-    return List(List(1))
+  if size <= 1:
+    return List(List(size))
 
   List prev = perms(size - 1)
   List res = List()
+
   for p in prev:
     List q = prev.get(p)
-    List r = range(0, size )
+    List r = range(0, size)
+
     for i in r:
       i = r.get(i)
       List temp = q.insert(i, size)
       res.push(temp)
+
   return res
 
 List result = perms(4)
+
 print(result.length())
 print(result)

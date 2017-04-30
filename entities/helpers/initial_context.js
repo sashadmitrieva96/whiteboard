@@ -97,6 +97,17 @@ const MATH = new TypeDeclaration(
       new Block([
         new ReturnStatement(new Numlit())
       ])
+    ),
+    new FunctionDeclaration(
+      'random',
+      Type.Num,
+      Params.newParam([
+        new VariableInitialization('start', Type.Num, null),
+        new VariableInitialization('end', Type.Num, null)
+      ]),
+      new Block([
+        new ReturnStatement(new Numlit())
+      ])
     )
   ])
 );

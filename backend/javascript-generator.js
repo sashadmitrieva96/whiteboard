@@ -35,7 +35,7 @@ const fileIndex = options.includes(process.argv[2]) ? 3 : 2;
 const printCode = fileIndex === 3;
 const newFile = process.argv[fileIndex] ? process.argv[fileIndex].replace('.wb', '.js') : 'test.js';
 
-if (printCode) {
+if (!options.includes(process.argv[2])) {
   fs.writeFileSync(newFile, '// Javascript code generated from Whiteboard code!\n');
 }
 
@@ -163,6 +163,10 @@ Object.assign(Binding.prototype, {
 Object.assign(CallExpression.prototype, {
   gen() {
     const prefix = this.calleeRoot.isFunction ? '' : 'new ';
+    // console.log('............', this);
+    if (this.type.type !== 'Function') {
+      return `${this.callee.gen(prefix)}${this.args.gen()}`;
+    }
     if (this.type.subType.type !== 'None') {
       return `${this.callee.gen(prefix)}${this.args.gen()}`;
     }
@@ -178,6 +182,7 @@ Object.assign(Args.prototype, {
       if (arg.isBinding) {
         result.push(arg.gen());
       } else {
+        // console.log(arg.paramName);
         result.push(`${WBtoJS(arg.paramName)} : ${arg.gen()}`);
       }
     });
@@ -193,7 +198,7 @@ Object.assign(Params.prototype, {
     let result = '({';
     this.params.forEach((p, i) => {
       const comma = (i === this.params.length - 1) ? '' : ', ';
-      result = `${result}${p.gen({ inFunCall: false })}${comma}`;
+      result = `${result}${p.gen()}${comma}`;
     });
     return `${result}} ${this.hasRest ? `, ...${WBtoJS(this.restName)}` : ''})`; // add resterino
   },
@@ -204,7 +209,7 @@ Object.assign(Rest.prototype, {
     let result = '';
     this.arguments.forEach((a, i) => {
       const comma = (i === this.arguments.length - 1) ? '' : ', ';
-      result = `${result}${a.gen({ inFunCall: false })}${comma}`;
+      result = `${result}${a.gen()}${comma}`;
     });
     return `${result}`;
   },
@@ -365,6 +370,8 @@ return array`);
   LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[2], 'return Math.tan(#0)');
   LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[3], 'return Math.abs(#0)');
   LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[4], 'return Math.floor(#0)');
+  LibraryGenerator.addFunctionToObject(INITIAL.lookup('Math'), INITIAL.lookup('Math').block.statements[5], 'return Math.random()*(#1-#0+1)+#0;');
+
 
   //  String Methods
   emit('\n// STRING');
