@@ -11,19 +11,19 @@ class CallExpression {
   }
 
   analyze(context) {
-    console.log('CE', this.callee);
+    // console.log('CE', this.callee);
     this.callee.analyze(context);
-    console.log('CECE  ', this.getType(this.callee));
+    // console.log('CECE  ', this.getType(this.callee));
 
     this.calleeRoot = this.callee.get(context);
     // console.log('----', cale);
     this.args.analyze(context, this.calleeRoot.closure);
     this.checkArguments(this.calleeRoot, context);
-    console.log('__', context);
-    console.log('___', this.args.rest);
+    // console.log('__', context);
+    // console.log('___', this.args.rest);
     // this.args.analyze(context, this.calleeRoot.closure); // TODO might not work
     this.type = this.callee.get(context).type;
-    console.log(this.args.args);
+    // console.log(this.args.args);
   }
 
   getType(entity) {
@@ -32,9 +32,10 @@ class CallExpression {
 
   resultType(context) {
     if (this.callee.get(context).type.type === 'Function' || this.callee.get(context).type.type === 'Type') {
-      console.log('');
+      // console.log('');
+      return this.callee.get(context).type.subType
     }
-    return this.callee.get(context).type.subType;
+    return this.callee.get(context).type;
   }
 
   checkArguments(callee, context) {

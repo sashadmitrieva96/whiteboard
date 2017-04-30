@@ -1,20 +1,21 @@
-List perms = (Num size):
+List<List<Num>> perms = (Num size):
+  print(size)
   if size == 0:
     return List()
   else if size == 1:
-    return List(List())
+    return List(List(1))
 
-  List prev = perms(size - 1)
-  List res = List()
-
+  List<List<Num>> prev = perms(size - 1)
+  List<List<Num>> res = List()
   for p in prev:
-    p = prev.get(p)
-    List r = range(0, size)
+    List<Num> q = prev.get(p)
+    List<Num> r = range(0, size )
     for i in r:
       i = r.get(i)
-      List temp = p.insert(i, size)
+      List<Num> temp = q.insert(i, size)
       res.push(temp)
-    Num x = 0
   return res
 
-print(perms(3))
+List<List<Num>> result = perms(4)
+print(result.length())
+print(result)

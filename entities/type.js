@@ -6,6 +6,10 @@ class Type {
       this.type = type;
     }
     this.subType = subType;
+    if (type === 'List' && !this.subType) {
+      this.subType = Type.Arbritrary;
+    }
+    // console.log(require('util').inspect(this, { depth: null }));;
   }
 
 
@@ -14,6 +18,8 @@ class Type {
   }
 
   assertTypeCompatability(other) {
+    // console.log('this: ', this);
+    // console.log('other: ', other);
     if (!other) {
       throw new Error('other has no type');
     }
@@ -50,13 +56,14 @@ class Type {
   }
 }
 
+Type.Arbritrary = new Type('<arbitrary>');
 Type.Bool = new Type('Bool');
 Type.Str = new Type('Str');
 Type.Num = new Type('Num');
-Type.List = new Type('List');
+Type.List = new Type('List', Type.Arbritrary);
 Type.Type = new Type('Type');
 Type.Function = new Type('Function');
 Type.None = new Type('None');
-Type.Arbritrary = new Type('<arbitrary>');
+
 
 module.exports = Type;

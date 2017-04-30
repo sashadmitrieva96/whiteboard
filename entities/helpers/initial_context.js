@@ -121,7 +121,7 @@ const LIST = new TypeDeclaration(
     ),
     new FunctionDeclaration(
       'insert',
-      Type.Arbritrary,
+      new Type('List', Type.Arbritrary),
       Params.newParam([
         new VariableInitialization('index', Type.Num, null), // actually NUM
         new VariableInitialization('value', Type.Arbritrary, null), // shouldnt be NUM

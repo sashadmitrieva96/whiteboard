@@ -23,13 +23,19 @@ class VariableInitialization {
     context.lookup(this.type.type);
     if (this.expression) {
       this.expression.analyze(context);
+      // console.log(this.expression);
       if (this.expression.resultType) {
         this.type.assertTypeCompatability(this.expression.resultType(context));
       } else {
         this.type.assertTypeCompatability(this.expression.type);
       }
+      this.expression.type = this.type;
+      console.log('-----------');
+      console.log(this.key);
+      console.log(this.expression.type);
+      console.log('------------');
     }
-
+    // TODO this is wrong
     context.addVariable(this.key, this);
     this.name = context.getName(this.key);
   }

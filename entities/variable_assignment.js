@@ -15,7 +15,7 @@ class VariableAssignment {
     this.type.assertTypeCompatability(context.lookup(this.key).type);
     this.name = context.lookup(this.key).name;
     context.replace(this.key, this);
-    console.log(this);
+    // console.log(this);
   }
 
   get(context) {

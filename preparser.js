@@ -21,14 +21,12 @@ const preparse = (source) => {
     } else if (indent < stack[stack.length - 1]) {
       let nextIndent = indent;
       while (nextIndent < stack[stack.length - 1]) {
+        console.log(nextIndent);
+        console.log(stack);
         result += '⇦';
-        nextIndent = stack.pop();
+        stack.pop();
         if (indent > nextIndent) {
           throw new Error('Indentation Error');
-        } else if (nextIndent === indent) {
-          result += '⇦';
-        } else {
-          break;
         }
       }
       result = `${result}${content}`;
@@ -40,7 +38,7 @@ const preparse = (source) => {
     result = `${result}⇦`;
   }
   result = `${result}\n`;
-  // console.log(result);
+  console.log(result);
   return result;
 };
 

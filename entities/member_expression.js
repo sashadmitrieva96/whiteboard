@@ -1,4 +1,5 @@
 const VariableExpression = require('./variable_expression.js');
+const Type = require('./type.js');
 
 class MemberExpression {
   constructor(object, property) {
@@ -16,26 +17,49 @@ class MemberExpression {
     return `(MemberObject : ${this.object.toString()} . MemberProperty : ${this.property.toString()})`;
   }
 
-  analyze(context, mba) {
-    console.log('please god', mba);
+  analyze(context) {
+    // console.log('please god', this.object);
     this.object.analyze(context);
 
     if (this.isLiteral) {
       // const propClosure = context.lookup(this.getType(this.object.get(context))).closure;
-      console.log('ME: ', this.getType(this.object.get(context)));
-      const propClosure = context.lookup(this.getType(this.object.get(context)).type).closure;
-      // console.log('__', propClosure);
+      // console.log('ME0: ', this.object.type);
+      // console.log('ME1: ', this.object.get(context).calleeRoot.key);
+      // console.log('ME2: ', this.object.type);
+      console.log('ME3: ', this.object);
+      console.log('ME4: ', this.getType(this.object.get(context)));
+      const propClosure = context.lookup(this.getType(this.object.get(context))).closure;
+      console.log('ME5: ');
+      // console.log('ME2: ', this.property);
+      // console.log('ME3: ', propClosure);
       this.property.analyze(propClosure);
       this.type = this.property.type;
     }
   }
 
   getType(entity) {
-    return entity.type.subType;
+    // console.log('GET_TYPE: ', entity.type);
+    // console.log('_-_-_-_-_', require('util').inspect(entity, {depth: 5}));
+    if (entity.type.type === Type.Function.type || entity.type.type === Type.Type.type) {
+      console.log('was fun');
+      return entity.type.subType.type;
+    }
+    return entity.type.type;
   }
 
   get(context) {
-    return this.property.get(context.lookup(this.getType(this.object.get(context)).type).closure);
+    // console.log('get0: ', this.object.get(context));
+    let result = this.object.get(context);
+    if (result.callee) {
+      // console.log('get1: ', context.lookup(result.type.type));
+      // console.log('get2: ', this.property);
+      return context.lookup(result.type.type).closure.lookup(this.property.key);
+    }
+    return this.property.get(
+      context.lookup(
+        this.getType(this.object.get(context).type)
+      ).closure
+    );
     // return context.lookup(this.getType(this.object.get(context))).closure.lookup(this.property.key);
   }
 
