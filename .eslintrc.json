@@ -15,6 +15,7 @@
         "no-console": "off",
         "max-len": "off",
         "consistent-return": "off",
-        "no-use-before-define": "off"
+        "no-use-before-define": "off",
+        "padded-blocks": "off"
     }
 }
