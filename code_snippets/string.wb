@@ -1,0 +1,9 @@
+Str s = 'ryan zach kevin sasha nick jay anthony'
+
+List l = s.split(' ')
+
+print(s)
+print('')
+
+Str test = l.get(0)
+print(test.length())

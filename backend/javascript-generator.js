@@ -379,6 +379,7 @@ return array`);
   LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[1], 'return this.substring(#0, #1)');
   LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[2], 'return this.indexOf(#0)');
   LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[3], 'return this.charAt(#0)');
+  LibraryGenerator.addProto('String', INITIAL.lookup('Str').block.statements[4], 'return this.split(#0)');
 
 
   emit('/* ----------------- END OF LIBRARY ---------------------- */\n\n');

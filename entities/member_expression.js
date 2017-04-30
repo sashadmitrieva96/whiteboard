@@ -34,6 +34,8 @@ class MemberExpression {
         // console.log(this.object.get(context));
         propClosure = this.object.get(context).closure;
       }
+      console.log(propClosure);
+      console.log(this.property);
       // console.log('ME5: ');
       // console.log('ME2: ', this.property);
       // console.log('ME3: ', propClosure);
@@ -56,20 +58,27 @@ class MemberExpression {
     // console.log('get0: ', this.object.get(context));
     let result = this.object.get(context);
     if (result.callee) {
-      // console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+      console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
       // console.log('get1: ', context.lookup(result.type.type));
       // console.log('get2: ', this.property);
       return context.lookup(result.type.type).closure.lookup(this.property.key);
     }
     if (this.object.get(context).isType) {
-      // console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
+      console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
       return this.object.get(context).closure.lookup(this.property.key);
     }
-    return this.property.get(
-      context.lookup(
-        this.getType(this.object.get(context).type)
-      ).closure
-    );
+    console.log('+++++++++++++++++++++++++++++++');
+    console.log(this.getType(result))
+    result = this.getType(result);
+    console.log(context.lookup(result).closure.lookup(this.property.key));
+    result = context.lookup(result).closure;
+    return result.lookup(this.property.key)
+
+    // return this.property.get(
+    //   context.lookup(
+    //     this.getType(this.object.get(context).type)
+    //   ).closure.lookup(this.property.key)
+    // );
     // return context.lookup(this.getType(this.object.get(context))).closure.lookup(this.property.key);
   }
 

@@ -50,6 +50,14 @@ const Str = new TypeDeclaration(
         new VariableInitialization('index', Type.Num, null)
       ]),
       new Block([new ReturnStatement(new StringLiteral(''))])
+    ),
+    new FunctionDeclaration(
+      'split',
+      new Type('List', Type.Str),
+      Params.newParam([
+        new VariableInitialization('on', Type.Num, null)
+      ]),
+      new Block([new ReturnStatement(new VariableInitialization('res', new Type('List', Type.Str), null))])
     )
   ])
 );
@@ -190,9 +198,9 @@ INITIAL.addVariable('Function', Type.Function);
 INITIAL.addVariable('None', Type.None);
 INITIAL.addVariable('<arbitrary>', Type.Arbritrary);
 
+LIST.analyze(INITIAL);
 Str.analyze(INITIAL);
 MATH.analyze(INITIAL);
-LIST.analyze(INITIAL);
 
 RANGE.analyze(INITIAL);
 PRINT.analyze(INITIAL);
