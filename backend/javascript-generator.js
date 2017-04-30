@@ -250,7 +250,12 @@ Object.assign(UnaryExpression.prototype, {
 });
 
 Object.assign(BinaryExpression.prototype, {
-  gen() { return `(${this.left.gen()} ${getOp(this.op.op)} ${this.right.gen()})`; },
+  gen() {
+    if (this.op.op === '**') {
+      return `(Math.pow(${this.left.gen()}, ${this.right.gen()}))`;
+    }
+    return `(${this.left.gen()} ${getOp(this.op.op)} ${this.right.gen()})`;
+  },
 });
 
 Object.assign(VariableExpression.prototype, {
