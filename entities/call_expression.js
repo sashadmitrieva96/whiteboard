@@ -18,6 +18,7 @@ class CallExpression {
     this.checkArguments(this.calleeRoot, context);
     this.args.analyze(context, this.calleeRoot.closure); // TODO might not work
     this.type = this.callee.get(context).type;
+    console.log(this.args.args);
   }
 
   getType(entity) {

@@ -102,7 +102,7 @@ const MATH = new TypeDeclaration(
 
 const LIST = new TypeDeclaration(
   Type.List,
-  new Params([new VariableInitialization('Type', Type.Type, null)], undefined, true),
+  new Params(/*[new VariableInitialization('Type', Type.Type, null)]*/undefined, undefined, true),
   new Block([
     new FunctionDeclaration(
       'get',

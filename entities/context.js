@@ -12,6 +12,8 @@ class Context {
     this.currChildren = 0;
   }
 
+  /* eslint-disable no-plusplus */
+
   createChildContextForFunction() {
     return new Context(this, true, this.inLoop, this.inTypeDecl, this.currChildren++);
   }

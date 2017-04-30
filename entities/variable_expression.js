@@ -16,6 +16,7 @@ class VariableExpression {
     this.type = res.type;
     this.isType = res.isType;
     this.name = context.getName(this.key);
+    // console.log(this);
   }
 
   get(context) {

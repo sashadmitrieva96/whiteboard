@@ -1,0 +1,5 @@
+List l = List(3, 6, 9, 12)
+
+for x in l:
+  x = l.get(x)
+  print(x)

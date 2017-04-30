@@ -24,6 +24,7 @@ const BoolLiteral = require('./../entities/bool_lit.js');
 const StringLiteral = require('./../entities/str_lit.js');
 const VariableAssignment = require('./../entities/variable_assignment.js');
 const Rest = require('./../entities/rest.js');
+const Type = require('./../entities/type.js');
 
 const indentSize = 2;
 let indentLevel = 0;
@@ -84,7 +85,17 @@ const WBtoJS = (() => {
 Object.assign(ForStatement.prototype, {
   gen() {
     // gonna have to figure this out more good, but works for now
-    emit(`for (let ${WBtoJS(this.id)} in ${this.expression.gen()}) {`);
+    let suffix = '';
+    let temp = this.expression.type
+    while (temp.type === Type.List.type) {
+      // console.log(temp);
+      suffix = `${suffix}.value`;
+      temp = temp.subType;
+      if (temp === null) {
+        break;
+      }
+    }
+    emit(`for (let ${WBtoJS(this.thing.name)} in ${this.expression.gen()}) {`);
     this.block.gen();
     emit('}');
   },
@@ -323,11 +334,11 @@ const setUpLibrary = () => {
 
   // List Methods
   emit('\n// LIST');
-  LibraryGenerator.addType(INITIAL.lookup('List'), '#0');
-  LibraryGenerator.addFunctionToType(INITIAL.lookup('List'), INITIAL.lookup('List').block.statements[0], 'return this.value[#0]');
-  LibraryGenerator.addFunctionToType(INITIAL.lookup('List'), INITIAL.lookup('List').block.statements[1], 'return this.value.length');
-  LibraryGenerator.addFunctionToType(INITIAL.lookup('List'), INITIAL.lookup('List').block.statements[2],
-  `let s = this.value.slice(0, #0); let e = this.value.slice(#0, this.value.length); let temp = new ${WBtoJS(INITIAL.lookup('List').name)}({}, [...s, #1, ...e]); temp.value = temp.value[0]; return temp;`);
+  LibraryGenerator.addFunction(INITIAL.lookup('List'), 'return #0');
+  LibraryGenerator.addProto('Array', INITIAL.lookup('List').block.statements[0], 'return this[#0]');
+  LibraryGenerator.addProto('Array', INITIAL.lookup('List').block.statements[1], 'return this.length');
+  LibraryGenerator.addProto('Array', INITIAL.lookup('List').block.statements[2],
+  `let s = this.slice(0, #0); let e = this.slice(#0, this.length); let temp = new ${WBtoJS(INITIAL.lookup('List').name)}({}, [...s, #1, ...e]); temp = temp[0]; return temp;`);
 
   //  Math Methods
   emit('\n// MATH');
