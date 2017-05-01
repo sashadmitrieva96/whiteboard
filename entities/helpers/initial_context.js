@@ -186,7 +186,7 @@ const RANGE = new FunctionDeclaration(
 const PRINT = new FunctionDeclaration(
   'print',
   Type.None,
-  new Params([new VariableInitialization('val', Type.Str, null)]),
+  new Params([new VariableInitialization('val', Type.Arbritrary, null)]),
   new Block([new ReturnStatement(new VariableInitialization('res', Type.None, null))])
 );
 

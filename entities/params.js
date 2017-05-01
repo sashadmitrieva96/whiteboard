@@ -35,6 +35,19 @@ class Params {
     // console.log(this.paramNames);
   }
 
+  getParamBykey(key) {
+    let result = null;
+    this.params.forEach((p) => {
+      if (p.key === key) {
+        result = p;
+      }
+    });
+    if (result === null) {
+      throw new Error('no such param');
+    }
+    return result;
+  }
+
   hasName(name) {
     return this.paramNames.includes(name);
   }

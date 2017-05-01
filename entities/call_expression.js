@@ -75,6 +75,10 @@ class CallExpression {
         if (!callee.params.hasName(name)) {
           throw Error(`${name} is not a parameter`);
         }
+
+        callee.params.getParamBykey(name).type.assertTypeCompatability(arg.type);
+
+
         arg.paramName = this.getParamWithKey(name, context);
         matchedParamNames.add(name);
       }
