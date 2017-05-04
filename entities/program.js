@@ -1,5 +1,5 @@
 // const Context = require('./context.js');
-const InitialContext = require('./helpers/initial_context.js');
+const InitialContext = require('./../backend/initial_context.js');
 
 class Program {
   constructor(statements) {

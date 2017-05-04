@@ -1,7 +1,7 @@
 // const util = require('util');
 const fs = require('fs');
 
-const INITIAL = require('./../entities/helpers/initial_context.js');
+const INITIAL = require('./initial_context.js');
 const Program = require('./../entities/program.js');
 const Block = require('./../entities/block.js');
 const IfStatement = require('./../entities/if_statement.js');
@@ -86,7 +86,7 @@ Object.assign(ForStatement.prototype, {
   gen() {
     // gonna have to figure this out more good, but works for now
     let suffix = '';
-    let temp = this.expression.type
+    let temp = this.expression.type;
     while (temp.type === Type.List.type) {
       // console.log(temp);
       suffix = `${suffix}.value`;
@@ -97,7 +97,7 @@ Object.assign(ForStatement.prototype, {
     }
     emit(`for (let ${WBtoJS(this.thing.name)} in ${this.expression.gen()}) {`);
     indentLevel += 1;
-    emit(`if ((${this.expression.gen()}).hasOwnProperty(${WBtoJS(this.thing.name)})) {`)
+    emit(`if ((${this.expression.gen()}).hasOwnProperty(${WBtoJS(this.thing.name)})) {`);
     this.block.gen();
     emit('}');
     indentLevel -= 1;

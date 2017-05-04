@@ -1,6 +1,5 @@
 const fs = require('fs');
 const ohm = require('ohm-js');
-const util = require('util');
 
 const language = fs.readFileSync('whiteboard.ohm');
 const grammar = ohm.grammar(language);
