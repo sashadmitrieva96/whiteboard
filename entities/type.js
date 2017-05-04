@@ -9,7 +9,6 @@ class Type {
     if (type === 'List' && !this.subType) {
       this.subType = Type.Arbritrary;
     }
-    // console.log(require('util').inspect(this, { depth: null }));;
   }
 
 
@@ -18,8 +17,6 @@ class Type {
   }
 
   assertTypeCompatability(other) {
-    // console.log('this: ', this);
-    // console.log('other: ', other);
     if (!other) {
       throw new Error('other has no type');
     }

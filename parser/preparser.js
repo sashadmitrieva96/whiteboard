@@ -36,7 +36,6 @@ const preparse = (source) => {
     result = `${result}⇦`;
   }
   result = `${result}\n`;
-  // console.log(result);
   return result;
 };
 

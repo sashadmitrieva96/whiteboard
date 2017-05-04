@@ -32,7 +32,6 @@ class Params {
       context.addVariable('rest', new Rest());
       this.restName = context.getName('rest');
     }
-    // console.log(this.paramNames);
   }
 
   getParamBykey(key) {

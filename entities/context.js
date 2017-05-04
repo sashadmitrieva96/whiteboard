@@ -61,7 +61,6 @@ class Context {
   }
 
   replace(id, entity) {
-    // console.log(id);
     if (!this.check(id)) {
       throw new Error(`${id} has not been declared`);
     }
@@ -91,9 +90,6 @@ class Context {
   }
 
   lookup(id) {
-    // console.log('in', this);
-    // console.log('lookup', id);
-
     if (id in this.closure) {
       return this.closure[id];
     } else if (this.parent === null) {

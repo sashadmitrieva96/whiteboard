@@ -4,7 +4,6 @@
 --------------------------------------------------------------------------
 */
 module.exports = (INITIAL, WBtoJS, emit) => {
-  // console.log('_________', INITIAL);
 
   const LibraryGenerator = {
     // condense this to just pass in a patern into one function
@@ -57,10 +56,7 @@ module.exports = (INITIAL, WBtoJS, emit) => {
       emit(`${WBtoJS(type.name)}.${name} = function${params} {${block}}`);
     },
   };
-  // need to clean up the block.statements[number] ... its so ugly :( -me
 
-  // const setUpLibrary = () => {
-  console.log(emit);
   emit('/* ---------------- START OF LIBRARY --------------------- */');
 
   emit('\n// PRINT');
@@ -105,8 +101,5 @@ return array`);
 
 
   emit('/* ----------------- END OF LIBRARY ---------------------- */\n\n');
-  // };
-
-  // setUpLibrary();
 
 };

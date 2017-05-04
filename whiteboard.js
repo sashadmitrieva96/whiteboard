@@ -54,8 +54,6 @@ if (/(whiteboard.js)$/.test(process.argv[1])) {
 
   const compile = process.argv[2] in optionTable ? optionTable[process.argv[fileIndex - 1]] : runAll;
   const file = fs.readFileSync(process.argv[fileIndex], 'utf8');
-  console.log(file);
-  // const program = parse(file);
 
   const program = parse(file);
 
