@@ -5,41 +5,38 @@ a whiteboard for the world to write on
 
 whiteboard is an easy-to-learn scripting language that compiles to Javascript, made with the intent of introducing programming syntax to first-time users.
 
-## WOOMFY'S GUIDE ON HOW TO USE WHITEBOARD
- Hey, what's up! It's @woomfy here with a guide on how to get you started with whiteboard! I'll take you step by step on how to use, edit, and manage this code base.
+## Whiteboard setup guide
+This is a guide on how to setup the whiteboard compiler to function on your machine.
 
 ### Step 1
-If you haven't already, CLONE THE REPOSITORY and get node modules!
+First clone the repository and npm install.
 
-Like this:
 ```
+
 git clone https://github.com/sashadmitrieva96/whiteboard.git
 npm install
 ```
 
 ### Step 2
-Great! Now you're ready to code, so write up your favorite algorithm in whiteboard code and save it in a .wb file.
+Write out your whiteboard code and save it in .wb format.
 
-MAKE SURE YOU HAVE LF LINE ENDINGS OR ELSE IT WON'T WORK!
-Time to run the compiler:
-```
-whiteboard YOURFILENAMEHERE.wb
-node YOURFILENAMEHERE.js
-```
-This will generate a .js file which you can then run with node!
+**MUST HAVE LF LINE**
+Currently the compiler only accepts LF line endings so make sure whichever text editor you are using has the correct configuration. If your text editor is not set to have LF line endings, you must make this change or else your code will not compile.
 
 ### Step 3
-You: "I've made some changes to whiteboard's source code but it doesn't seem like it's working!"
-
-Yeah, so the way we get our fancy "whiteboard hola.wb" shell command is by linking whiteboard.js to a location on our path, which allows us to use it like any other shell command. BEFORE we found out about 'npm link', we had to run 'npm install -g' to link the path each time we made an edit; 'npm link' keeps it linked for easy development!
-
-Just run npm link, you only gotta do it once:
+Compile your code.
 ```
-npm link
-```
-AWESOME! Now you can make contributions to whiteboard.
 
-Thanks for watching. Please watch, star, and fork for more! This is @woomfy signing off!
+whiteboard <YOUR FILE NAME HERE>.wb
+```
+
+This will generate a Javascript file that can be executed.
+
+**EXAMPLE**
+```
+
+node <YOUR FILE NAME HERE>.js
+```
 
 
 ### Grammar
@@ -139,6 +136,25 @@ WhiteBoard  {
   idrest      =  letter | digit
 
 }
+```
+
+#### List of semantic error checks
+```
+
+1) Incompatible types
+2) Cannot read property of undefined
+3) Cannot read property 'type' of null
+4) Undeclared id
+5) Excess parameters
+6) id has already been declared
+7) Cannot repeat argument names
+8) Callee is not rest capable
+9) Cannot bind values in rest
+10) Parameter matched multiple times
+11) Parameter not found
+13) Parameter not assigned value
+14) Other has no type
+15) Not a function
 ```
 
 ### Features
