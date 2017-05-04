@@ -34,8 +34,8 @@ class MemberExpression {
         // console.log(this.object.get(context));
         propClosure = this.object.get(context).closure;
       }
-      console.log(propClosure);
-      console.log(this.property);
+      // console.log(propClosure);
+      // console.log(this.property);
       // console.log('ME5: ');
       // console.log('ME2: ', this.property);
       // console.log('ME3: ', propClosure);
