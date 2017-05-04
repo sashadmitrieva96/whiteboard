@@ -164,7 +164,7 @@ if (/(whiteboard.js)$/.test(process.argv[1])) {
 module.exports = (p) => {
   const m = grammar.match(preparse(p));
   if (!m.succeeded()) {
-    throw new Error('lol thats an error bro');
+    throw new Error('Cannot Match');
   }
   return semantics(m).ast();
 };
