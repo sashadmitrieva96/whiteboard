@@ -1,22 +1,13 @@
 const assert = require('assert');
 const fs = require('fs');
 const ohm = require('ohm-js');
-const parse = require('./../whiteboard.js');
-const preparse = require('./../preparser.js');
+const parse = require('./../parser/parser.js');
+const preparse = require('./../parser/preparser.js');
 
 const language = fs.readFileSync('whiteboard.ohm');
 const grammar = ohm.grammar(language);
 
-/* eslint-disable quotes */
-
-// Semantics Tests
-const SEMANTICS_POS_TESTS = require('./semantics/positive.js');
-
-const SEMANTICS_NEG_TESTS = require('./semantics/negative.js');
-
 // Testing Grammar
-/* eslint-disable guard-for-in */
-/* eslint-disable no-restricted-syntax */
 /* eslint-disable global-require */
 describe('Grammar', () => {
   const positive = require('./parser/positive.js');

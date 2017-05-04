@@ -4,7 +4,7 @@
   "description": "a whiteboard for the world to write on",
   "main": "whiteboard.js",
   "directories": {
-    "test": "test"
+    "test": "tests"
   },
   "scripts": {
     "test": "mocha",

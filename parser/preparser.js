@@ -19,10 +19,8 @@ const preparse = (source) => {
       result += '⇨';
       result += content;
     } else if (indent < stack[stack.length - 1]) {
-      let nextIndent = indent;
+      const nextIndent = indent;
       while (nextIndent < stack[stack.length - 1]) {
-        // console.log(nextIndent);
-        // console.log(stack);
         result += '⇦';
         stack.pop();
         if (indent > nextIndent) {

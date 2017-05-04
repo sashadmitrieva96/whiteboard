@@ -35,32 +35,31 @@ String.prototype._32 = function({} ) {return this.length}
 String.prototype._33 = function({_34, _35} ) {return this.substring(_34, _35)}
 String.prototype._36 = function({_37} ) {return this.indexOf(_37)}
 String.prototype._38 = function({_39} ) {return this.charAt(_39)}
+String.prototype._40 = function({_41} ) {return this.split(_41)}
 /* ----------------- END OF LIBRARY ---------------------- */
 
 
-let _40 = ({_41} , ..._42) => {
-  if((_41 <= 1)) {
-    return new _7({}, new _7({}, _41))
+let _42 = ({_43} , ..._44) => {
+  if((_43 <= 1)) {
+    return new _7({}, new _7({}, _43))
   }
-  let _43 = _40({_41 : (_41 - 1)})
-  let _44 = new _7({})
-  for (let _45 in _43) {
-    if ((_43).hasOwnProperty(_45)) {
-      let _46 = _43._9({_10 : _45})
-      let _47 = _4({_5 : 0, _6 : _41})
-      for (let _48 in _47) {
-        if ((_47).hasOwnProperty(_48)) {
-          _48 = _47._9({_10 : _48})
-          let _49 = _46._12({_13 : _48, _14 : _41})
-          _44._15({_16 : _49})
+  let _45 = _42({_43 : (_43 - 1)})
+  let _46 = new _7({})
+  for (let _47 in _45) {
+    if ((_45).hasOwnProperty(_47)) {
+      let _48 = _45._9({_10 : _47})
+      let _49 = _4({_5 : 0, _6 : _43})
+      for (let _50 in _49) {
+        if ((_49).hasOwnProperty(_50)) {
+          _50 = _49._9({_10 : _50})
+          let _51 = _48._12({_13 : _50, _14 : _43})
+          _46._15({_16 : _51})
         }
       }
     }
   }
-  return _44
+  return _46
 }
-let _50 = _40({_41 : 4})
-_1({_2 : _50._11({})})
-_1({_2 : _50})
-let _51 = _18._29({_30 : 0, _31 : 20})
-_1({_2 : _51})
+let _52 = _42({_43 : 4})
+_1({_2 : _52._11({})})
+_1({_2 : _52})
