@@ -23,8 +23,8 @@ class UnaryExpression {
   }
 
   optimize() {
-    this.expression.optimize();
-    this.op.optimize();
+    this.expression = this.expression.optimize();
+    this.op = this.op.optimize();
     if (this.op.op === 'not' && this.expression instanceof BoolLit) {
       return this.expression.opposite();
     } else if (this.op.op === '-' && this.expression instanceof NumLit) {

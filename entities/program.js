@@ -22,7 +22,8 @@ class Program {
   }
 
   optimize() {
-    this.statements.optimize();
+    this.statements = this.statements.optimize();
+    return this;
   }
 
   get() {

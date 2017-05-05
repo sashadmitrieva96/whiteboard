@@ -91,8 +91,8 @@ class CallExpression {
   }
 
   optimize() {
-    this.callee.optimize();
-    this.args.optimize();
+    this.callee = this.callee.optimize();
+    this.args = this.args.optimize();
     return this;
   }
 }

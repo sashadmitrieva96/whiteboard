@@ -28,8 +28,9 @@ class TypeDeclaration {
   }
 
   optimize() {
-    this.params.optimize();
-    this.block.optimize();
+    this.params = this.params.optimize();
+    this.block = this.block.optimize();
+    return this;
   }
 
 }

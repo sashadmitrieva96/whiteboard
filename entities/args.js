@@ -35,6 +35,11 @@ class Args {
     return this;
   }
 
+  optimize() {
+    this.args = this.args.map(a => a.optimize());
+    return this;
+  }
+
 }
 
 module.exports = Args;

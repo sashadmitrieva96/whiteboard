@@ -19,7 +19,8 @@ class Rest {
   }
 
   optimize() {
-    this.arguments.optimize();
+    this.arguments = this.arguments.optimize();
+    return this;
   }
 
 }

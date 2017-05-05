@@ -23,8 +23,8 @@ class Case {
   }
 
   optimize() {
-    this.test.optimize();
-    this.block.optimize();
+    this.test = this.test.optimize();
+    this.block = this.block.optimize();
     if (this.test instanceof BoolLit) {
       if (this.test.value === 'false') {
         this.isFalse = true;
@@ -32,6 +32,7 @@ class Case {
         this.isTrue = true;
       }
     }
+    return this;
   }
 }
 

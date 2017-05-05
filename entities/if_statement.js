@@ -52,6 +52,7 @@ class IfStatement {
       }
     }
     this.cases = newCases;
+    return this;
   }
 
 }

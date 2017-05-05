@@ -22,7 +22,7 @@ class VariableAssignment {
   }
 
   optimize() {
-    this.expression.optimize();
+    this.expression = this.expression.optimize();
     return this;
   }
 }

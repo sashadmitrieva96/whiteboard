@@ -48,7 +48,7 @@ class Params {
   }
 
   optimize() {
-    this.params.optimize();
+    this.params = this.params.optimize();
     return this;
   }
 

@@ -26,6 +26,12 @@ class ForStatement {
     return this;
   }
 
+  optimize() {
+    this.exp = this.exp.optimize();
+    this.block = this.block.optimize();
+    return this;
+  }
+
 
 }
 
