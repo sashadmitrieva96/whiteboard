@@ -85,10 +85,8 @@ describe('Optimizer', () => {
 
 const UnaryExpression = require('./../entities/unary_expression.js');
 const Operand = require('./../entities/operand.js');
-const NumLit = require('./../entities/num_lit.js');
+const Numlit = require('./../entities/num_lit.js');
 const BoolLit = require('./../entities/bool_lit.js');
+const BinaryExpression = require('./../entities/binary_expression.js');
 
 const test = new UnaryExpression(new Operand('not'), new BoolLit('false'));
-
-test.analyze();
-console.log(test.optimize().toString());
