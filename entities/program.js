@@ -21,6 +21,10 @@ class Program {
     return true;
   }
 
+  optimize() {
+    this.statements.optimize();
+  }
+
   get() {
     return this;
   }

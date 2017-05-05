@@ -38,6 +38,11 @@ class VariableInitialization {
     return this.expression.get(context);
   }
 
+  optimize() {
+    this.expression.optimize();
+    return this;
+  }
+
 }
 /* eslint-enable quotes */
 

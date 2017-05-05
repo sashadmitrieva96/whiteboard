@@ -33,6 +33,11 @@ class FunctionDeclaration {
     return this;
   }
 
+  optimize() {
+    this.params.optimize();
+    this.block.optimize();
+  }
+
 }
 
 module.exports = FunctionDeclaration;

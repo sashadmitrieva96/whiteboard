@@ -21,6 +21,17 @@ class Block {
   get() {
     return this;
   }
+
+  optimize() {
+    let end = this.statements.length - 2;
+    this.statements.forEach((s, i) => {
+      s.optimize();
+      if (s.isReturn || s.isBreak) {
+        end = i;
+      }
+    });
+    this.statements = this.statements.slice(0, end + 1);
+  }
 }
 /* eslint-enable quotes */
 

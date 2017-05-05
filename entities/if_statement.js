@@ -39,6 +39,21 @@ class IfStatement {
     return this;
   }
 
+  optimize() {
+    const newCases = [];
+    for (let i = 0; i < this.cases.length; i++) {
+      const c = this.cases[i];
+      c.optimize();
+      if (c.isTrue) {
+        newCases.push(c);
+        break;
+      } else if (!c.isFalse) {
+        newCases.push(c);
+      }
+    }
+    this.cases = newCases;
+  }
+
 }
 
 module.exports = IfStatement;

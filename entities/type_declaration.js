@@ -27,6 +27,11 @@ class TypeDeclaration {
     return this;
   }
 
+  optimize() {
+    this.params.optimize();
+    this.block.optimize();
+  }
+
 }
 
 module.exports = TypeDeclaration;

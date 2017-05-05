@@ -47,6 +47,11 @@ class Params {
     return result;
   }
 
+  optimize() {
+    this.params.optimize();
+    return this;
+  }
+
   hasName(name) {
     return this.paramNames.includes(name);
   }

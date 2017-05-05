@@ -1,5 +1,9 @@
 class Break {
   /* eslint class-methods-use-this: 0*/
+  constructor() {
+    this.isBreak = true;
+  }
+
   toString() {
     return '(break)';
   }
@@ -9,6 +13,10 @@ class Break {
   }
 
   get() {
+    return this;
+  }
+
+  optimize() {
     return this;
   }
 

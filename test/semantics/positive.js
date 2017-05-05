@@ -46,11 +46,6 @@ if x < 5:
     x = 5
 Num y = x
 `,
-//   `
-// Num y = 5
-// for x in y:
-//   break
-// `,
   `
 Type Person = (Str n):
   Str name = n

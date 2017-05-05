@@ -1,3 +1,6 @@
+const BoolLit = require('./bool_lit.js');
+const NumLit = require('./num_lit.js');
+
 class UnaryExpression {
   constructor(op, exp) {
     this.op = op;
@@ -16,6 +19,17 @@ class UnaryExpression {
   }
 
   get() {
+    return this;
+  }
+
+  optimize() {
+    this.expression.optimize();
+    this.op.optimize();
+    if (this.op.op === 'not' && this.expression instanceof BoolLit) {
+      return this.expression.opposite();
+    } else if (this.op.op === '-' && this.expression instanceof NumLit) {
+      return new NumLit(-this.expression.value);
+    }
     return this;
   }
 

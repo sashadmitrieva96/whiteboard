@@ -25,6 +25,10 @@ class Binding {
     return context.lookup(this.key).get(context);
   }
 
+  optimize() {
+    this.expression.optimize();
+  }
+
 
 }
 

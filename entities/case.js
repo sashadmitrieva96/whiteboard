@@ -1,4 +1,5 @@
 const Type = require('./type.js');
+const BoolLit = require('./bool_lit.js')
 
 class Case {
   constructor(test, block) {
@@ -19,6 +20,18 @@ class Case {
 
   get() {
     return this;
+  }
+
+  optimize() {
+    this.test.optimize();
+    this.block.optimize();
+    if (this.test instanceof BoolLit) {
+      if (this.test.value === 'false') {
+        this.isFalse = true;
+      } else {
+        this.isTrue = true;
+      }
+    }
   }
 }
 

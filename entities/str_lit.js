@@ -17,6 +17,10 @@ class StringLiteral {
     return this;
   }
 
+  optimize() {
+    return this;
+  }
+
 }
 
 module.exports = StringLiteral;

@@ -1,6 +1,7 @@
 class ReturnStatement {
   constructor(exp) {
     this.expression = exp;
+    this.isReturn = true;
   }
 
   toString() {
@@ -17,6 +18,11 @@ class ReturnStatement {
   }
 
   get() {
+    return this;
+  }
+
+  optimize() {
+    this.expression.optimize();
     return this;
   }
 

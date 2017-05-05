@@ -18,6 +18,10 @@ class Rest {
     return this.arguments.length === 0;
   }
 
+  optimize() {
+    this.arguments.optimize();
+  }
+
 }
 
 module.exports = Rest;

@@ -69,6 +69,10 @@ class Operand {
   get() {
     return this;
   }
+
+  optimize() {
+    return this;
+  }
 }
 
 module.exports = Operand;

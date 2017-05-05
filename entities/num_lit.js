@@ -17,6 +17,10 @@ class NumLiteral {
     return this;
   }
 
+  optimize() {
+    return this;
+  }
+
 
 }
 

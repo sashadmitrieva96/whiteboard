@@ -17,6 +17,17 @@ class BoolLiteral {
     return this;
   }
 
+  optimize() {
+    return this;
+  }
+
+  opposite() {
+    if (this.value === 'false') {
+      return new BoolLiteral('true');
+    }
+    return new BoolLiteral('false');
+  }
+
 }
 
 module.exports = BoolLiteral;

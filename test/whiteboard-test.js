@@ -63,3 +63,13 @@ describe('Semantics', () => {
     });
   });
 });
+
+const UnaryExpression = require('./../entities/unary_expression.js');
+const Operand = require('./../entities/operand.js');
+const NumLit = require('./../entities/num_lit.js');
+const BoolLit = require('./../entities/bool_lit.js');
+
+const test = new UnaryExpression(new Operand('not'), new BoolLit('false'));
+
+test.analyze();
+console.log(test.optimize());

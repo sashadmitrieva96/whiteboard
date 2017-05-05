@@ -18,6 +18,10 @@ class VariableExpression {
     return context.lookup(this.key).get(context);
   }
 
+  optimize() {
+    return this;
+  }
+
 }
 
 module.exports = VariableExpression;

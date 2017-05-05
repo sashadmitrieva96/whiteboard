@@ -20,6 +20,11 @@ class VariableAssignment {
   get(context) {
     return this.expression.get(context);
   }
+
+  optimize() {
+    this.expression.optimize();
+    return this;
+  }
 }
 
 module.exports = VariableAssignment;

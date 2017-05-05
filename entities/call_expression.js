@@ -89,6 +89,12 @@ class CallExpression {
   get() {
     return this;
   }
+
+  optimize() {
+    this.callee.optimize();
+    this.args.optimize();
+    return this;
+  }
 }
 
 module.exports = CallExpression;

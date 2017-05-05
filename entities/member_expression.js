@@ -51,6 +51,11 @@ class MemberExpression {
     return result.lookup(this.property.key)
   }
 
+  optimize() {
+    this.object.analyze();
+    return this;
+  }
+
 
 }
 
