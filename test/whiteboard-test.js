@@ -66,10 +66,14 @@ describe('Semantics', () => {
 
 const UnaryExpression = require('./../entities/unary_expression.js');
 const Operand = require('./../entities/operand.js');
-const NumLit = require('./../entities/num_lit.js');
+const Numlit = require('./../entities/num_lit.js');
 const BoolLit = require('./../entities/bool_lit.js');
+const BinaryExpression = require('./../entities/binary_expression.js');
 
 const test = new UnaryExpression(new Operand('not'), new BoolLit('false'));
-
-test.analyze();
-console.log(test.optimize());
+const test2 = new BinaryExpression(new Numlit(3), new Operand('-'), new Numlit(3));
+//
+// test.analyze();
+// console.log(test.optimize());
+test2.analyze();
+console.log(test2.optimize());
