@@ -56,7 +56,7 @@ Person m
 `, `
 Num fun = (Num x, Num y, Num z):
   return x
-x = fun(x: 88)
+Num x = fun(x: 88)
 `,
 
 

@@ -1,7 +1,7 @@
 // const util = require('util');
 const fs = require('fs');
 
-const INITIAL = require('./initial_context.js');
+const createInitial = require('./initial_context.js');
 const Program = require('./../entities/program.js');
 const Block = require('./../entities/block.js');
 const IfStatement = require('./../entities/if_statement.js');
@@ -121,7 +121,7 @@ Object.assign(TypeDeclaration.prototype, {
 
 Object.assign(Program.prototype, {
   gen() {
-    setUpLibrary(INITIAL, WBtoJS, emit);
+    setUpLibrary(createInitial(), WBtoJS, emit);
     this.statements.forEach(s => s.gen());
   },
 });

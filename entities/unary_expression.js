@@ -15,7 +15,8 @@ class UnaryExpression {
     this.expression.analyze(context);
     this.op.analyze();
     this.op.compatibleWithArgument(this.expression.type);
-    this.type = this.op.type;
+
+    this.type = this.op.resultType()[0];
   }
 
   get() {

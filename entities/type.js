@@ -26,7 +26,7 @@ class Type {
     }
 
     if (this.type !== other.type) {
-      throw new Error('Types incompatible');
+      throw new Error(`Types (${this.type}, ${other.type}) are  incompatible`);
     }
   }
 

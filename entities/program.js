@@ -16,13 +16,13 @@ class Program {
   }
 
   analyze() {
-    const context = InitialContext;
+    const context = InitialContext();
     this.statements.forEach(s => s.analyze(context));
     return true;
   }
 
   optimize() {
-    this.statements = this.statements.optimize();
+    this.statements = this.statements.map(s => s.optimize());
     return this;
   }
 

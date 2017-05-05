@@ -39,7 +39,9 @@ class VariableInitialization {
   }
 
   optimize() {
-    this.expression = this.expression.optimize();
+    if (this.expression) {
+      this.expression = this.expression.optimize();
+    }
     return this;
   }
 

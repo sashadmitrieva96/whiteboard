@@ -52,7 +52,7 @@ class MemberExpression {
   }
 
   optimize() {
-    this.object = this.object.analyze();
+    this.object = this.object.optimize();
     return this;
   }
 

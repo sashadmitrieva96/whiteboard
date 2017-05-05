@@ -64,6 +64,25 @@ describe('Semantics', () => {
   });
 });
 
+
+describe('Optimizer', () => {
+  const positive = require('./optimizer/positive.js');
+  positive.forEach((test) => {
+    console.log('----------------------');
+
+    let res = parse(test[0])
+    res.analyze();
+    console.log(res.toString());
+
+    res.optimize();
+    console.log(res.toString());
+    it('accepts legal programs', () => {
+      // assert.equal(parse(test).analyze(), true);
+    });
+  });
+
+});
+
 const UnaryExpression = require('./../entities/unary_expression.js');
 const Operand = require('./../entities/operand.js');
 const NumLit = require('./../entities/num_lit.js');
@@ -72,4 +91,4 @@ const BoolLit = require('./../entities/bool_lit.js');
 const test = new UnaryExpression(new Operand('not'), new BoolLit('false'));
 
 test.analyze();
-console.log(test.optimize());
+console.log(test.optimize().toString());
