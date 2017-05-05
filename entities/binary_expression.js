@@ -68,7 +68,20 @@ class BinaryExpression {
           return new BoolLit(left < right);
       }
     } else if (this.left instanceof StrLit && this.right instanceof StrLit) {
-      return new StrLit(left + right);
+      if (this.op.op === '==') {
+        return new StrLit(this.left.value === this.right.value);
+      } else if (this.op.op === '!=') {
+        return new StrLit(this.left.value !== this.right.value);
+      }
+      return new StrLit(this.left.value + this.right.value);
+
+    } else if (this.left instanceof BoolLit && this.right instanceof BoolLit) {
+      if (this.op.op === 'and') {
+        return new BoolLit(this.left.value && this.right.value);
+      } else if (this.op.op === 'or') {
+        return new BoolLit(this.left.value || this.right.value);
+      }
+      return new BoolLit(this.left.value + this.right.value);
     }
     return this;
   }

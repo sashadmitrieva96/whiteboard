@@ -20,10 +20,10 @@ class IfStatement {
   toString() {
     let str = 'If (';
     this.cases.forEach((x) => {
-      str += x.toString();
-      str += ' ';
+      // console.log(x);
+      str = `${str}${x.toString()} `;
     });
-    str += ')';
+    str = `${str})`;
 
     return str;
   }
