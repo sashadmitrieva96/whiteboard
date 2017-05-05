@@ -77,7 +77,7 @@ describe('Optimizer', () => {
     res.optimize();
     console.log(res.toString());
     it('accepts legal programs', () => {
-      // assert.equal(parse(test).analyze(), true);
+      assert.equal(res.toString(), test[1]);
     });
   });
 
