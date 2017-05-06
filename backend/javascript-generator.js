@@ -1,5 +1,6 @@
 // const util = require('util');
 const fs = require('fs');
+const parse = require('./../parser/parser.js');
 
 const createInitial = require('./initial_context.js');
 const Program = require('./../entities/program.js');
@@ -33,14 +34,20 @@ const setUpLibrary = require('./default_library.js');
 const indentSize = 2;
 let indentLevel = 0;
 
-
+let toFile = false;
+let genRes = '';
 const file = (argv.g || argv.a || argv.p) ? (argv.g || argv.a || argv.p) : argv._[0];
 const printCode = (!!argv.g);
-const newFile = file.replace('.wb', '.js');
+const newFile = file ? file.replace('.wb', '.js') : '';
 const toGen = !argv.a && !argv.p;
 
 if ((!argv.g || argv._[0]) && toGen) {
-  fs.writeFileSync(newFile, '// Javascript code generated from Whiteboard code!\n');
+  if (newFile !== '') {
+    fs.writeFileSync(newFile, '// Javascript code generated from Whiteboard code!\n');
+  } else {
+    toFile = true;
+  }
+
 }
 
 const WBtoJS = (() => {
@@ -59,6 +66,9 @@ const WBtoJS = (() => {
 const emit = (line) => {
   if (printCode) {
     console.log(`${' '.repeat(indentSize * indentLevel)}${line}`);
+  } else if (toFile) {
+    genRes += `${' '.repeat(indentSize * indentLevel)}${line}`;
+    return genRes;
   } else {
     // Needs to be synchronus or else code is generated out of order
     fs.appendFileSync(newFile, `${' '.repeat(indentSize * indentLevel)}${line}\n`);
@@ -271,3 +281,8 @@ Object.assign(VariableInitialization.prototype, {
     }
   },
 });
+module.exports = (x) => {
+  const program = parse(x);
+  program.analyze();
+  return program.gen();
+};

@@ -40,9 +40,7 @@ String.prototype._40 = function({_41} ) {return this.split(_41)}
 
 
 let _42 = `ryan zach kevin sasha nick jay anthony`
-let _43 = _42._40({_41 : ` `})
 _1({_2 : _42})
 _1({_2 : ``})
-let _44 = _43._9({_10 : 0})
-_1({_2 : _44._32({})})
-let _45 = (Math.pow(4, 6))
+let _43 = _42._38({_39 : 0})
+_1({_2 : _43._32({})})

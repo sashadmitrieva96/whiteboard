@@ -2,6 +2,7 @@ const assert = require('assert');
 const fs = require('fs');
 const ohm = require('ohm-js');
 const parse = require('./../parser/parser.js');
+const generate = require('./../backend/javascript-generator.js');
 const preparse = require('./../parser/preparser.js');
 
 const language = fs.readFileSync('whiteboard.ohm');
@@ -64,6 +65,17 @@ describe('Semantics', () => {
   });
 });
 
+
+describe('Generator', () => {
+  const positive = require('./generator/positive.js');
+  positive.forEach((test) => {
+    const res = parse(test[0]);
+    res.analyze();
+    it('generates', () => {
+      assert.equal(generate(test[0]), test[1]);
+    });
+  });
+});
 
 describe('Optimizer', () => {
   const positive = require('./optimizer/positive.js');
