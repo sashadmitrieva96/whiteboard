@@ -28,30 +28,32 @@ _18._21 = function({_22} ) {return Math.sin(_22)}
 _18._23 = function({_24} ) {return Math.tan(_24)}
 _18._25 = function({_26} ) {return Math.abs(_26)}
 _18._27 = function({_28} ) {return Math.floor(_28)}
+_18._29 = function({_30, _31} ) {return Math.random()*(_31-_30+1)+_30;}
 
 // STRING
-String.prototype._29 = function({} ) {return this.length}
-String.prototype._30 = function({_31, _32} ) {return this.substring(_31, _32)}
-String.prototype._33 = function({_34} ) {return this.indexOf(_34)}
-String.prototype._35 = function({_36} ) {return this.charAt(_36)}
+String.prototype._32 = function({} ) {return this.length}
+String.prototype._33 = function({_34, _35} ) {return this.substring(_34, _35)}
+String.prototype._36 = function({_37} ) {return this.indexOf(_37)}
+String.prototype._38 = function({_39} ) {return this.charAt(_39)}
+String.prototype._40 = function({_41} ) {return this.split(_41)}
 /* ----------------- END OF LIBRARY ---------------------- */
 
 
-let _37 = _4({})
-let _38 = new _7({}, _4({_5 : 3, _6 : 5}), _4({_5 : 4, _6 : 6}))
-for (let _39 in _37) {
-  if ((_37).hasOwnProperty(_39)) {
-    _39 = _37._9({_10 : _39})
-    for (let _40 in _38) {
-      if ((_38).hasOwnProperty(_40)) {
-        _40 = _38._9({_10 : _40})
-        _1({_2 : _39})
-        _1({_2 : _40})
+let _42 = _4({})
+let _43 = new _7({}, _4({_5 : 3, _6 : 5}), _4({_5 : 4, _6 : 6}))
+for (let _44 in _42) {
+  if ((_42).hasOwnProperty(_44)) {
+    _44 = _42._9({_10 : _44})
+    for (let _45 in _43) {
+      if ((_43).hasOwnProperty(_45)) {
+        _45 = _43._9({_10 : _45})
+        _1({_2 : _44})
+        _1({_2 : _45})
       }
     }
-    _1({_2 : `----------------`})
   }
 }
-let _41 = _4({_5 : 10, _6 : 20})
-_41._15({_16 : 4})
-_1({_2 : _41})
+_1({_2 : `----------------`})
+let _46 = _4({_5 : 10, _6 : 20})
+_46._15({_16 : 4})
+_1({_2 : _46})

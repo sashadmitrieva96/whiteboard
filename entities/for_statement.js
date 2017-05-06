@@ -9,7 +9,7 @@ class ForStatement {
   }
 
   toString() {
-    return `(for ${this.id} in ${this.exp.toString()} {${this.block.toString()}})`;
+    return `(for ${this.id} in ${this.expression.toString()} {${this.block.toString()}})`;
   }
 
   analyze(context) {

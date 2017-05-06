@@ -26,18 +26,20 @@ const VariableAssignment = require('./../entities/variable_assignment.js');
 const Rest = require('./../entities/rest.js');
 const Type = require('./../entities/type.js');
 
+const argv = require('yargs').argv;
+
 const setUpLibrary = require('./default_library.js');
 
 const indentSize = 2;
 let indentLevel = 0;
 
 
-const options = ['-p', '-a', '-g'];
-const fileIndex = options.includes(process.argv[2]) ? 3 : 2;
-const printCode = fileIndex === 3;
-const newFile = process.argv[fileIndex] ? process.argv[fileIndex].replace('.wb', '.js') : 'test.js';
+const file = (argv.g || argv.a || argv.p) ? (argv.g || argv.a || argv.p) : argv._[0];
+const printCode = (!!argv.g);
+const newFile = file.replace('.wb', '.js');
+const toGen = !argv.a && !argv.p;
 
-if (!options.includes(process.argv[2])) {
+if ((!argv.g || argv._[0]) && toGen) {
   fs.writeFileSync(newFile, '// Javascript code generated from Whiteboard code!\n');
 }
 

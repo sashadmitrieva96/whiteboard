@@ -30,7 +30,8 @@
   "dependencies": {
     "coffee-script": "^1.12.4",
     "ohm-js": "^0.12.4",
-    "use-strict": "^1.0.1"
+    "use-strict": "^1.0.1",
+    "yargs": "^8.0.1"
   },
   "bin": {
     "whiteboard": "./whiteboard.js"
