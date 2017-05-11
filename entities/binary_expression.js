@@ -35,37 +35,33 @@ class BinaryExpression {
     this.left = this.left.optimize();
     this.right = this.right.optimize();
     if (this.left instanceof Numlit && this.right instanceof Numlit) {
-      const NumericOperands = ['+', '-', '*', '/', '%', 'mod', '**', '==', '!=', '>=', '>', '<=', '<'];
       const left = parseInt(this.left.value, 10);
       const right = parseInt(this.right.value, 10);
 
-      switch (NumericOperands.indexOf(this.op.op)) {
-        case 0:
-          return new Numlit(left + right);
-        case 1:
-          return new Numlit(left - right);
-        case 2:
-          return new Numlit(left * right);
-        case 3:
-          return new Numlit(left / right);
-        case 4:
-          return new Numlit(left % right);
-        case 5:
-          return new Numlit(left % right);
-        case 6:
-          return new Numlit(Math.pow(left, right));
-        case 7:
-          return new BoolLit(left === right);
-        case 8:
-          return new BoolLit(left !== right);
-        case 9:
-          return new BoolLit(left >= right);
-        case 10:
-          return new BoolLit(left > right);
-        case 11:
-          return new BoolLit(left <= right);
-        case 12:
-          return new BoolLit(left < right);
+      if (this.op.op === '+') {
+        return new Numlit(left + right);
+      } else if (this.op.op === '-') {
+        return new Numlit(left - right);
+      } else if (this.op.op === '*') {
+        return new Numlit(left * right);
+      } else if (this.op.op === '/') {
+        return new Numlit(left / right);
+      } else if (this.op.op === '%' || this.op.op === 'mod') {
+        return new Numlit(left % right);
+      } else if (this.op.op === '**') {
+        return new Numlit(Math.pow(left, right));
+      } else if (this.op.p === '==') {
+        return new BoolLit(left === right);
+      } else if (this.op.op === '!=') {
+        return new BoolLit(left !== right);
+      } else if (this.op.op === '>=') {
+        return new BoolLit(left >= right);
+      } else if (this.op.op === '>') {
+        return new BoolLit(left > right);
+      } else if (this.op.op === '<=') {
+        return new BoolLit(left <= right);
+      } else if (this.op.op === '<') {
+        return new BoolLit(left < right);
       }
     } else if (this.left instanceof StrLit && this.right instanceof StrLit) {
       if (this.op.op === '==') {
